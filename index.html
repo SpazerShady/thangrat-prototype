@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+html{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>ต้นแบบจดทะเบียนพาณิชย์</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+/* Layout: one phone frame centred on a quiet ground; 15 touchpoint screens swap inside it, app chrome or browser chrome on top */
+:root{
+  --ground:#e7ece9; --surface:#ffffff; --sunken:#f3f6f4; --ink:#17221c; --muted:#56635b; --line:#d6ded9;
+  --app:#0b8f45; --app-soft:#e2f4e9; --on-app:#ffffff;
+  --web:#1460bf; --web-soft:#e9f0fa; --on-web:#ffffff;
+  --ok:#1d7f55; --ok-soft:#e1f3ea; --wait:#a46a10; --wait-soft:#fbf0dc;
+  --banner:#fff1c9; --banner-ink:#5f4300;
+  --f-display:"Anuphan","IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#0f131b; --surface:#171c27; --sunken:#1f2532; --ink:#e7eaf1; --muted:#9aa3b5; --line:#2e3646;
+  --app:#4fc985; --app-soft:#163323; --on-app:#062012;
+  --web:#7db0f0; --web-soft:#1b2638; --on-web:#0a1628;
+  --ok:#5fc996; --ok-soft:#1b3328; --wait:#e2ad55; --wait-soft:#372b17;
+  --banner:#3a3016; --banner-ink:#f3dc9b; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --ground:#0f131b; --surface:#171c27; --sunken:#1f2532; --ink:#e7eaf1; --muted:#9aa3b5; --line:#2e3646;
+  --app:#4fc985; --app-soft:#163323; --on-app:#062012;
+  --web:#7db0f0; --web-soft:#1b2638; --on-web:#0a1628;
+  --ok:#5fc996; --ok-soft:#1b3328; --wait:#e2ad55; --wait-soft:#372b17;
+  --banner:#3a3016; --banner-ink:#f3dc9b; color-scheme:dark }
+
+html,body{height:100%}
+body{background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;
+  display:flex;justify-content:center;box-sizing:border-box;
+  padding-block:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+*,*::before,*::after{box-sizing:border-box}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.3}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--app);outline-offset:2px}
+
+.phone{width:100%;max-width:420px;height:100%;max-height:900px;display:flex;flex-direction:column;
+  background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 20px 50px -24px rgba(10,20,40,.35)}
+@media (max-width:480px){.phone{border-radius:18px}}
+
+.banner{background:var(--banner);color:var(--banner-ink);font-size:12px;font-weight:600;text-align:center;padding:6px 12px;letter-spacing:.01em}
+
+/* journey progress */
+.journey{padding:10px 14px 8px;border-bottom:1px solid var(--line);background:var(--surface)}
+.stages{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.stage{height:5px;border-radius:3px;background:var(--line)}
+.stage.done{background:var(--muted)}
+.stage.now{background:var(--app)}
+.tag{display:flex;justify-content:space-between;gap:8px;margin-top:7px;font-size:12px;color:var(--muted)}
+.tag b{color:var(--ink);font-weight:600}
+.tag span:last-child{text-align:right}
+
+/* channel chrome */
+.chrome{padding:10px 14px;display:flex;align-items:center;gap:10px;font-size:13px}
+.chrome.app{background:var(--app);color:var(--on-app)}
+.chrome.web{background:var(--web-soft);color:var(--ink);border-bottom:1px solid var(--line)}
+.chrome .mark{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:13px}
+.chrome.app .mark{background:var(--on-app);color:var(--app)}
+.chrome.web .mark{background:var(--web);color:var(--on-web)}
+.chrome .url{flex:1;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chrome .name{font-weight:600}
+
+.viewport{flex:1;overflow-y:auto;overflow-x:hidden;background:var(--sunken)}
+.screen{padding:18px 16px 24px;display:flex;flex-direction:column;gap:14px}
+.screen h2{font-size:20px}
+.lead{color:var(--muted);font-size:14px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.card h3{font-size:16px}
+.small{font-size:13px;color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--app-soft);color:var(--app);white-space:nowrap}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.wait{background:var(--wait-soft);color:var(--wait)}
+
+.search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--app);border-radius:12px;padding:10px 12px}
+.search svg{flex:none}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 4px;text-align:center;font-size:11.5px;color:var(--muted)}
+.tile i{display:block;width:28px;height:28px;border-radius:9px;margin:0 auto 6px;background:var(--app-soft)}
+.result{all:unset;cursor:pointer;display:flex;gap:12px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:12px}
+.result:hover{border-color:var(--app)}
+.result:focus-visible{outline:3px solid var(--app);outline-offset:2px}
+.result .ico{width:40px;height:40px;border-radius:10px;background:var(--app-soft);display:grid;place-items:center;flex:none;color:var(--app);font-weight:700;font-family:var(--f-display)}
+.result div{min-width:0}
+
+ul.plain{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+ul.plain li{display:flex;gap:10px;align-items:flex-start}
+.dot{width:20px;height:20px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:11px;font-weight:700;margin-top:2px;background:var(--app-soft);color:var(--app)}
+.dot.ok{background:var(--ok-soft);color:var(--ok)}
+.dot.wait{background:var(--wait-soft);color:var(--wait)}
+.dot.off{background:var(--sunken);color:var(--muted);border:1px solid var(--line)}
+
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.field .val{background:var(--sunken);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14.5px}
+
+.choice{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer}
+.choice:has(input:checked){border-color:var(--app);background:var(--app-soft)}
+.choice input{margin-top:5px;accent-color:var(--app);width:18px;height:18px;flex:none}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;cursor:pointer}
+.check input{margin-top:4px;accent-color:var(--app);width:18px;height:18px;flex:none}
+
+.doc,.card.doc{display:flex;flex-direction:row;gap:12px;align-items:center;justify-content:space-between}
+.doc div{min-width:0}
+.upbtn{border:1.5px dashed var(--app);background:transparent;color:var(--app);border-radius:10px;padding:6px 12px;font-weight:600;font-size:13px;cursor:pointer;flex:none}
+.upbtn[disabled]{border-style:solid;border-color:var(--ok);color:var(--ok);cursor:default}
+
+.success{text-align:center;padding:28px 10px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.bigcheck{width:84px;height:84px;border-radius:50%;background:var(--ok);display:grid;place-items:center}
+.bigcheck svg{width:44px;height:44px}
+
+.rows{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+.rows dt{color:var(--muted)}
+.rows dd{margin:0;text-align:right;min-width:0;overflow-wrap:anywhere}
+.num{font-variant-numeric:tabular-nums}
+
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{display:flex;gap:12px;position:relative;padding-bottom:14px}
+.timeline li:not(:last-child)::before{content:"";position:absolute;left:9.5px;top:24px;bottom:2px;width:1px;background:var(--line)}
+.timeline li:last-child{padding-bottom:0}
+
+details.jump{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+details.jump summary{cursor:pointer;font-weight:600;font-size:14px}
+.jumplist{display:grid;gap:4px;margin-top:10px}
+.jumplist button{all:unset;cursor:pointer;display:flex;gap:10px;font-size:13.5px;padding:5px 6px;border-radius:8px}
+.jumplist button:hover,.jumplist button:focus-visible{background:var(--app-soft)}
+.jumplist b{width:22px;color:var(--app);font-variant-numeric:tabular-nums}
+
+.hero-intro{display:flex;flex-direction:column;gap:10px}
+.hero-intro h1{font-size:24px}
+.persona{display:flex;gap:12px;align-items:center}
+.avatar{width:46px;height:46px;border-radius:50%;background:var(--app-soft);color:var(--app);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:18px;flex:none}
+
+/* action bar */
+.actions{display:flex;gap:10px;padding:12px 14px;border-top:1px solid var(--line);background:var(--surface)}
+.btn{border:none;border-radius:12px;padding:12px 16px;font-weight:600;font-size:15px;cursor:pointer;font-family:var(--f-display)}
+.btn.back{background:var(--sunken);border:1px solid var(--line);color:var(--ink);flex:none}
+.btn.primary{flex:1;background:var(--app);color:var(--on-app)}
+.btn.primary.webtone{background:var(--web);color:var(--on-web)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+a.btn{text-decoration:none;text-align:center;display:block}
+
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);max-width:min(380px,calc(100% - 32px));
+  background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:12px;font-size:13.5px;box-shadow:0 10px 30px -10px rgba(0,0,0,.4);transition:opacity .25s;opacity:0;pointer-events:none;text-align:center}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+</head>
+<body>
+<div class="phone" id="phone">
+  <div class="banner">ต้นแบบเพื่อการศึกษา ไม่ใช่แอปจริง · ข้อมูลทั้งหมดเป็นข้อมูลสมมติ</div>
+
+  <div class="journey" id="journey" hidden>
+    <div class="stages" id="stages">
+      <div class="stage"></div><div class="stage"></div><div class="stage"></div><div class="stage"></div><div class="stage"></div>
+    </div>
+    <div class="tag"><span>ขั้นที่ <b id="stageNo">1</b>/5 · <span id="stageName"></span></span><span>จุดที่ <b id="tpNo">1</b>/15</span></div>
+  </div>
+
+  <div class="chrome app" id="chrome"></div>
+
+  <div class="viewport" id="viewport">
+
+    <!-- 0 · intro -->
+    <section class="screen" data-tp="0" data-ch="intro" data-action="เริ่มทดลองใช้">
+      <div class="hero-intro">
+        <span class="chip">ต้นแบบบริการใหม่</span>
+        <h1>จดทะเบียนพาณิชย์ผ่านแอปทางรัฐ เชื่อมต่อระบบหน่วยงาน</h1>
+        <p class="lead">ทดลองกดผ่านขั้นตอนทั้ง 15 จุด ตั้งแต่ค้นหาบริการจนถึงติดตามสถานะคำขอ ใช้เวลาประมาณ 3–5 นาที แล้วทำแบบสอบถามความพึงพอใจต่อท้าย</p>
+      </div>
+      <div class="card">
+        <div class="persona">
+          <div class="avatar">ส</div>
+          <div><h3>ให้คุณสวมบทเป็น "คุณสมใจ"</h3><p class="small">เจ้าของร้านขนมเล็ก ๆ ที่ต้องการจดทะเบียนพาณิชย์แบบบุคคลธรรมดาเป็นครั้งแรก</p></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>วิธีใช้</h3>
+        <ul class="plain">
+          <li><span class="dot">1</span><span>แตะปุ่มด้านล่างเพื่อไปขั้นตอนถัดไป ปุ่ม ← ใช้ย้อนกลับ</span></li>
+          <li><span class="dot">2</span><span>ไม่ต้องกรอกข้อมูลจริง ระบบเติมข้อมูลสมมติไว้ให้แล้ว</span></li>
+          <li><span class="dot">3</span><span>สังเกตป้าย "จุดที่ x/15" ด้านบน แบบสอบถามจะถามตามหมายเลขนี้</span></li>
+        </ul>
+      </div>
+      <details class="jump">
+        <summary>ข้ามไปยังจุดสัมผัส (สำหรับผู้สัมภาษณ์)</summary>
+        <div class="jumplist" id="jumplist"></div>
+      </details>
+    </section>
+
+    <!-- 1 -->
+    <section class="screen" data-tp="1" data-ch="app" data-action="เลือกบริการนี้" hidden>
+      <div><h2>สวัสดี คุณสมใจ</h2><p class="lead">วันนี้ต้องการใช้บริการอะไร</p></div>
+      <div class="search" role="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span>จดทะเบียนพาณิชย์</span>
+      </div>
+      <p class="small">ผลการค้นหา 1 รายการ · หมวด "ธุรกิจและการค้า"</p>
+      <button class="result" data-next>
+        <span class="ico">พ</span>
+        <div><h3>จดทะเบียนพาณิชย์ (ตั้งใหม่)</h3><p class="small">บุคคลธรรมดา / นิติบุคคล · ดำเนินการต่อบนเว็บไซต์หน่วยงาน</p></div>
+      </button>
+      <p class="small">บริการยอดนิยม</p>
+      <div class="tiles">
+        <div class="tile"><i></i>ภาษี</div><div class="tile"><i></i>สุขภาพ</div><div class="tile"><i></i>ที่ดิน</div><div class="tile"><i></i>สวัสดิการ</div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="screen" data-tp="2" data-ch="app" data-action="อนุญาต" hidden>
+      <h2>อนุญาตเชื่อมโยงข้อมูล</h2>
+      <p class="lead">บริการนี้ทำต่อบนเว็บไซต์หน่วยงาน แอปทางรัฐจะส่งข้อมูลต่อไปนี้ให้ เพื่อให้คุณไม่ต้องกรอกซ้ำ</p>
+      <div class="card">
+        <ul class="plain">
+          <li><span class="dot ok">✓</span><span>ชื่อ-นามสกุล</span></li>
+          <li><span class="dot ok">✓</span><span>เลขประจำตัวประชาชน</span></li>
+          <li><span class="dot ok">✓</span><span>ที่อยู่ตามทะเบียนบ้าน</span></li>
+          <li><span class="dot ok">✓</span><span>เบอร์โทรศัพท์ที่ยืนยันแล้ว</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="small">ปลายทาง: ระบบ Biz Portal / One Stop Service ของหน่วยงานที่รับจดทะเบียน</p>
+        <p class="small">คุณยกเลิกการเชื่อมโยงได้ทุกเมื่อที่เมนู "ความเป็นส่วนตัว"</p>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="screen" data-tp="3" data-ch="web" data-action="เข้าสู่ระบบ" hidden>
+      <h2>เข้าสู่ระบบด้วย DGA Digital ID</h2>
+      <p class="lead">ยืนยันตัวตนครั้งเดียว ใช้ต่อได้กับทุกระบบของหน่วยงาน</p>
+      <div class="card">
+        <div class="persona">
+          <div class="avatar">ส</div>
+          <div><h3>สมใจ ท.</h3><p class="small num">x-xxxx-xxxxx-12-3 · บัญชีที่เชื่อมจากแอปทางรัฐ</p></div>
+        </div>
+        <span class="chip ok">พร้อมยืนยันตัวตน</span>
+      </div>
+      <p class="small">ในต้นแบบนี้ไม่ต้องกรอกรหัสผ่าน แตะ "เข้าสู่ระบบ" ได้เลย</p>
+    </section>
+
+    <!-- 4 -->
+    <section class="screen" data-tp="4" data-ch="web" data-action="ยินยอม" hidden>
+      <h2>ยินยอมการใช้ข้อมูลส่วนบุคคล</h2>
+      <p class="lead">หน่วยงานจะใช้ข้อมูลของคุณเพื่อจุดประสงค์ต่อไปนี้เท่านั้น</p>
+      <div class="card">
+        <ul class="plain">
+          <li><span class="dot">1</span><span>เติมข้อมูลในแบบฟอร์มคำขอจดทะเบียนให้อัตโนมัติ</span></li>
+          <li><span class="dot">2</span><span>ตรวจสอบตัวตนผู้ยื่นคำขอ</span></li>
+          <li><span class="dot">3</span><span>แจ้งผลและความคืบหน้าทาง SMS และแอปทางรัฐ</span></li>
+        </ul>
+        <p class="small">เก็บรักษาตามระยะเวลาที่กฎหมายกำหนด ไม่เปิดเผยต่อบุคคลภายนอก</p>
+      </div>
+      <label class="check"><input type="checkbox" id="c4"><span>ข้าพเจ้าได้อ่านและยินยอมให้ใช้ข้อมูลตามวัตถุประสงค์ข้างต้น</span></label>
+    </section>
+
+    <!-- 5 -->
+    <section class="screen" data-tp="5" data-ch="web" data-action="ยื่นคำขอ" hidden>
+      <h2>Biz Portal</h2>
+      <p class="lead">บริการภาครัฐสำหรับผู้ประกอบการ</p>
+      <div class="card">
+        <h3>จดทะเบียนพาณิชย์ (ตั้งใหม่)</h3>
+        <dl class="rows">
+          <dt>ระยะเวลาดำเนินการ</dt><dd>ภายใน 1 วันทำการ</dd>
+          <dt>ค่าธรรมเนียม</dt><dd class="num">50 บาท</dd>
+          <dt>ช่องทาง</dt><dd>e-Service ออนไลน์</dd>
+        </dl>
+      </div>
+      <div class="card"><p class="small">เอกสารที่ต้องเตรียม: แผนที่ตั้งร้าน และหนังสือยินยอมให้ใช้สถานที่ (สำเนาบัตรประชาชนดึงจากทางรัฐอัตโนมัติ)</p></div>
+    </section>
+
+    <!-- 6 -->
+    <section class="screen" data-tp="6" data-ch="web" data-action="ถัดไป" hidden>
+      <h2>เลือกประเภทผู้ประกอบการ</h2>
+      <label class="choice"><input type="radio" name="kind" id="kind1" checked><div><h3>บุคคลธรรมดา</h3><p class="small">ร้านค้าหรือกิจการที่เป็นเจ้าของคนเดียว</p></div></label>
+      <label class="choice"><input type="radio" name="kind" id="kind2"><div><h3>นิติบุคคล</h3><p class="small">ห้างหุ้นส่วน บริษัทจำกัด</p></div></label>
+      <p class="small">คุณสมใจเปิดร้านคนเดียว จึงเลือก "บุคคลธรรมดา"</p>
+    </section>
+
+    <!-- 7 -->
+    <section class="screen" data-tp="7" data-ch="web" data-action="เข้าสู่ระบบ" hidden>
+      <h2>One Stop Service</h2>
+      <p class="lead">ระบบยื่นคำขอจดทะเบียนของหน่วยงาน เข้าสู่ระบบเพื่อดำเนินการต่อ</p>
+      <div class="card">
+        <ul class="plain">
+          <li><span class="dot ok">✓</span><span>เลือกบริการ: จดทะเบียนพาณิชย์ (ตั้งใหม่)</span></li>
+          <li><span class="dot ok">✓</span><span>ประเภท: บุคคลธรรมดา</span></li>
+          <li><span class="dot off">3</span><span>เข้าสู่ระบบ One Stop Service</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="screen" data-tp="8" data-ch="web" data-action="ดำเนินการต่อ" hidden>
+      <h2>เลือกช่องทางเข้าสู่ระบบ</h2>
+      <label class="choice"><input type="radio" name="login" id="login1" checked><div><h3>DGA Digital ID <span class="chip">แนะนำ</span></h3><p class="small">ใช้บัญชีเดียวกับที่ยืนยันตัวตนไว้แล้ว ไม่ต้องสมัครใหม่</p></div></label>
+      <label class="choice"><input type="radio" name="login" id="login2"><div><h3>ช่องทางอื่น ๆ</h3><p class="small">บัญชีผู้ใช้ของหน่วยงาน (ต้องสมัครสมาชิก)</p></div></label>
+    </section>
+
+    <!-- 9 -->
+    <section class="screen" data-tp="9" data-ch="web" data-action="ถัดไป" hidden>
+      <div class="success">
+        <div class="bigcheck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></div>
+        <h2>เชื่อมต่อสำเร็จ</h2>
+        <p class="lead">ระบบได้รับข้อมูลของคุณจากแอปทางรัฐแล้ว พร้อมเริ่มยื่นคำขอ</p>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="screen" data-tp="10" data-ch="web" data-action="เริ่มดำเนินการ" hidden>
+      <h2>เริ่มดำเนินการจดทะเบียน</h2>
+      <p class="lead">คำขอจดทะเบียนพาณิชย์ (ตั้งใหม่) · บุคคลธรรมดา</p>
+      <div class="card">
+        <h3>มี 3 ขั้นตอน ใช้เวลาประมาณ 10 นาที</h3>
+        <ul class="plain">
+          <li><span class="dot">1</span><span>กรอกข้อมูลกิจการ (ข้อมูลส่วนตัวเติมให้แล้ว)</span></li>
+          <li><span class="dot">2</span><span>แนบเอกสารประกอบคำขอ</span></li>
+          <li><span class="dot">3</span><span>ตรวจสอบและส่งคำขอ</span></li>
+        </ul>
+      </div>
+      <p class="small">ระบบบันทึกร่างอัตโนมัติ ออกกลางคันแล้วกลับมาทำต่อได้</p>
+    </section>
+
+    <!-- 11 -->
+    <section class="screen" data-tp="11" data-ch="web" data-action="บันทึกและถัดไป" hidden>
+      <div><h2>กรอกข้อมูลในแบบฟอร์ม</h2><p class="lead">ขั้นที่ 1/3 · ข้อมูลที่มีป้าย "จากทางรัฐ" เติมให้อัตโนมัติ</p></div>
+      <div class="card">
+        <div class="field"><label>ชื่อผู้ประกอบการ <span class="chip">จากทางรัฐ</span></label><div class="val">นางสาวสมใจ ทดลองดี</div></div>
+        <div class="field"><label>ที่อยู่ตามทะเบียนบ้าน <span class="chip">จากทางรัฐ</span></label><div class="val">99/9 ถนนตัวอย่าง แขวงทดสอบ เขตจำลอง กรุงเทพฯ 10000</div></div>
+        <div class="field"><label>ชื่อที่ใช้ในการประกอบพาณิชยกิจ</label><div class="val">ร้านขนมบ้านสมใจ</div></div>
+        <div class="field"><label>ชนิดแห่งพาณิชยกิจ</label><div class="val">ขายปลีกขนมไทย</div></div>
+        <div class="field"><label>จำนวนเงินทุน</label><div class="val num">50,000 บาท</div></div>
+        <div class="field"><label>วันที่เริ่มประกอบกิจการ</label><div class="val num">1 พฤศจิกายน 2569</div></div>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="screen" data-tp="12" data-ch="web" data-action="ถัดไป" hidden>
+      <div><h2>แนบเอกสารประกอบคำขอ</h2><p class="lead">ขั้นที่ 2/3 · รองรับ PDF หรือ JPG ไม่เกิน 5 MB ต่อไฟล์</p></div>
+      <div class="card doc">
+        <div><h3>สำเนาบัตรประชาชน</h3><p class="small">ดึงจากทางรัฐอัตโนมัติ</p></div>
+        <span class="chip ok">แนบแล้ว</span>
+      </div>
+      <div class="card doc">
+        <div><h3>แผนที่ตั้งร้าน</h3><p class="small" id="u1s">ยังไม่ได้แนบ</p></div>
+        <button class="upbtn" id="u1">อัปโหลด</button>
+      </div>
+      <div class="card doc">
+        <div><h3>หนังสือยินยอมให้ใช้สถานที่</h3><p class="small" id="u2s">ยังไม่ได้แนบ</p></div>
+        <button class="upbtn" id="u2">อัปโหลด</button>
+      </div>
+      <p class="small">ในต้นแบบนี้ แตะ "อัปโหลด" เพื่อจำลองการแนบไฟล์</p>
+    </section>
+
+    <!-- 13 -->
+    <section class="screen" data-tp="13" data-ch="web" data-action="ยืนยันส่ง" hidden>
+      <div><h2>ตรวจสอบและส่งคำขอ</h2><p class="lead">ขั้นที่ 3/3 · ตรวจสอบความถูกต้องก่อนส่ง</p></div>
+      <div class="card">
+        <dl class="rows">
+          <dt>ผู้ประกอบการ</dt><dd>นางสาวสมใจ ทดลองดี</dd>
+          <dt>ชื่อร้าน</dt><dd>ร้านขนมบ้านสมใจ</dd>
+          <dt>ชนิดพาณิชยกิจ</dt><dd>ขายปลีกขนมไทย</dd>
+          <dt>เงินทุน</dt><dd class="num">50,000 บาท</dd>
+          <dt>เอกสารแนบ</dt><dd class="num">3 รายการ</dd>
+          <dt>ค่าธรรมเนียม</dt><dd class="num">50 บาท</dd>
+        </dl>
+        <span class="chip ok">ระบบตรวจสอบเบื้องต้นแล้ว ไม่พบข้อผิดพลาด</span>
+      </div>
+      <label class="check"><input type="checkbox" id="c13"><span>ข้าพเจ้าขอรับรองว่าข้อมูลข้างต้นเป็นความจริง</span></label>
+    </section>
+
+    <!-- 14 -->
+    <section class="screen" data-tp="14" data-ch="web2" data-action="ดูรายละเอียดคำขอ" hidden>
+      <h2>ติดตามสถานะ</h2>
+      <p class="lead">คำขอของคุณ 1 รายการ · แจ้งเตือนทาง SMS และแอปทางรัฐเมื่อสถานะเปลี่ยน</p>
+      <div class="card">
+        <div class="doc"><div><h3>จดทะเบียนพาณิชย์ (ตั้งใหม่)</h3><p class="small num">เลขที่คำขอ TR-2569-000123</p></div><span class="chip wait">กำลังตรวจสอบ</span></div>
+        <ol class="timeline">
+          <li><span class="dot ok">✓</span><div><b>ยื่นคำขอแล้ว</b><p class="small num">15 ต.ค. 2569 · 10:42 น.</p></div></li>
+          <li><span class="dot wait">•</span><div><b>เจ้าหน้าที่ตรวจสอบเอกสาร</b><p class="small">คาดว่าเสร็จภายในวันนี้</p></div></li>
+          <li><span class="dot off">3</span><div><b>อนุมัติและออกใบทะเบียนพาณิชย์</b><p class="small">ดาวน์โหลดได้ในแอปทางรัฐ</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 15 -->
+    <section class="screen" data-tp="15" data-ch="web2" data-action="จบการทดลองใช้" hidden>
+      <h2>รายละเอียดคำขอ</h2>
+      <div class="card">
+        <dl class="rows">
+          <dt>เลขที่คำขอ</dt><dd class="num">TR-2569-000123</dd>
+          <dt>วันที่ยื่น</dt><dd class="num">15 ต.ค. 2569</dd>
+          <dt>สถานะ</dt><dd>เจ้าหน้าที่กำลังตรวจสอบ</dd>
+          <dt>ผู้รับผิดชอบ</dt><dd>สำนักงานเขตจำลอง</dd>
+          <dt>คาดว่าจะแล้วเสร็จ</dt><dd class="num">15 ต.ค. 2569</dd>
+          <dt>ค่าธรรมเนียม</dt><dd>ชำระเมื่ออนุมัติ</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <h3>หากเอกสารต้องแก้ไข</h3>
+        <p class="small">ระบบจะแจ้งว่าเอกสารใดไม่ผ่านและเหตุผล คุณแนบไฟล์ใหม่ได้จากหน้านี้โดยไม่ต้องเริ่มคำขอใหม่</p>
+      </div>
+    </section>
+
+    <!-- end -->
+    <section class="screen" data-tp="16" data-ch="intro" data-action="เริ่มใหม่" hidden>
+      <div class="success">
+        <div class="bigcheck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></div>
+        <h2>จบการทดลองใช้</h2>
+        <p class="lead">ขอบคุณที่ช่วยทดลอง ต่อไปกรุณาให้คะแนนความพึงพอใจของแต่ละจุดในแบบสอบถาม</p>
+      </div>
+      <div id="formSlot"></div>
+    </section>
+  </div>
+
+  <div class="actions">
+    <button class="btn back" id="back" aria-label="ย้อนกลับ">←</button>
+    <button class="btn primary" id="next">เริ่มทดลองใช้</button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+// Paste the Google Form link here once it exists
+const FORM_URL = "";
+
+const STAGES = ["ค้นหาและเลือกบริการ","ยืนยันตัวตน","เชื่อมต่อระบบหน่วยงาน","ดำเนินการยื่นคำขอ","ติดตามสถานะ"];
+const TP = [null,
+  ["เข้าถึงบริการจากทางรัฐ",1],["อนุญาตเชื่อมโยงข้อมูล",1],
+  ["เข้าสู่ระบบด้วย DGA Digital ID",2],["ยินยอมการใช้ข้อมูลส่วนบุคคล",2],
+  ["กดเริ่มคำขอผ่าน e-Service",3],["เลือกประเภทผู้ประกอบการ",3],["เข้าสู่ระบบ One Stop Service",3],["เลือกช่องทางเข้าสู่ระบบ",3],["เชื่อมต่อสำเร็จ",3],
+  ["เริ่มดำเนินการจดทะเบียน",4],["กรอกข้อมูลในแบบฟอร์ม",4],["แนบเอกสารประกอบคำขอ",4],["ตรวจสอบและส่งคำขอ",4],
+  ["เข้าสู่เมนูติดตามสถานะ",5],["ดูรายละเอียดคำขอ",5]];
+
+const screens = [...document.querySelectorAll('.screen')];
+const $ = id => document.getElementById(id);
+const nextBtn = $('next'), backBtn = $('back'), chrome = $('chrome'), viewport = $('viewport');
+let cur = 0;
+
+const CHROME = {
+  app:   '<span class="mark">ท</span><span class="name">แอปทางรัฐ (จำลอง)</span>',
+  web:   '<span class="mark">◎</span><span class="url">เว็บไซต์หน่วยงาน · Biz Portal / One Stop Service</span>',
+  web2:  '<span class="mark">◎</span><span class="url">เว็บไซต์หน่วยงาน · ติดตามสถานะคำขอ</span>'
+};
+
+const gates = {
+  4: () => $('c4').checked,
+  12: () => $('u1').disabled && $('u2').disabled,
+  13: () => $('c13').checked
+};
+
+function toast(msg){
+  const t = $('toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+function refreshGate(){
+  const g = gates[cur]; nextBtn.disabled = g ? !g() : false;
+}
+
+function show(n){
+  const prev = cur;
+  cur = Math.max(0, Math.min(16, n));
+  screens.forEach(s => s.hidden = Number(s.dataset.tp) !== cur);
+  const s = screens.find(x => Number(x.dataset.tp) === cur);
+  const ch = s.dataset.ch;
+  chrome.className = 'chrome ' + (ch === 'app' ? 'app' : 'web');
+  chrome.innerHTML = CHROME[ch] || '';
+  chrome.hidden = ch === 'intro';
+  nextBtn.textContent = s.dataset.action;
+  nextBtn.classList.toggle('webtone', ch === 'web' || ch === 'web2');
+  backBtn.hidden = cur === 0;
+
+  const inJourney = cur >= 1 && cur <= 15;
+  $('journey').hidden = !inJourney;
+  if (inJourney){
+    const st = TP[cur][1];
+    [...$('stages').children].forEach((el,i) => el.className = 'stage' + (i+1 < st ? ' done' : i+1 === st ? ' now' : ''));
+    $('stageNo').textContent = st; $('stageName').textContent = STAGES[st-1]; $('tpNo').textContent = cur;
+  }
+  if (prev === 2 && cur === 3) toast('กำลังพาคุณจากแอปทางรัฐไปยังเว็บไซต์หน่วยงาน');
+  if (prev === 13 && cur === 14) toast('ส่งคำขอแล้ว · เลขที่ TR-2569-000123');
+  viewport.scrollTop = 0;
+  refreshGate();
+}
+
+function reset(){
+  ['c4','c13'].forEach(id => $(id).checked = false);
+  $('kind1').checked = true; $('login1').checked = true;
+  [['u1','u1s'],['u2','u2s']].forEach(([b,s]) => { $(b).disabled = false; $(b).textContent = 'อัปโหลด'; $(s).textContent = 'ยังไม่ได้แนบ'; });
+}
+
+nextBtn.addEventListener('click', () => {
+  if (cur === 16){ reset(); show(0); return; }
+  show(cur + 1);
+});
+backBtn.addEventListener('click', () => show(cur - 1));
+document.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', () => show(cur + 1)));
+['c4','c13'].forEach(id => $(id).addEventListener('change', refreshGate));
+[['u1','u1s','แผนที่ร้าน.jpg'],['u2','u2s','หนังสือยินยอม.pdf']].forEach(([b,s,f]) => {
+  $(b).addEventListener('click', () => { $(b).disabled = true; $(b).textContent = 'แนบแล้ว ✓'; $(s).textContent = f + ' · 1.2 MB'; refreshGate(); });
+});
+
+// jump list for interviewers
+const jl = $('jumplist');
+TP.forEach((t,i) => { if(!t) return;
+  const b = document.createElement('button');
+  b.innerHTML = '<b>' + i + '</b><span>' + t[0] + '</span>';
+  b.addEventListener('click', () => show(i));
+  jl.appendChild(b);
+});
+
+// survey link on the end screen
+const slot = $('formSlot');
+if (FORM_URL){
+  slot.innerHTML = '<a class="btn primary" target="_blank" rel="noopener" href="' + FORM_URL + '">ไปทำแบบสอบถาม</a>';
+} else {
+  slot.innerHTML = '<div class="card"><p class="small">ลิงก์แบบสอบถามจะเพิ่มที่นี่เร็ว ๆ นี้ หากผู้สัมภาษณ์ส่งลิงก์ให้แล้ว เปิดจากลิงก์นั้นได้เลย</p></div>';
+}
+
+// deep link: #tp7 opens touchpoint 7
+const m = /^#tp(\d{1,2})$/.exec(location.hash);
+show(m ? Number(m[1]) : 0);
+</script>
+</body>
+</html>
