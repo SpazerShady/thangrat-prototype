@@ -21,10 +21,16 @@ assets/
   tangrat-logo.png        โลโก้ทางรัฐ
 ```
 
+## เปิดดู prototype
+
+- ออนไลน์ (GitHub Pages): https://spazershady.github.io/thangrat-prototype/
+- ในเครื่อง: รัน `python -m http.server` ในโฟลเดอร์นี้ แล้วเปิด http://localhost:8000/ (ต้องเปิดผ่าน server เพราะไฟล์ต้องโหลดสคริปต์ประกอบ)
+- ปุ่ม "เริ่มใหม่" ด้านบนจะล้างข้อมูลจำลองทั้งหมดแล้วกลับไปหน้าจอ 0
+
 ## หมายเหตุ
 
-- ไฟล์ `.dc.html` เป็นซอร์สของ Claude Design canvas แสดงผลได้ใน canvas เท่านั้น เปิดตรง ๆ ในเบราว์เซอร์จะไม่แสดงหน้าจอ
-- ในซอร์ส โลโก้อ้างถึงเป็น `/_blob/745e58c465e92bf487df051d92f4d186` (ที่อยู่ไฟล์ใน canvas) ไฟล์เดียวกันอยู่ที่ `assets/tangrat-logo.png`
+- ไฟล์ `.dc.html` เป็นซอร์สของ Claude Design canvas ใน repo นี้มี `project/support.js` เป็นตัวแสดงผลขนาดเล็กที่เขียนขึ้นเอง ให้เปิดไฟล์เหล่านี้นอก canvas ได้ (ใช้ Preact ใน `project/vendor/` สัญญาอนุญาต MIT) หน้าตาอาจต่างจากใน canvas เล็กน้อย
+- ในซอร์ส โลโก้อ้างถึงเป็น `/_blob/745e58c465e92bf487df051d92f4d186` (ที่อยู่ไฟล์ใน canvas) `support.js` แปลงให้ชี้ไปที่ `assets/tangrat-logo.png`
 
 ## ประวัติการแก้ไข
 
