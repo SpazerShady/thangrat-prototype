@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<title>แบบฟอร์มคำขอ</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#0B7A4B}a:hover{color:#075234}
+button{font:inherit}
+.ic{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.inp{width:100%;min-height:48px;padding:12px 14px;border:1px solid #C3D1C8;border-radius:12px;font:inherit;font-size:15px;color:#15202E;background:#FFFFFF}
+.inp:focus{outline:3px solid #86CFA7;outline-offset:1px}
+button:focus-visible,a:focus-visible{outline:3px solid #86CFA7;outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; display: flex; flex-direction: column; background: #F3F6F4; font-family: 'IBM Plex Sans Thai', system-ui, sans-serif; color: #15202E; position: relative; overflow: hidden">
+
+<div style="flex: 0 0 auto; background: #FFFFFF; border-bottom: 1px solid #DCE5DF; padding: 12px 12px 14px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 8px">
+<a href="Service.dc.html" aria-label="ย้อนกลับ" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #15202E; background: #F3F6F4">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+</a>
+<div style="display: flex; flex-direction: column; min-width: 0">
+<h1 style="margin: 0; font-size: 17px; font-weight: 600">กรอกข้อมูลคำขอ</h1>
+<span style="font-size: 12.5px; color: #556070">ตาม{{formName}}</span>
+</div>
+</div>
+<ol aria-label="ขั้นตอนคำขอ" style="list-style: none; margin: 0; padding: 0 4px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+<li aria-current="step" style="display: flex; flex-direction: column; gap: 6px"><span style="height: 5px; border-radius: 3px; background: #0B7A4B"></span><span style="font-size: 12px; font-weight: 600; color: #0B7A4B">1 ข้อมูลกิจการ</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 5px; border-radius: 3px; background: #DCE5DF"></span><span style="font-size: 12px; color: #556070">2 แนบเอกสาร</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 5px; border-radius: 3px; background: #DCE5DF"></span><span style="font-size: 12px; color: #556070">3 ตรวจสอบและส่ง</span></li>
+</ol>
+</div>
+
+<div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 16px 16px 24px; display: flex; flex-direction: column; gap: 14px">
+
+<span style="align-self: flex-start; padding: 4px 10px; border-radius: 999px; background: #E8F5EE; color: #075234; font-size: 12.5px; font-weight: 500">{{caseText}}</span>
+
+<button onClick="{{fillDemo}}" style="min-height: 44px; border-radius: 12px; border: 1.5px dashed #C3D1C8; background: transparent; color: #3B4655; font-size: 13.5px; cursor: pointer">เดโม: เติมข้อมูลตัวอย่าง</button>
+
+<sc-if value="{{showErrorBanner}}" hint-placeholder-val="{{false}}">
+<div role="alert" style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: #FDECEA; color: #8F1D14; font-size: 14px; line-height: 1.5">
+<svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 20px; margin-top: 1px"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17h.01"></path></svg>
+<span>ยังกรอกไม่ครบ {{errorCount}} ช่อง</span>
+</div>
+</sc-if>
+
+<sc-if value="{{isPersonSelf}}" hint-placeholder-val="{{true}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #DCE5DF">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">ผู้ประกอบการ (คุณ)</h2>
+<span style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px; background: #E8F5EE; color: #0B5E3C; font-size: 12px; font-weight: 600">
+<svg class="ic" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>ระบบเติมให้แล้ว</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px">
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #556070">ชื่อ-นามสกุล</span><span style="font-weight: 500; text-align: right">นายสมชาย ใจดี</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #556070">เลขประจำตัวประชาชน</span><span style="font-weight: 500; text-align: right">x-xxxx-xxxxx-12-3</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #556070">อายุ / สัญชาติ</span><span style="font-weight: 500; text-align: right">34 ปี / ไทย</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #556070; flex: 0 0 auto">ที่อยู่</span><span style="font-weight: 500; text-align: right">123/45 ซอยตัวอย่าง แขวงลาดยาว เขตจตุจักร กรุงเทพฯ 10900</span></div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{isPersonProxy}}" hint-placeholder-val="{{false}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 14px; border: 1px solid #DCE5DF">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">ผู้ประกอบการ (ผู้มอบอำนาจ)</h2>
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: #556070">กรอกตามบัตรประชาชนเจ้าของกิจการ</p>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="ownerName" style="font-size: 14px; font-weight: 500">ชื่อ-นามสกุลผู้ประกอบการ <span style="color: #B42318">*</span></label>
+<input id="ownerName" class="inp" type="text" value="{{ownerName}}" onChange="{{onOwnerName}}" placeholder="เช่น นางสาวสมใจ รักงาน" style="border-color: {{ownerNameBd}}">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="ownerId" style="font-size: 14px; font-weight: 500">เลขประจำตัวประชาชนผู้ประกอบการ <span style="color: #B42318">*</span></label>
+<input id="ownerId" class="inp" type="text" inputmode="numeric" value="{{ownerId}}" onChange="{{onOwnerId}}" placeholder="13 หลัก" style="border-color: {{ownerIdBd}}">
+<sc-if value="{{ownerShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">กรุณากรอกชื่อและเลขบัตร 13 หลักของผู้ประกอบการ</span></sc-if>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{isJur}}" hint-placeholder-val="{{false}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #DCE5DF">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">นิติบุคคล</h2>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="jurNo" style="font-size: 14px; font-weight: 500">เลขทะเบียนนิติบุคคล 13 หลัก <span style="color: #B42318">*</span></label>
+<div style="display: flex; gap: 8px">
+<input id="jurNo" class="inp" type="text" inputmode="numeric" value="{{jurNo}}" onChange="{{onJurNo}}" placeholder="0105569xxxxxx" style="border-color: {{jurBd}}">
+<button onClick="{{fetchJur}}" style="flex: 0 0 auto; min-height: 48px; padding: 0 12px; border-radius: 12px; border: none; background: #0B7A4B; color: #FFFFFF; font-size: 14px; font-weight: 600; cursor: pointer">ดึงข้อมูล</button>
+</div>
+<sc-if value="{{jurShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">{{jurErr}}</span></sc-if>
+<span style="font-size: 12.5px; color: #556070">ดึงจากกรมพัฒนาธุรกิจการค้าแล้ว</span>
+</div>
+<sc-if value="{{jurFetched}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 12px; background: #F3FAF6; font-size: 13.5px">
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #556070">ชื่อนิติบุคคล</span><span style="font-weight: 600; text-align: right">{{companyName}}</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #556070">ทุนจดทะเบียน</span><span style="font-weight: 500; text-align: right">1,000,000 บาท</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #556070; flex: 0 0 auto">สำนักงานแห่งใหญ่</span><span style="font-weight: 500; text-align: right">99/9 ถนนพหลโยธิน แขวงจอมพล เขตจตุจักร กรุงเทพฯ 10900</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #556070; flex: 0 0 auto">กรรมการผู้มีอำนาจลงนาม</span><span style="font-weight: 500; text-align: right">{{director}}</span></div>
+</div>
+</sc-if>
+</section>
+</sc-if>
+
+<sc-if value="{{isProxy}}" hint-placeholder-val="{{false}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 10px; border: 1px solid #DCE5DF">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">ผู้รับมอบอำนาจ (คุณ)</h2>
+<span style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px; background: #E8F5EE; color: #0B5E3C; font-size: 12px; font-weight: 600">
+<svg class="ic" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>ระบบเติมให้แล้ว</span>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 12px; font-size: 14px"><span style="color: #556070">ชื่อ-นามสกุล</span><span style="font-weight: 500">นายสมชาย ใจดี</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px; font-size: 14px"><span style="color: #556070">เลขประจำตัวประชาชน</span><span style="font-weight: 500">x-xxxx-xxxxx-12-3</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px; font-size: 14px"><span style="color: #556070; flex: 0 0 auto">ผู้มอบอำนาจ</span><span style="font-weight: 500; text-align: right">{{grantorText}}</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px; font-size: 14px"><span style="color: #556070; flex: 0 0 auto">เรื่องที่มอบอำนาจ</span><span style="font-weight: 500; text-align: right">{{formName}}</span></div>
+<div style="display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: #FFF4E0; color: #5A3200; font-size: 13px; line-height: 1.5">
+<svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 16px; margin-top: 2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+<span>แนบหนังสือมอบอำนาจในขั้นถัดไป</span>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{isExisting}}" hint-placeholder-val="{{false}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 14px; border: 1.5px solid #0B7A4B">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">{{existTitle}}</h2>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="regNo" style="font-size: 14px; font-weight: 500">{{regLabel}} <span style="color: #B42318">*</span></label>
+<input id="regNo" class="inp" type="text" value="{{regNo}}" onChange="{{onRegNo}}" placeholder="{{regPh}}" style="border-color: {{regBd}}">
+<sc-if value="{{regShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">กรุณากรอก{{regLabel}}ตามเอกสารเดิม</span></sc-if>
+</div>
+<sc-if value="{{isRenew}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="expiry" style="font-size: 14px; font-weight: 500">วันสิ้นอายุของใบอนุญาตเดิม <span style="color: #B42318">*</span></label>
+<input id="expiry" class="inp" type="date" value="{{expiry}}" onChange="{{onExpiry}}" style="border-color: {{expiryBd}}">
+<sc-if value="{{expiryShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">{{expiryErr}}</span></sc-if>
+<sc-if value="{{expiryMismatch}}" hint-placeholder-val="{{false}}">
+<a href="Main.dc.html" onClick="{{editCase}}" style="align-self: flex-start; min-height: 32px; display: flex; align-items: center; font-size: 13.5px; font-weight: 600">แก้คำตอบ</a>
+</sc-if>
+<span style="font-size: 12.5px; color: #556070">{{renewHint}}</span>
+</div>
+</sc-if>
+<sc-if value="{{isChange}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 14px; font-weight: 500">รายการที่ขอเปลี่ยนแปลง</span>
+<span style="min-height: 48px; padding: 12px 14px; border-radius: 12px; background: #F3F6F4; font-size: 15px">{{changeLabel}}</span>
+<a href="Main.dc.html" onClick="{{editCase}}" style="align-self: flex-start; min-height: 32px; display: flex; align-items: center; font-size: 13.5px; font-weight: 600">เปลี่ยนรายการ</a>
+</div>
+<sc-if value="{{chName}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="newName" style="font-size: 14px; font-weight: 500">ชื่อใหม่ที่ใช้ในการประกอบพาณิชยกิจ <span style="color: #B42318">*</span></label>
+<input id="newName" class="inp" type="text" value="{{newName}}" onChange="{{onNewName}}" placeholder="เช่น ใจดีช็อป" style="border-color: {{newNameBd}}">
+<sc-if value="{{newNameShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">กรุณากรอกชื่อใหม่</span></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{chType}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="newGoods" style="font-size: 14px; font-weight: 500">ชนิดแห่งพาณิชยกิจหรือสินค้าใหม่ <span style="color: #B42318">*</span></label>
+<input id="newGoods" class="inp" type="text" value="{{newGoods}}" onChange="{{onNewGoods}}" placeholder="เช่น เพิ่มการขายเครื่องสำอาง" style="border-color: {{newGoodsBd}}">
+<sc-if value="{{newGoodsShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">กรุณาระบุชนิดกิจการหรือสินค้าใหม่</span></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{chOther}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="chDetail" style="font-size: 14px; font-weight: 500">รายละเอียดที่ขอแก้ไข <span style="color: #B42318">*</span></label>
+<textarea id="chDetail" class="inp" rows="3" value="{{changeDetail}}" onChange="{{onChangeDetail}}" placeholder="เช่น เพิ่มช่องทางขาย TikTok Shop" style="border-color: {{chDetailBd}}; resize: none"></textarea>
+<sc-if value="{{chDetailShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">กรุณาระบุรายละเอียด</span></sc-if>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{hasEventDate}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="evDate" style="font-size: 14px; font-weight: 500">{{eventLabel}} <span style="color: #B42318">*</span></label>
+<input id="evDate" class="inp" type="date" value="{{eventDate}}" onChange="{{onEventDate}}" style="border-color: {{eventBd}}">
+<sc-if value="{{eventLate}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #8A4B00">เกิน 30 วันแล้ว อาจต้องชี้แจงเพิ่ม</span></sc-if>
+<span style="font-size: 12.5px; color: #556070">ยื่นภายใน 30 วันนับจากวันที่{{eventWord}}</span>
+</div>
+</sc-if>
+<sc-if value="{{isClose}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="closeReason" style="font-size: 14px; font-weight: 500">เหตุที่เลิก (ถ้ามี)</label>
+<input id="closeReason" class="inp" type="text" value="{{closeReason}}" onChange="{{onCloseReason}}" placeholder="เช่น ย้ายไปทำงานประจำ">
+</div>
+</sc-if>
+</section>
+</sc-if>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #DCE5DF">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">ช่องทางติดต่อ</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="phone" style="font-size: 14px; font-weight: 500">โทรศัพท์ <span style="color: #B42318">*</span></label>
+<input id="phone" class="inp" type="tel" value="{{phone}}" onChange="{{onPhone}}" placeholder="08x-xxx-xxxx" style="border-color: {{phoneBd}}">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="email" style="font-size: 14px; font-weight: 500">อีเมล (ถ้ามี)</label>
+<input id="email" class="inp" type="email" value="{{email}}" onChange="{{onEmail}}" placeholder="name@mail.com">
+</div>
+</div>
+<sc-if value="{{phoneShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">กรุณากรอกเบอร์โทรศัพท์ที่ติดต่อได้</span></sc-if>
+</section>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 16px; border: 1px solid #DCE5DF">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">ข้อมูลกิจการ</h2>
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="nameTh" style="font-size: 14px; font-weight: 500">{{nameLabel}} <span style="color: #B42318">*</span></label>
+<input id="nameTh" class="inp" type="text" value="{{nameTh}}" onChange="{{onNameTh}}" placeholder="{{namePh}}" style="border-color: {{nameThBd}}">
+<sc-if value="{{nameThShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">กรุณากรอกชื่อร้านหรือชื่อกิจการ</span></sc-if>
+</div>
+
+<sc-if value="{{isCommerceNew}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="nameEn" style="font-size: 14px; font-weight: 500">ชื่อภาษาอังกฤษ (ถ้ามี)</label>
+<input id="nameEn" class="inp" type="text" value="{{nameEn}}" onChange="{{onNameEn}}" placeholder="เช่น Jaidee">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 14px; font-weight: 500">ชนิดแห่งพาณิชยกิจ</span>
+<span style="min-height: 48px; padding: 12px 14px; border-radius: 12px; background: #F3F6F4; font-size: 15px">{{commerceType}}</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{showGoods}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="goods" style="font-size: 14px; font-weight: 500">{{goodsLabel}} <span style="color: #B42318">*</span></label>
+<input id="goods" class="inp" type="text" value="{{goods}}" onChange="{{onGoods}}" placeholder="{{goodsPh}}" style="border-color: {{goodsBd}}">
+<sc-if value="{{goodsShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">กรุณาระบุสินค้าหรือบริการ</span></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{isBeauty}}" hint-placeholder-val="{{false}}">
+<fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="font-size: 14px; font-weight: 500; padding: 0; margin-bottom: 8px">บริการในร้าน (เลือกได้หลายข้อ) <span style="color: #B42318">*</span></legend>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{beautyChips}}" as="bc" hint-placeholder-count="4">
+<button onClick="{{bc.toggle}}" aria-pressed="{{bc.on}}" style="min-height: 40px; padding: 6px 12px; border-radius: 999px; border: 1px solid {{bc.bd}}; background: {{bc.bg}}; color: {{bc.fg}}; font-size: 13.5px; cursor: pointer">{{bc.label}}</button>
+</sc-for>
+</div>
+<sc-if value="{{beautyShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">เลือกบริการอย่างน้อย 1 อย่าง</span></sc-if>
+</fieldset>
+</sc-if>
+
+<sc-if value="{{needArea}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="area" style="font-size: 14px; font-weight: 500">พื้นที่ประกอบการทั้งหมด (ตร.ม.) <span style="color: #B42318">*</span></label>
+<input id="area" class="inp" type="number" min="1" value="{{area}}" onChange="{{onArea}}" placeholder="เช่น 60" style="border-color: {{areaBd}}">
+<sc-if value="{{areaShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">{{areaErr}}</span></sc-if>
+<sc-if value="{{areaMismatch}}" hint-placeholder-val="{{false}}">
+<a href="Main.dc.html" onClick="{{editCase}}" style="align-self: flex-start; min-height: 32px; display: flex; align-items: center; font-size: 13.5px; font-weight: 600">แก้คำตอบ</a>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{isNew}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<sc-if value="{{isCommerce}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="cap" style="font-size: 14px; font-weight: 500">เงินทุน (บาท) <span style="color: #B42318">*</span></label>
+<input id="cap" class="inp" type="number" min="0" value="{{capital}}" onChange="{{onCapital}}" placeholder="50000" style="border-color: {{capBd}}">
+</div>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="start" style="font-size: 14px; font-weight: 500">{{startLabel}} <span style="color: #B42318">*</span></label>
+<input id="start" class="inp" type="date" value="{{startDate}}" onChange="{{onStart}}" style="border-color: {{startBd}}">
+</div>
+</div>
+<sc-if value="{{capShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318; margin-top: -8px">กรอกเงินทุนเป็นตัวเลข</span></sc-if>
+<sc-if value="{{lateWarn}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #8A4B00; margin-top: -8px">เกิน 30 วันแล้ว อาจต้องชี้แจงเพิ่ม</span></sc-if>
+<span style="font-size: 12.5px; color: #556070; margin-top: -8px">{{whenHint}}</span>
+</div>
+</sc-if>
+</section>
+
+<sc-if value="{{showPlace}}" hint-placeholder-val="{{true}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #DCE5DF">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">{{placeTitle}}</h2>
+<sc-if value="{{sameAvail}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<label for="same1" style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; border-radius: 12px; border: 1px solid {{sameBd}}; font-size: 14px; line-height: 1.5; cursor: pointer">
+<input id="same1" type="radio" name="addr" checked="{{sameAddr}}" onChange="{{pickSame}}" style="width: 20px; height: 20px; margin: 1px 0 0; accent-color: #0B7A4B; flex: 0 0 20px">
+<span>{{sameLabel}}<br><span style="color: #556070; font-size: 13px">{{sameAddrText}}</span></span>
+</label>
+<label for="same2" style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; border-radius: 12px; border: 1px solid {{otherBd}}; font-size: 14px; line-height: 1.5; cursor: pointer">
+<input id="same2" type="radio" name="addr" checked="{{otherAddr}}" onChange="{{pickOther}}" style="width: 20px; height: 20px; margin: 1px 0 0; accent-color: #0B7A4B; flex: 0 0 20px">
+<span>ใช้ที่อยู่อื่น</span>
+</label>
+</div>
+</sc-if>
+<sc-if value="{{showAddrFields}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="aNo" style="font-size: 14px; font-weight: 500">เลขที่ <span style="color: #B42318">*</span></label>
+<input id="aNo" class="inp" type="text" value="{{aNo}}" onChange="{{onANo}}" placeholder="99/1" style="border-color: {{aNoBd}}">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="aSoi" style="font-size: 14px; font-weight: 500">ซอย / ถนน</label>
+<input id="aSoi" class="inp" type="text" value="{{aSoi}}" onChange="{{onASoi}}" placeholder="ถนนพหลโยธิน">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="aSub" style="font-size: 14px; font-weight: 500">แขวง / ตำบล <span style="color: #B42318">*</span></label>
+<input id="aSub" class="inp" type="text" value="{{aSub}}" onChange="{{onASub}}" style="border-color: {{aSubBd}}">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="aDist" style="font-size: 14px; font-weight: 500">เขต / อำเภอ <span style="color: #B42318">*</span></label>
+<input id="aDist" class="inp" type="text" value="{{aDist}}" onChange="{{onADist}}" style="border-color: {{aDistBd}}">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="aProv" style="font-size: 14px; font-weight: 500">จังหวัด <span style="color: #B42318">*</span></label>
+<select id="aProv" class="inp" value="{{aProv}}" onChange="{{onAProv}}" style="border-color: {{aProvBd}}">
+<option value="">เลือก</option>
+<option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+<option value="กระบี่">กระบี่</option>
+<option value="กาญจนบุรี">กาญจนบุรี</option>
+<option value="กาฬสินธุ์">กาฬสินธุ์</option>
+<option value="กำแพงเพชร">กำแพงเพชร</option>
+<option value="ขอนแก่น">ขอนแก่น</option>
+<option value="จันทบุรี">จันทบุรี</option>
+<option value="ฉะเชิงเทรา">ฉะเชิงเทรา</option>
+<option value="ชลบุรี">ชลบุรี</option>
+<option value="ชัยนาท">ชัยนาท</option>
+<option value="ชัยภูมิ">ชัยภูมิ</option>
+<option value="ชุมพร">ชุมพร</option>
+<option value="เชียงราย">เชียงราย</option>
+<option value="เชียงใหม่">เชียงใหม่</option>
+<option value="ตรัง">ตรัง</option>
+<option value="ตราด">ตราด</option>
+<option value="ตาก">ตาก</option>
+<option value="นครนายก">นครนายก</option>
+<option value="นครปฐม">นครปฐม</option>
+<option value="นครพนม">นครพนม</option>
+<option value="นครราชสีมา">นครราชสีมา</option>
+<option value="นครศรีธรรมราช">นครศรีธรรมราช</option>
+<option value="นครสวรรค์">นครสวรรค์</option>
+<option value="นนทบุรี">นนทบุรี</option>
+<option value="นราธิวาส">นราธิวาส</option>
+<option value="น่าน">น่าน</option>
+<option value="บึงกาฬ">บึงกาฬ</option>
+<option value="บุรีรัมย์">บุรีรัมย์</option>
+<option value="ปทุมธานี">ปทุมธานี</option>
+<option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์</option>
+<option value="ปราจีนบุรี">ปราจีนบุรี</option>
+<option value="ปัตตานี">ปัตตานี</option>
+<option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา</option>
+<option value="พะเยา">พะเยา</option>
+<option value="พังงา">พังงา</option>
+<option value="พัทลุง">พัทลุง</option>
+<option value="พิจิตร">พิจิตร</option>
+<option value="พิษณุโลก">พิษณุโลก</option>
+<option value="เพชรบุรี">เพชรบุรี</option>
+<option value="เพชรบูรณ์">เพชรบูรณ์</option>
+<option value="แพร่">แพร่</option>
+<option value="ภูเก็ต">ภูเก็ต</option>
+<option value="มหาสารคาม">มหาสารคาม</option>
+<option value="มุกดาหาร">มุกดาหาร</option>
+<option value="แม่ฮ่องสอน">แม่ฮ่องสอน</option>
+<option value="ยโสธร">ยโสธร</option>
+<option value="ยะลา">ยะลา</option>
+<option value="ร้อยเอ็ด">ร้อยเอ็ด</option>
+<option value="ระนอง">ระนอง</option>
+<option value="ระยอง">ระยอง</option>
+<option value="ราชบุรี">ราชบุรี</option>
+<option value="ลพบุรี">ลพบุรี</option>
+<option value="ลำปาง">ลำปาง</option>
+<option value="ลำพูน">ลำพูน</option>
+<option value="เลย">เลย</option>
+<option value="ศรีสะเกษ">ศรีสะเกษ</option>
+<option value="สกลนคร">สกลนคร</option>
+<option value="สงขลา">สงขลา</option>
+<option value="สตูล">สตูล</option>
+<option value="สมุทรปราการ">สมุทรปราการ</option>
+<option value="สมุทรสงคราม">สมุทรสงคราม</option>
+<option value="สมุทรสาคร">สมุทรสาคร</option>
+<option value="สระแก้ว">สระแก้ว</option>
+<option value="สระบุรี">สระบุรี</option>
+<option value="สิงห์บุรี">สิงห์บุรี</option>
+<option value="สุโขทัย">สุโขทัย</option>
+<option value="สุพรรณบุรี">สุพรรณบุรี</option>
+<option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
+<option value="สุรินทร์">สุรินทร์</option>
+<option value="หนองคาย">หนองคาย</option>
+<option value="หนองบัวลำภู">หนองบัวลำภู</option>
+<option value="อ่างทอง">อ่างทอง</option>
+<option value="อำนาจเจริญ">อำนาจเจริญ</option>
+<option value="อุดรธานี">อุดรธานี</option>
+<option value="อุตรดิตถ์">อุตรดิตถ์</option>
+<option value="อุทัยธานี">อุทัยธานี</option>
+<option value="อุบลราชธานี">อุบลราชธานี</option>
+</select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="aZip" style="font-size: 14px; font-weight: 500">รหัสไปรษณีย์ <span style="color: #B42318">*</span></label>
+<input id="aZip" class="inp" type="text" value="{{aZip}}" onChange="{{onAZip}}" placeholder="10900" style="border-color: {{aZipBd}}">
+</div>
+</div>
+<sc-if value="{{addrShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">กรุณากรอกที่อยู่ให้ครบ รหัสไปรษณีย์ 5 หลัก</span></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{rentNote}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: #FFF4E0; color: #5A3200; font-size: 13px; line-height: 1.5">
+<svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 16px; margin-top: 2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+<span>แนบหลักฐานสถานที่ในขั้นถัดไป</span>
+</div>
+</sc-if>
+</section>
+</sc-if>
+
+<sc-if value="{{isOnline}}" hint-placeholder-val="{{false}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 14px; border: 1px solid #DCE5DF">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">การขายออนไลน์</h2>
+<fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="font-size: 14px; font-weight: 500; padding: 0; margin-bottom: 8px">ช่องทางที่ใช้ขาย (เลือกได้หลายข้อ) <span style="color: #B42318">*</span></legend>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{channels}}" as="ch" hint-placeholder-count="6">
+<button onClick="{{ch.toggle}}" aria-pressed="{{ch.on}}" style="min-height: 40px; padding: 6px 12px; border-radius: 999px; border: 1px solid {{ch.bd}}; background: {{ch.bg}}; color: {{ch.fg}}; font-size: 13.5px; cursor: pointer">{{ch.label}}</button>
+</sc-for>
+</div>
+<sc-if value="{{chanShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">เลือกช่องทางขายอย่างน้อย 1 ช่องทาง</span></sc-if>
+</fieldset>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="url" style="font-size: 14px; font-weight: 500">ลิงก์ร้านหรือชื่อเว็บไซต์หลัก <span style="color: #B42318">*</span></label>
+<input id="url" class="inp" type="text" value="{{url}}" onChange="{{onUrl}}" placeholder="เช่น facebook.com/ชื่อเพจร้าน" style="border-color: {{urlBd}}">
+<sc-if value="{{urlShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">กรุณากรอกลิงก์ร้านหรือชื่อเว็บไซต์</span></sc-if>
+</div>
+<fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="font-size: 14px; font-weight: 500; padding: 0; margin-bottom: 8px">วิธีรับชำระเงิน <span style="color: #B42318">*</span></legend>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{pays}}" as="py" hint-placeholder-count="3">
+<button onClick="{{py.toggle}}" aria-pressed="{{py.on}}" style="min-height: 40px; padding: 6px 12px; border-radius: 999px; border: 1px solid {{py.bd}}; background: {{py.bg}}; color: {{py.fg}}; font-size: 13.5px; cursor: pointer">{{py.label}}</button>
+</sc-for>
+</div>
+<sc-if value="{{payShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">เลือกวิธีรับชำระเงินอย่างน้อย 1 วิธี</span></sc-if>
+</fieldset>
+</section>
+</sc-if>
+
+<sc-if value="{{isCommerceNew}}" hint-placeholder-val="{{true}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #DCE5DF">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">สาขาและโรงเก็บสินค้า</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<button onClick="{{noBranch}}" aria-pressed="{{noBranchOn}}" style="min-height: 44px; border-radius: 12px; border: 1px solid {{nbBd}}; background: {{nbBg}}; color: {{nbFg}}; font-size: 14px; cursor: pointer">ไม่มี</button>
+<button onClick="{{yesBranch}}" aria-pressed="{{hasBranch}}" style="min-height: 44px; border-radius: 12px; border: 1px solid {{ybBd}}; background: {{ybBg}}; color: {{ybFg}}; font-size: 14px; cursor: pointer">มี</button>
+</div>
+<sc-if value="{{hasBranch}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="branch" style="font-size: 14px; font-weight: 500">ชื่อและที่ตั้งสาขาหรือโรงเก็บสินค้า <span style="color: #B42318">*</span></label>
+<textarea id="branch" class="inp" rows="3" value="{{branch}}" onChange="{{onBranch}}" placeholder="เช่น โกดังเก็บสินค้า 88 ถนนงามวงศ์วาน นนทบุรี" style="border-color: {{branchBd}}; resize: none"></textarea>
+<sc-if value="{{branchShowErr}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #B42318">กรุณากรอกที่ตั้งสาขาหรือโรงเก็บสินค้า</span></sc-if>
+</div>
+</sc-if>
+</section>
+</sc-if>
+
+<div style="display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 12.5px; color: #556070">
+<svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+บันทึกร่างอัตโนมัติ
+</div>
+
+</div>
+
+<div style="flex: 0 0 auto; background: #FFFFFF; border-top: 1px solid #DCE5DF; padding: 12px 16px 20px">
+<sc-if value="{{valid}}" hint-placeholder-val="{{false}}">
+<a href="Upload.dc.html" style="min-height: 52px; border-radius: 14px; background: #0B7A4B; color: #FFFFFF; font-size: 16.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none">ถัดไป: แนบเอกสาร
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></a>
+</sc-if>
+<sc-if value="{{invalid}}" hint-placeholder-val="{{true}}">
+<button onClick="{{tryNext}}" style="width: 100%; min-height: 52px; border-radius: 14px; border: none; background: #0B7A4B; color: #FFFFFF; font-size: 16.5px; font-weight: 600; cursor: pointer">ถัดไป: แนบเอกสาร</button>
+</sc-if>
+</div>
+
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{false}}">
+<div role="status" style="position: absolute; left: 16px; right: 16px; bottom: 100px; padding: 12px 16px; border-radius: 14px; background: #15202E; color: #FFFFFF; font-size: 14px; text-align: center; z-index: 30">{{toast}}</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = Object.assign({
+      c: this.loadCase(),
+      phone: '081-234-5678', email: '',
+      ownerName: '', ownerId: '', jurNo: '', jurFetched: false, jurTried: false,
+      nameTh: '', nameEn: '', goods: '', capital: '', startDate: '2026-11-01', area: '', beauty: [],
+      sameAddr: true, aNo: '', aSoi: '', aSub: '', aDist: '', aProv: '', aZip: '',
+      channels: [], url: '', pays: [],
+      hasBranch: false, branch: '',
+      regNo: '', expiry: '', eventDate: '', newName: '', newGoods: '', changeDetail: '', closeReason: '',
+      tried: false, toast: ''
+    }, this.loadForm());
+  }
+  componentDidMount() {
+    this._epoch = this.epoch();
+    this._raw = this.rawCase();
+    this._poll = setInterval(() => {
+      const r = this.rawCase();
+      if (this.epoch() !== this._epoch) { this._epoch = this.epoch(); this.setState(this.freshState()); return; }
+      if (r !== this._raw) { this._raw = r; this.setState({ c: this.loadCase(), tried: false }); }
+    }, 800);
+  }
+  componentDidUpdate() {
+    const s = this.state;
+    const keep = {};
+    ['phone', 'email', 'ownerName', 'ownerId', 'jurNo', 'jurFetched', 'nameTh', 'nameEn', 'goods', 'capital', 'startDate', 'area', 'beauty', 'sameAddr', 'aNo', 'aSoi', 'aSub', 'aDist', 'aProv', 'aZip', 'channels', 'url', 'pays', 'hasBranch', 'branch', 'regNo', 'expiry', 'eventDate', 'newName', 'newGoods', 'changeDetail', 'closeReason'].forEach((k) => { keep[k] = s[k]; });
+    try { window.localStorage.setItem('tangrat-proto-form', JSON.stringify(keep)); } catch (e) {}
+  }
+  epoch() {
+    try { return window.localStorage.getItem('tangrat-proto-epoch') || ''; } catch (e) { return ''; }
+  }
+  freshState() {
+    return Object.assign({ c: this.loadCase(), phone: '081-234-5678', email: '', ownerName: '', ownerId: '', jurNo: '', jurFetched: false, jurTried: false, nameTh: '', nameEn: '', goods: '', capital: '', startDate: '2026-11-01', area: '', beauty: [], sameAddr: true, aNo: '', aSoi: '', aSub: '', aDist: '', aProv: '', aZip: '', channels: [], url: '', pays: [], hasBranch: false, branch: '', regNo: '', expiry: '', eventDate: '', newName: '', newGoods: '', changeDetail: '', closeReason: '', tried: false, toast: '' }, {});
+  }
+  componentWillUnmount() { clearTimeout(this._t); clearInterval(this._poll); }
+  flash(msg) {
+    clearTimeout(this._t);
+    this.setState({ toast: msg });
+    this._t = setTimeout(() => this.setState({ toast: '' }), 2400);
+  }
+  loadForm() {
+    try { const v = window.localStorage.getItem('tangrat-proto-form'); return v ? JSON.parse(v) : {}; } catch (e) { return {}; }
+  }
+  rawCase() {
+    try { return (window.localStorage.getItem('tangrat-proto-case') || '') + '|' + (window.localStorage.getItem('tangrat-proto-plan') || ''); } catch (e) { return ''; }
+  }
+  loadCase() {
+    let c = null;
+    try { const v = window.localStorage.getItem('tangrat-proto-case'); c = v ? JSON.parse(v) : null; } catch (e) { c = null; }
+    return Object.assign({ purpose: 'new', biz: 'online', entity: 'person', filer: 'self', place: 'own', province: 'กรุงเทพมหานคร', service: '', query: '' }, c || {});
+  }
+  plan(c) {
+    let p = null;
+    try { const v = window.localStorage.getItem('tangrat-proto-plan'); p = v ? JSON.parse(v) : null; } catch (e) { p = null; }
+    const inApp = (x) => (x && x.services ? x.services.filter((y) => y.channel !== 'external') : []);
+    if (!inApp(p).length) p = {"services":[{"sub":"พาณิชย์อิเล็กทรอนิกส์","note":"","payNow":true,"channel":"app","channelText":"ยื่นในแอปนี้ (ต้นแบบสาธิตการยื่นออนไลน์)","contact":"สายด่วนกรมพัฒนาธุรกิจการค้า 1570","auto":[{"name":"คำขอจดทะเบียนพาณิชย์ (แบบ ทพ.)","from":"ระบบจัดทำจากข้อมูลที่คุณกรอก"},{"name":"สำเนาบัตรประชาชนและทะเบียนบ้านของผู้ประกอบการ (คุณ)","from":"ดึงจากกรมการปกครอง ตามความยินยอมของคุณ"},{"name":"รายละเอียดเว็บไซต์หรือแพลตฟอร์มที่ใช้ขาย","from":"ระบบจัดทำจากช่องทางขายที่คุณกรอก 1 ชุดต่อ 1 ช่องทาง"}],"must":[],"id":"commerce-new","kind":"commerce","mode":"new","title":"จดทะเบียนพาณิชย์ (ตั้งใหม่)","agency":"นายทะเบียนพาณิชย์ สำนักงานเขตที่ร้านตั้งอยู่","law":"พ.ร.บ.ทะเบียนพาณิชย์ พ.ศ. 2499","fee":"50 บาท","feeShort":"50 บาท","time":"ประมาณ 60 นาทีเมื่อเอกสารครบ","timeShort":"60 นาที","when":"ยื่นภายใน 30 วันนับจากวันเริ่มประกอบกิจการ","result":"ใบทะเบียนพาณิชย์","formName":"แบบคำขอจดทะเบียนพาณิชย์ (แบบ ทพ.)","reason":"ผู้ประกอบการบุคคลธรรมดาที่ประกอบพาณิชยกิจประเภทนี้ต้องจดทะเบียนพาณิชย์","feePay":true,"proxySteps":[]}],"skipped":[],"purpose":"new","purposeLabel":"เปิดกิจการใหม่","biz":"online","bizLabel":"ร้านค้าออนไลน์","caseText":"เปิดกิจการใหม่ · ร้านค้าออนไลน์ · บุคคลธรรมดา · ยื่นด้วยตนเอง · สถานที่ของผู้ประกอบการ · กรุงเทพมหานคร","jur":false,"proxy":false,"rent":false,"change":"","size":"","province":"กรุงเทพมหานคร"};
+    const list = inApp(p);
+    const sel = list.filter((x) => x.id === c.service)[0] || list[0];
+    return Object.assign({}, p, { sel: sel });
+  }
+  toggleIn(key, v) {
+    const cur = this.state[key] || [];
+    const next = cur.indexOf(v) === -1 ? cur.concat([v]) : cur.filter((x) => x !== v);
+    const u = {}; u[key] = next; this.setState(u);
+  }
+  renderVals() {
+    const s = this.state;
+    const c = s.c;
+    const p = this.plan(c);
+    const sv = p.sel;
+    const jur = !!p.jur;
+    const proxy = !!p.proxy;
+    const rent = !!p.rent;
+    const kind = sv.kind;
+    const mode = sv.mode;
+    const isNew = mode === 'new';
+    const isRenew = mode === 'renew';
+    const isChange = mode === 'change';
+    const isClose = mode === 'close';
+    const svc = kind === 'hazard' && c.biz === 'beauty' ? 'beauty' : kind;
+    const isCommerce = kind === 'commerce';
+    const big = kind === 'food' && sv.sub.indexOf('ไม่เกิน') === -1;
+    const formName = sv.formName;
+    const bizLabel = p.bizLabel || 'ร้านค้าออนไลน์';
+    const B = c.biz || 'online';
+    const company = { food: 'บริษัท ใจดี ฟู้ด จำกัด', cafe: 'บริษัท ใจดี คาเฟ่ จำกัด', online: 'บริษัท ใจดี ออนไลน์ จำกัด', beauty: 'บริษัท ใจดี บิวตี้ จำกัด', retail: 'บริษัท ใจดี รีเทล จำกัด', spa: 'บริษัท ใจดี สปา จำกัด', fitness: 'บริษัท ใจดี ฟิตเนส จำกัด', hotel: 'บริษัท ใจดี เรสซิเดนซ์ จำกัด', carcare: 'บริษัท ใจดี คาร์แคร์ จำกัด' }[B];
+    const shop = { food: 'ร้านข้าวใจดี', cafe: 'ใจดี คาเฟ่', online: 'ร้านใจดีออนไลน์', beauty: 'ใจดี ซาลอน', retail: 'ใจดี แฟชั่น', spa: 'ใจดี นวดไทย', fitness: 'ใจดี ฟิตเนส', hotel: 'บ้านพักใจดี', carcare: 'ใจดี คาร์แคร์' }[B];
+    const commerceType = { food: 'ขายอาหารและเครื่องดื่ม (ร้านอาหาร)', cafe: 'ขายเครื่องดื่มและเบเกอรี่ (คาเฟ่)', online: 'ซื้อขายสินค้าผ่านอินเทอร์เน็ต (พาณิชย์อิเล็กทรอนิกส์)', beauty: 'ขายผลิตภัณฑ์เสริมสวยในร้าน', retail: 'ขายปลีกเสื้อผ้าและเครื่องแต่งกาย', spa: 'ขายผลิตภัณฑ์ในร้านนวดหรือสปา', fitness: 'ขายอุปกรณ์และผลิตภัณฑ์ในสถานที่ออกกำลังกาย', hotel: 'บริการที่พัก', carcare: 'ขายผลิตภัณฑ์ดูแลรถยนต์' }[B];
+    const goodsLabel = isCommerce ? 'สินค้าหรือบริการที่ขาย' : (kind === 'food' ? 'ประเภทอาหารหรือเครื่องดื่มที่จำหน่าย' : 'รายละเอียดกิจการ');
+    const goodsPh = { food: 'เช่น อาหารตามสั่ง ก๋วยเตี๋ยว', cafe: 'เช่น กาแฟ ชา เบเกอรี่', online: 'เช่น เสื้อผ้าและเครื่องแต่งกาย', beauty: 'เช่น ร้านทำผมและทำเล็บ', retail: 'เช่น เสื้อผ้าสตรีและกระเป๋า', spa: 'เช่น นวดไทย นวดเท้า', fitness: 'เช่น ฟิตเนสและคลาสออกกำลังกาย', hotel: 'เช่น ห้องพักรายวัน', carcare: 'เช่น ล้างรถ เคลือบสี ดูดฝุ่น' }[B];
+    const today = new Date('2026-11-05T00:00:00');
+    const daysFrom = (v) => (v ? (today - new Date(v + 'T00:00:00')) / 86400000 : 0);
+    const chg = c.change || 'other';
+    const showPlace = isNew || (isChange && chg === 'move');
+    const showGoods = isNew || isRenew;
+    const expiredAns = c.expired === 'yes';
+    let expiryErrText = '';
+    let expiryMismatch = false;
+    if (isRenew) {
+      if (!s.expiry) expiryErrText = 'กรุณาระบุวันสิ้นอายุตามใบอนุญาตเดิม';
+      else if (daysFrom(s.expiry) > 0 && !expiredAns) { expiryErrText = 'ใบอนุญาตหมดอายุแล้ว ต่ออายุไม่ได้ ต้องยื่นขอใหม่ กรุณาแก้คำตอบเรื่องสถานะใบอนุญาต ระบบจะปรับบริการให้'; expiryMismatch = true; }
+    }
+    const digits = (v) => String(v || '').replace(/\D/g, '');
+    const t = (v) => !String(v || '').trim();
+    const sameAvail = !(!jur && proxy) && !isChange;
+    const useSame = sameAvail && s.sameAddr;
+    const areaNum = Number(s.area);
+    const needArea = !isCommerce && (isNew || isRenew);
+    let areaErrText = '';
+    let areaMismatch = false;
+    if (needArea) {
+      if (!s.area || isNaN(areaNum) || areaNum <= 0) areaErrText = 'กรุณากรอกพื้นที่เป็นตัวเลข';
+      else if (svc === 'food' && !big && areaNum > 200) { areaErrText = 'พื้นที่เกิน 200 ตร.ม. ต้องขอใบอนุญาตแทนการแจ้ง กรุณาแก้คำตอบเรื่องพื้นที่'; areaMismatch = true; }
+      else if (svc === 'food' && big && areaNum <= 200) { areaErrText = 'พื้นที่ไม่เกิน 200 ตร.ม. ใช้การแจ้งจัดตั้งแทนการขอใบอนุญาต กรุณาแก้คำตอบเรื่องพื้นที่'; areaMismatch = true; }
+    }
+    const capNum = Number(s.capital);
+    const err = {
+      phone: digits(s.phone).length < 9,
+      owner: !jur && proxy && (t(s.ownerName) || digits(s.ownerId).length !== 13),
+      jur: jur && !s.jurFetched,
+      nameTh: t(s.nameTh),
+      goods: showGoods && t(s.goods),
+      beauty: svc === 'beauty' && isNew && (s.beauty || []).length === 0,
+      area: !!areaErrText,
+      cap: isCommerce && isNew && (!s.capital || isNaN(capNum) || capNum <= 0),
+      start: isNew && t(s.startDate),
+      addr: showPlace && !useSame && (t(s.aNo) || t(s.aSub) || t(s.aDist) || t(s.aProv) || !/^\d{5}$/.test(String(s.aZip).trim())),
+      chan: isCommerce && isNew && c.biz === 'online' && (s.channels || []).length === 0,
+      url: isCommerce && isNew && c.biz === 'online' && t(s.url),
+      pay: isCommerce && isNew && c.biz === 'online' && (s.pays || []).length === 0,
+      branch: isCommerce && isNew && s.hasBranch && t(s.branch),
+      reg: !isNew && t(s.regNo),
+      expiry: !!expiryErrText,
+      event: (isChange || isClose) && t(s.eventDate),
+      newName: isChange && chg === 'name' && t(s.newName),
+      newGoods: isChange && chg === 'type' && t(s.newGoods),
+      chDetail: isChange && chg === 'other' && t(s.changeDetail)
+    };
+    const errorCount = Object.keys(err).filter((k) => err[k]).length;
+    const show = (k) => s.tried && err[k];
+    const bd = (k) => (show(k) ? '#B42318' : '#C3D1C8');
+    const fieldBd = (v, extra) => (s.tried && (t(v) || extra) ? '#B42318' : '#C3D1C8');
+    const set = (k) => (e) => { const u = {}; u[k] = e.target.value; this.setState(u); };
+    let lateWarn = false;
+    if (isCommerce && isNew && s.startDate) lateWarn = daysFrom(s.startDate) > 30;
+    const chip = (key, label) => {
+      const on = (s[key] || []).indexOf(label) !== -1;
+      return { label: label, on: on, bg: on ? '#0B7A4B' : '#FFFFFF', fg: on ? '#FFFFFF' : '#15202E', bd: on ? '#0B7A4B' : '#C3D1C8', toggle: () => this.toggleIn(key, label) };
+    };
+    const on = { bd: '#0B7A4B', bg: '#0B7A4B', fg: '#FFFFFF' };
+    const off = { bd: '#C3D1C8', bg: '#FFFFFF', fg: '#15202E' };
+    const nb = s.hasBranch ? off : on;
+    const yb = s.hasBranch ? on : off;
+    const caseParts = [sv.title, bizLabel, jur ? 'นิติบุคคล' : 'บุคคลธรรมดา', proxy ? 'ผู้รับมอบอำนาจยื่นแทน' : (jur ? 'กรรมการยื่นเอง' : 'ยื่นด้วยตนเอง')];
+    const regLabel = isCommerce ? 'เลขทะเบียนพาณิชย์' : 'เลขที่ใบอนุญาตเดิม';
+    return {
+      formName: formName,
+      caseText: caseParts.join(' · '),
+      grantorText: jur ? 'นางสาวสมใจ รักงาน (กรรมการผู้มีอำนาจลงนาม · ข้อมูลจำลอง)' : (s.ownerName || 'ผู้ประกอบการตามที่กรอกด้านบน'),
+      stampText: isCommerce ? 'ติดอากรแสตมป์ 10 บาท' : 'ติดอากรแสตมป์ตามประมวลรัษฎากร (ครั้งเดียว 10 บาท / มากกว่าครั้งเดียว 30 บาท)',
+      isNew: isNew, isRenew: isRenew, isChange: isChange, isClose: isClose,
+      isExisting: !isNew,
+      isCommerceNew: isCommerce && isNew,
+      showGoods: showGoods, showPlace: showPlace,
+      existTitle: isRenew ? 'ใบอนุญาตเดิม' : (isChange ? 'ข้อมูลทะเบียนเดิมและรายการที่เปลี่ยน' : 'ข้อมูลทะเบียนเดิมและการเลิกกิจการ'),
+      regLabel: regLabel,
+      regPh: isCommerce ? 'ตามใบทะเบียนพาณิชย์ฉบับเดิม' : 'เช่น 45/2568',
+      regNo: s.regNo, onRegNo: set('regNo'), regBd: bd('reg'), regShowErr: show('reg'),
+      expiry: s.expiry, onExpiry: set('expiry'), expiryBd: bd('expiry') === '#B42318' || expiryMismatch ? '#B42318' : '#C3D1C8',
+      expiryShowErr: show('expiry') || expiryMismatch, expiryErr: expiryErrText, expiryMismatch: expiryMismatch,
+      renewHint: sv.when,
+      changeLabel: ({ name: 'เปลี่ยนชื่อร้าน', move: 'ย้ายที่ตั้ง', type: 'เปลี่ยนชนิดกิจการหรือสินค้า', other: 'แก้ไขข้อมูลอื่น' })[chg],
+      chName: chg === 'name', chType: chg === 'type', chOther: chg === 'other',
+      newName: s.newName, onNewName: set('newName'), newNameBd: bd('newName'), newNameShowErr: show('newName'),
+      newGoods: s.newGoods, onNewGoods: set('newGoods'), newGoodsBd: bd('newGoods'), newGoodsShowErr: show('newGoods'),
+      changeDetail: s.changeDetail, onChangeDetail: set('changeDetail'), chDetailBd: bd('chDetail'), chDetailShowErr: show('chDetail'),
+      hasEventDate: isChange || isClose,
+      eventLabel: isClose ? 'วันที่เลิกประกอบกิจการ' : 'วันที่มีการเปลี่ยนแปลง',
+      eventWord: isClose ? 'เลิกกิจการ' : 'เปลี่ยนแปลง',
+      eventDate: s.eventDate, onEventDate: set('eventDate'), eventBd: bd('event'), eventLate: (isChange || isClose) && !!s.eventDate && daysFrom(s.eventDate) > 30,
+      closeReason: s.closeReason, onCloseReason: set('closeReason'),
+      isPersonSelf: !jur && !proxy,
+      isPersonProxy: !jur && proxy,
+      isJur: jur,
+      isProxy: proxy,
+      ownerName: s.ownerName, onOwnerName: set('ownerName'), ownerNameBd: fieldBd(s.ownerName),
+      ownerId: s.ownerId, onOwnerId: set('ownerId'), ownerIdBd: fieldBd(s.ownerId, digits(s.ownerId).length !== 13),
+      ownerShowErr: show('owner'),
+      jurNo: s.jurNo,
+      onJurNo: (e) => this.setState({ jurNo: e.target.value, jurFetched: false }),
+      fetchJur: () => this.setState({ jurTried: true, jurFetched: digits(this.state.jurNo).length === 13 }),
+      jurBd: (s.jurTried || s.tried) && !s.jurFetched ? '#B42318' : '#C3D1C8',
+      jurShowErr: (s.jurTried || s.tried) && !s.jurFetched,
+      jurErr: digits(s.jurNo).length !== 13 ? 'กรอกเลขทะเบียนนิติบุคคลให้ครบ 13 หลัก แล้วกดดึงข้อมูล' : 'กดดึงข้อมูลเพื่อยืนยันนิติบุคคล',
+      jurFetched: s.jurFetched,
+      companyName: company,
+      director: proxy ? 'นางสาวสมใจ รักงาน' : 'นายสมชาย ใจดี (คุณ)',
+      phone: s.phone, onPhone: set('phone'), phoneBd: bd('phone'), phoneShowErr: show('phone'),
+      email: s.email, onEmail: set('email'),
+      nameLabel: isNew ? (isCommerce ? 'ชื่อที่ใช้ในการประกอบพาณิชยกิจ (ภาษาไทย)' : 'ชื่อร้านหรือชื่อสถานประกอบการ') : (isRenew ? 'ชื่อสถานประกอบการตามใบอนุญาตเดิม' : 'ชื่อที่จดทะเบียนไว้ (ปัจจุบัน)'),
+      namePh: 'เช่น ' + shop,
+      nameTh: s.nameTh, onNameTh: set('nameTh'), nameThBd: bd('nameTh'), nameThShowErr: show('nameTh'),
+      isCommerce: isCommerce,
+      nameEn: s.nameEn, onNameEn: set('nameEn'),
+      commerceType: commerceType,
+      goodsLabel: goodsLabel, goodsPh: goodsPh,
+      goods: s.goods, onGoods: set('goods'), goodsBd: bd('goods'), goodsShowErr: show('goods'),
+      isBeauty: svc === 'beauty' && isNew,
+      beautyChips: ['ตัดและแต่งผม', 'ดัด ยืด ทำสีผม', 'ทำเล็บ', 'แต่งหน้า'].map((x) => chip('beauty', x)),
+      beautyShowErr: show('beauty'),
+      needArea: needArea,
+      area: s.area, onArea: set('area'), areaBd: bd('area'), areaShowErr: show('area') || (areaMismatch && !!s.area), areaErr: areaErrText,
+      areaMismatch: areaMismatch,
+      editCase: () => { try { window.localStorage.setItem('tangrat-proto-nav', 'ask'); } catch (e) {} },
+      capital: s.capital, onCapital: set('capital'), capBd: bd('cap'), capShowErr: show('cap'),
+      startLabel: isCommerce ? 'วันเริ่มกิจการ' : 'วันที่จะเปิดร้าน',
+      startDate: s.startDate, onStart: set('startDate'), startBd: bd('start'), lateWarn: lateWarn,
+      whenHint: isCommerce ? 'กฎหมายกำหนดให้ยื่นภายใน 30 วันนับจากวันเริ่มกิจการ' : (svc === 'food' ? (big ? 'ต้องได้รับใบอนุญาตก่อนเปิดร้าน' : 'ต้องแจ้งก่อนเปิดร้าน') : 'ต้องได้รับใบอนุญาตก่อนเปิดให้บริการ'),
+      placeTitle: isChange ? 'ที่ตั้งใหม่' : (isCommerce ? 'ที่ตั้งสำนักงานแห่งใหญ่' : 'ที่ตั้งร้าน'),
+      sameAvail: sameAvail,
+      sameLabel: jur ? 'ใช้ที่ตั้งสำนักงานแห่งใหญ่ตามหนังสือรับรอง' : 'ใช้ที่อยู่ตามทะเบียนบ้านของคุณ',
+      sameAddrText: jur ? '99/9 ถนนพหลโยธิน แขวงจอมพล เขตจตุจักร กรุงเทพฯ 10900' : '123/45 ซอยตัวอย่าง แขวงลาดยาว เขตจตุจักร กรุงเทพฯ 10900',
+      sameAddr: useSame, otherAddr: !useSame,
+      sameBd: useSame ? '#0B7A4B' : '#DCE5DF', otherBd: useSame ? '#DCE5DF' : '#0B7A4B',
+      pickSame: () => this.setState({ sameAddr: true }),
+      pickOther: () => this.setState({ sameAddr: false }),
+      showAddrFields: !useSame,
+      aNo: s.aNo, onANo: set('aNo'), aNoBd: fieldBd(s.aNo),
+      aSoi: s.aSoi, onASoi: set('aSoi'),
+      aSub: s.aSub, onASub: set('aSub'), aSubBd: fieldBd(s.aSub),
+      aDist: s.aDist, onADist: set('aDist'), aDistBd: fieldBd(s.aDist),
+      aProv: s.aProv, onAProv: set('aProv'), aProvBd: fieldBd(s.aProv),
+      aZip: s.aZip, onAZip: set('aZip'), aZipBd: fieldBd(s.aZip, !/^\d{5}$/.test(String(s.aZip).trim())),
+      addrShowErr: show('addr'),
+      rentNote: rent && (isCommerce || kind === 'hazard'),
+      isOnline: isCommerce && isNew && c.biz === 'online',
+      channels: ['Facebook', 'Instagram', 'TikTok Shop', 'Shopee', 'Lazada', 'LINE', 'เว็บไซต์ของตัวเอง'].map((x) => chip('channels', x)),
+      chanShowErr: show('chan'),
+      url: s.url, onUrl: set('url'), urlBd: bd('url'), urlShowErr: show('url'),
+      pays: ['โอนผ่านธนาคาร / พร้อมเพย์', 'บัตรเครดิต / เดบิต', 'เก็บเงินปลายทาง'].map((x) => chip('pays', x)),
+      payShowErr: show('pay'),
+      hasBranch: s.hasBranch, noBranchOn: !s.hasBranch,
+      nbBd: nb.bd, nbBg: nb.bg, nbFg: nb.fg, ybBd: yb.bd, ybBg: yb.bg, ybFg: yb.fg,
+      noBranch: () => this.setState({ hasBranch: false }),
+      yesBranch: () => this.setState({ hasBranch: true }),
+      branch: s.branch, onBranch: set('branch'), branchBd: bd('branch'), branchShowErr: show('branch'),
+      errorCount: errorCount,
+      valid: errorCount === 0,
+      invalid: errorCount > 0,
+      showErrorBanner: s.tried && errorCount > 0,
+      tryNext: () => this.setState({ tried: true }),
+      fillDemo: () => {
+        const u = {
+          phone: '081-234-5678', nameTh: shop, nameEn: isCommerce ? 'Jaidee' : '', goods: goodsPh.replace('เช่น ', ''),
+          capital: isCommerce ? '50000' : this.state.capital, startDate: '2026-11-01',
+          area: needArea ? (svc === 'food' ? (big ? '260' : '60') : '45') : this.state.area,
+          beauty: svc === 'beauty' ? ['ตัดและแต่งผม', 'ทำเล็บ'] : this.state.beauty,
+          channels: c.biz === 'online' ? ['Facebook', 'Shopee'] : this.state.channels,
+          url: c.biz === 'online' ? 'facebook.com/jaideeonline' : this.state.url,
+          pays: c.biz === 'online' ? ['โอนผ่านธนาคาร / พร้อมเพย์', 'เก็บเงินปลายทาง'] : this.state.pays,
+          hasBranch: false, tried: false
+        };
+        if (!isNew) { u.regNo = isCommerce ? (jur ? '0105569012345' : '3100500123456') : '45/2568'; u.nameTh = shop; }
+        if (isRenew) u.expiry = expiredAns ? '2026-10-15' : '2026-12-31';
+        if (isChange || isClose) u.eventDate = '2026-11-01';
+        if (isChange && chg === 'name') u.newName = shop + ' ช็อป';
+        if (isChange && chg === 'type') u.newGoods = 'เพิ่มการขายเครื่องสำอาง';
+        if (isChange && chg === 'other') u.changeDetail = 'เพิ่มช่องทางขาย TikTok Shop';
+        if (!jur && proxy) { u.ownerName = 'นางสาวสมใจ รักงาน'; u.ownerId = '3100501234567'; }
+        if (jur) { u.jurNo = '0105569012345'; u.jurFetched = true; }
+        if (showPlace && (!sameAvail || rent)) {
+          const pv = c.province || 'กรุงเทพมหานคร';
+          u.sameAddr = false; u.aNo = '88/8'; u.aProv = pv;
+          if (pv === 'กรุงเทพมหานคร') { u.aSoi = 'ถนนงามวงศ์วาน'; u.aSub = 'ลาดยาว'; u.aDist = 'จตุจักร'; u.aZip = '10900'; }
+          else {
+            const zip = { 'กระบี่': '81000', 'กาญจนบุรี': '71000', 'กาฬสินธุ์': '46000', 'กำแพงเพชร': '62000', 'ขอนแก่น': '40000', 'จันทบุรี': '22000', 'ฉะเชิงเทรา': '24000', 'ชลบุรี': '20000', 'ชัยนาท': '17000', 'ชัยภูมิ': '36000', 'ชุมพร': '86000', 'เชียงราย': '57000', 'เชียงใหม่': '50000', 'ตรัง': '92000', 'ตราด': '23000', 'ตาก': '63000', 'นครนายก': '26000', 'นครปฐม': '73000', 'นครพนม': '48000', 'นครราชสีมา': '30000', 'นครศรีธรรมราช': '80000', 'นครสวรรค์': '60000', 'นนทบุรี': '11000', 'นราธิวาส': '96000', 'น่าน': '55000', 'บึงกาฬ': '38000', 'บุรีรัมย์': '31000', 'ปทุมธานี': '12000', 'ประจวบคีรีขันธ์': '77000', 'ปราจีนบุรี': '25000', 'ปัตตานี': '94000', 'พระนครศรีอยุธยา': '13000', 'พะเยา': '56000', 'พังงา': '82000', 'พัทลุง': '93000', 'พิจิตร': '66000', 'พิษณุโลก': '65000', 'เพชรบุรี': '76000', 'เพชรบูรณ์': '67000', 'แพร่': '54000', 'ภูเก็ต': '83000', 'มหาสารคาม': '44000', 'มุกดาหาร': '49000', 'แม่ฮ่องสอน': '58000', 'ยโสธร': '35000', 'ยะลา': '95000', 'ร้อยเอ็ด': '45000', 'ระนอง': '85000', 'ระยอง': '21000', 'ราชบุรี': '70000', 'ลพบุรี': '15000', 'ลำปาง': '52000', 'ลำพูน': '51000', 'เลย': '42000', 'ศรีสะเกษ': '33000', 'สกลนคร': '47000', 'สงขลา': '90000', 'สตูล': '91000', 'สมุทรปราการ': '10270', 'สมุทรสงคราม': '75000', 'สมุทรสาคร': '74000', 'สระแก้ว': '27000', 'สระบุรี': '18000', 'สิงห์บุรี': '16000', 'สุโขทัย': '64000', 'สุพรรณบุรี': '72000', 'สุราษฎร์ธานี': '84000', 'สุรินทร์': '32000', 'หนองคาย': '43000', 'หนองบัวลำภู': '39000', 'อ่างทอง': '14000', 'อำนาจเจริญ': '37000', 'อุดรธานี': '41000', 'อุตรดิตถ์': '53000', 'อุทัยธานี': '61000', 'อุบลราชธานี': '34000' };
+            u.aSoi = 'ถนนตัวอย่าง'; u.aSub = 'ตำบลตัวอย่าง'; u.aDist = pv === 'พระนครศรีอยุธยา' ? 'พระนครศรีอยุธยา' : 'เมือง' + pv; u.aZip = zip[pv] || '';
+          }
+        }
+        else { u.sameAddr = true; }
+        this.setState(u);
+      },
+      toast: s.toast,
+      hasToast: !!s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

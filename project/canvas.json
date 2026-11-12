@@ -1,0 +1,141 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Login.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 32,
+      "title": "0 · ต้อนรับ + เข้าสู่ระบบ",
+      "w": 390,
+      "x": -470,
+      "y": 0
+    },
+    "Form.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 32,
+      "title": "4 · แบบฟอร์มคำขอ",
+      "w": 390,
+      "x": 1410,
+      "y": 0
+    },
+    "Main.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 32,
+      "title": "2 · บริการสำหรับธุรกิจ + ค้นหาอัจฉริยะ",
+      "w": 390,
+      "x": 470,
+      "y": 0
+    },
+    "Review.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 32,
+      "title": "6 · ตรวจสอบและส่งคำขอ",
+      "w": 390,
+      "x": 2350,
+      "y": 0
+    },
+    "Service.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 32,
+      "title": "3 · รายละเอียดบริการ + ยินยอม",
+      "w": 390,
+      "x": 940,
+      "y": 0
+    },
+    "Tracking.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 32,
+      "title": "7 · ติดตามสถานะคำขอ",
+      "w": 390,
+      "x": 2820,
+      "y": 0
+    },
+    "Upload.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 32,
+      "title": "5 · แนบเอกสาร",
+      "w": 390,
+      "x": 1880,
+      "y": 0
+    },
+    "Home.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 32,
+      "title": "1 · หน้าหลักแอป",
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "Notifications.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 32,
+      "title": "1a · แจ้งเตือน",
+      "w": 390,
+      "x": 0,
+      "y": 964
+    },
+    "Wallet.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 32,
+      "title": "1b · กระเป๋าเอกสาร",
+      "w": 390,
+      "x": 470,
+      "y": 964
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-11-04T03:12:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "file": "Login.dc.html",
+    "view": "focused"
+  },
+  "noteOrder": [
+    "title",
+    "howto"
+  ],
+  "notes": {
+    "howto": {
+      "fill": "blue",
+      "size": 24,
+      "text": "วิธีทดลอง: กด Play ที่หน้าจอ 0 แล้วเข้าสู่ระบบ เลือก \"บริการภาคธุรกิจ\" ในหน้าหลัก กด \"จดทะเบียนธุรกิจ\" แล้วพิมพ์สิ่งที่อยากทำ หรือกดตัวอย่าง 6 สถานการณ์ (เปิดร้านอาหาร · บริษัทขอใบอนุญาตเพิ่ม · ยื่นแทนบริษัท · ต่ออายุใบอนุญาต · เปลี่ยนชื่อร้าน · ติดตามคำขอ) ระบบถามเฉพาะข้อที่ยังไม่รู้ แล้วแนะนำบริการตามลำดับพร้อมช่องทาง (ยื่นในแอป / ยื่นที่หน่วยงาน) ย้อนกลับได้ทุกขั้นโดยข้อมูลไม่หาย สถานะคำขอทั้งหมดเป็นข้อมูลจำลอง",
+      "w": 390,
+      "x": -470,
+      "y": 964
+    },
+    "title": {
+      "kind": "title1",
+      "maxW": 3680,
+      "text": "เริ่มธุรกิจผ่านแอปทางรัฐ ภาคธุรกิจ · Clickable Prototype",
+      "w": 240,
+      "x": -470,
+      "y": -300
+    }
+  },
+  "order": [
+    "Login.dc.html",
+    "Home.dc.html",
+    "Notifications.dc.html",
+    "Wallet.dc.html",
+    "Main.dc.html",
+    "Service.dc.html",
+    "Form.dc.html",
+    "Upload.dc.html",
+    "Review.dc.html",
+    "Tracking.dc.html"
+  ],
+  "pages": [],
+  "title": "Prototype จดทะเบียนพาณิชย์ ทางรัฐ"
+}

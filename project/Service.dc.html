@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<title>รายละเอียดบริการ</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#0B7A4B}a:hover{color:#075234}
+button{font:inherit}
+.ic{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+button:focus-visible,a:focus-visible{outline:3px solid #86CFA7;outline-offset:2px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{animation:spin 0.9s linear infinite}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; display: flex; flex-direction: column; background: #F3F6F4; font-family: 'IBM Plex Sans Thai', system-ui, sans-serif; color: #15202E; position: relative; overflow: hidden">
+
+<div style="flex: 0 0 auto; display: flex; align-items: center; gap: 8px; padding: 12px 12px; background: #FFFFFF; border-bottom: 1px solid #DCE5DF">
+<a href="Main.dc.html" aria-label="ย้อนกลับ" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #15202E; background: #F3F6F4">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+</a>
+<h1 style="margin: 0; font-size: 17px; font-weight: 600">รายละเอียดบริการ</h1>
+</div>
+
+<div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 16px 16px 24px; display: flex; flex-direction: column; gap: 14px">
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 14px; border: 1px solid #DCE5DF">
+<div style="display: flex; gap: 12px; align-items: flex-start">
+<div aria-hidden="true" style="flex: 0 0 48px; width: 48px; height: 48px; border-radius: 14px; background: #0B7A4B; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg class="ic" width="26" height="26" viewBox="0 0 24 24"><path d="M3 9l2-5h14l2 5"></path><path d="M4 9v11h16V9"></path><path d="M9 20v-6h6v6"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 style="margin: 0; font-size: 19px; font-weight: 600; line-height: 1.3">{{svTitle}}</h2>
+<span style="font-size: 13.5px; color: #556070">{{svSub}} · {{svAgency}}</span>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<div style="background: #F3F6F4; border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 12px; color: #556070">ค่าธรรมเนียม</span>
+<span style="font-size: 15px; font-weight: 600">{{svFeeShort}}</span>
+</div>
+<div style="background: #F3F6F4; border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 12px; color: #556070">ระยะเวลา</span>
+<span style="font-size: 15px; font-weight: 600">{{svTimeShort}}</span>
+</div>
+<div style="background: #F3F6F4; border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 12px; color: #556070">ช่องทาง</span>
+<span style="font-size: 15px; font-weight: 600">{{svChannelShort}}</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; line-height: 1.5; color: #3B4655">
+<span><strong style="font-weight: 600; color: #8A4B00">กำหนด:</strong> {{svWhen}}</span>
+<sc-if value="{{showMore}}" hint-placeholder-val="{{false}}">
+<span><strong style="font-weight: 600; color: #15202E">ค่าธรรมเนียม:</strong> {{svFee}}</span>
+<span><strong style="font-weight: 600; color: #15202E">ระยะเวลา:</strong> {{svTime}}</span>
+<span style="color: #556070">อ้างอิง: {{svLaw}}</span>
+</sc-if>
+<button onClick="{{toggleMore}}" aria-expanded="{{showMore}}" style="align-self: flex-start; min-height: 36px; border: none; background: transparent; padding: 0; color: #0B7A4B; font-size: 13.5px; font-weight: 600; cursor: pointer">{{moreLabel}}</button>
+</div>
+<sc-if value="{{isExternal}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: #FFF1DB; color: #5A3200; font-size: 13.5px; line-height: 1.5">
+<svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 20px; margin-top: 1px"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"></path></svg>
+<span><strong style="font-weight: 600">ยื่นผ่านแอปไม่ได้</strong> · {{svChannelText}}</span>
+</div>
+</sc-if>
+</section>
+
+<section id="docs" style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 14px; border: 1.5px solid #0B7A4B">
+<div style="display: flex; gap: 12px; align-items: flex-start">
+<div aria-hidden="true" style="flex: 0 0 40px; width: 40px; height: 40px; border-radius: 12px; background: #E8F5EE; color: #0B7A4B; display: flex; align-items: center; justify-content: center">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"></path><path d="M14 3v5h5"></path><path d="m9 14 2 2 4-4"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+<h3 style="margin: 0; font-size: 16px; font-weight: 600">เอกสารสำหรับคุณ</h3>
+<a href="Main.dc.html" onClick="{{editCase}}" style="align-self: flex-start; min-height: 32px; display: flex; align-items: center; font-size: 13.5px; font-weight: 600">แก้ไขคำตอบ</a>
+</div>
+</div>
+
+<sc-if value="{{isProxy}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; border-radius: 14px; background: #EEF4FB; border: 1px solid #C9DAF0">
+<button onClick="{{toggleProxy}}" aria-expanded="{{showProxy}}" style="align-self: stretch; min-height: 36px; border: none; background: transparent; padding: 0; color: #123E6B; font-size: 14px; font-weight: 600; text-align: left; cursor: pointer">{{proxyLabel}}</button>
+<sc-if value="{{showProxy}}" hint-placeholder-val="{{false}}">
+<ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; font-size: 13px; line-height: 1.5; color: #2A3A4C">
+<sc-for list="{{proxySteps}}" as="ps" hint-placeholder-count="3">
+<li>{{ps}}</li>
+</sc-for>
+</ol>
+</sc-if>
+</div>
+</sc-if>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #8A4B00">คุณต้องเตรียม {{needCount}} รายการ</h4>
+<sc-if value="{{noNeed}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-radius: 14px; background: #E8F5EE; color: #0B4F34; font-size: 13.5px; line-height: 1.5">
+<svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 20px"><path d="M20 6 9 17l-5-5"></path></svg>
+<span>ไม่ต้องแนบเพิ่ม ระบบเตรียมให้ครบ</span>
+</div>
+</sc-if>
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{needDocs}}" as="d" hint-placeholder-count="2">
+<li style="border-radius: 14px; background: #FFFAF2; border: 1px solid #F5DDB0; padding: 12px 14px; display: flex; gap: 12px">
+<span style="flex: 0 0 26px; width: 26px; height: 26px; border-radius: 50%; background: #8A4B00; color: #FFFFFF; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{d.n}}</span>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+<span style="font-size: 14.5px; font-weight: 600; line-height: 1.4">{{d.name}}</span>
+<span style="font-size: 13px; line-height: 1.5; color: #3B4655">{{d.what}}</span>
+</div>
+</li>
+</sc-for>
+</ol>
+</div>
+
+<sc-if value="{{hasOptional}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #3B4655">แนบเพิ่ม (ถ้ามี)</h4>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{optDocs}}" as="o" hint-placeholder-count="2">
+<li style="display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px; background: #F3F6F4">
+<span style="font-size: 13.5px; font-weight: 500">{{o.name}}</span>
+<span style="font-size: 12.5px; color: #556070">{{o.what}}</span>
+</li>
+</sc-for>
+</ul>
+</div>
+</sc-if>
+
+<sc-if value="{{hasAuto}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #0B5E3C">ระบบเตรียมให้ {{autoCount}} รายการ</h4>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{autoDocs}}" as="a" hint-placeholder-count="3">
+<li style="display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: #F3FAF6">
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 18px; margin-top: 2px; color: #0B7A4B"><path d="M20 6 9 17l-5-5"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 1px">
+<span style="font-size: 14px; font-weight: 500">{{a.name}}</span>
+</div>
+</li>
+</sc-for>
+</ul>
+</div>
+</sc-if>
+
+<sc-if value="{{hasNote}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: #FFF4E0; font-size: 13px; line-height: 1.5; color: #5A3200">
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 18px; margin-top: 1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+<span>{{svNote}}</span>
+</div>
+</sc-if>
+<div style="display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: #F3F6F4; font-size: 13px; line-height: 1.5; color: #3B4655">
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 18px; margin-top: 1px; color: #556070"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+<span>JPG, PNG, PDF · ไม่เกิน 5 MB</span>
+</div>
+</section>
+
+<sc-if value="{{hasOthers}}" hint-placeholder-val="{{false}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 10px; border: 1px solid #DCE5DF">
+<h3 style="margin: 0; font-size: 16px; font-weight: 600">บริการอื่นในกรณีของคุณ</h3>
+<sc-for list="{{others}}" as="ot" hint-placeholder-count="1">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px; border-radius: 12px; background: #F3F6F4">
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="font-size: 14px; font-weight: 600; line-height: 1.4">ขั้นที่ {{ot.n}} · {{ot.title}}</span>
+<span style="font-size: 12.5px; color: #556070">{{ot.channel}} · {{ot.when}}</span>
+</div>
+<button onClick="{{ot.pick}}" style="flex: 0 0 auto; min-height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid #0B7A4B; background: #FFFFFF; color: #075234; font-size: 13.5px; font-weight: 600; cursor: pointer">ดูบริการนี้</button>
+</div>
+</sc-for>
+</section>
+</sc-if>
+
+<sc-if value="{{hasSkipped}}" hint-placeholder-val="{{false}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 8px; border: 1px solid #DCE5DF">
+<button onClick="{{toggleTips}}" aria-expanded="{{showTips}}" style="align-self: stretch; min-height: 36px; border: none; background: transparent; padding: 0; color: #15202E; font-size: 16px; font-weight: 600; text-align: left; cursor: pointer">{{tipsLabel}}</button>
+<sc-if value="{{showTips}}" hint-placeholder-val="{{false}}">
+<sc-for list="{{skipped}}" as="k" hint-placeholder-count="1">
+<span style="font-size: 13px; line-height: 1.5; color: #3B4655"><strong style="font-weight: 600; color: #15202E">{{k.title}}:</strong> {{k.reason}}</span>
+</sc-for>
+</sc-if>
+</section>
+</sc-if>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #DCE5DF">
+<h3 style="margin: 0; font-size: 16px; font-weight: 600">ขั้นตอน</h3>
+<sc-for list="{{steps}}" as="st" hint-placeholder-count="5">
+<div style="display: flex; gap: 12px; align-items: flex-start">
+<span style="flex: 0 0 28px; width: 28px; height: 28px; border-radius: 50%; background: #E8F5EE; color: #075234; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{st.n}}</span>
+<div style="display: flex; flex-direction: column; gap: 1px">
+<span style="font-size: 14.5px; font-weight: 600">{{st.title}}</span>
+</div>
+</div>
+</sc-for>
+</section>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 10px; border: 1px solid #DCE5DF">
+<h3 style="margin: 0; font-size: 16px; font-weight: 600">ติดต่อหน่วยงาน</h3>
+<span style="font-size: 14px; line-height: 1.5">{{svContact}}</span>
+<button onClick="{{openChat}}" style="min-height: 44px; border-radius: 12px; border: 1px solid #C3D1C8; background: #FFFFFF; color: #15202E; font-size: 14.5px; cursor: pointer">แชตกับเจ้าหน้าที่</button>
+</section>
+
+</div>
+
+<div style="flex: 0 0 auto; background: #FFFFFF; border-top: 1px solid #DCE5DF; padding: 12px 16px 20px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; font-size: 13.5px">
+<span style="color: #3B4655">ต้องเตรียมเอง <strong style="font-weight: 700; color: #8A4B00">{{needCount}} รายการ</strong></span>
+<a href="#docs" style="min-height: 32px; display: flex; align-items: center; font-weight: 600">ดูรายการเอกสาร</a>
+</div>
+<sc-if value="{{isApp}}" hint-placeholder-val="{{true}}">
+<button onClick="{{startVerify}}" style="width: 100%; min-height: 52px; border-radius: 14px; border: none; background: #0B7A4B; color: #FFFFFF; font-size: 16.5px; font-weight: 600; cursor: pointer">เริ่มดำเนินการ</button>
+</sc-if>
+<sc-if value="{{isExternal}}" hint-placeholder-val="{{false}}">
+<a href="Main.dc.html" style="width: 100%; min-height: 52px; border-radius: 14px; border: 1.5px solid #0B7A4B; background: #FFFFFF; color: #075234; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">กลับไปบริการที่แนะนำ</a>
+</sc-if>
+</div>
+
+<sc-if value="{{showSheet}}" hint-placeholder-val="{{false}}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; z-index: 20">
+<button aria-label="ปิด" onClick="{{closeSheet}}" style="flex: 1; min-height: 80px; border: none; background: rgba(21,32,46,0.4); cursor: pointer"></button>
+<div style="background: #FFFFFF; border-radius: 22px 22px 0 0; padding: 18px 18px 24px; display: flex; flex-direction: column; gap: 14px; max-height: 760px; overflow-y: auto">
+
+<div style="display: flex; align-items: center; justify-content: space-between">
+<span style="font-size: 13px; color: #556070">ขั้นที่ {{sheetStep}} จาก {{sheetTotal}}</span>
+<button aria-label="ปิดหน้าต่าง" onClick="{{closeSheet}}" style="width: 44px; height: 44px; border: none; background: #F3F6F4; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #15202E; cursor: pointer">
+<svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+</button>
+</div>
+
+<sc-if value="{{isVerify}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div aria-hidden="true" style="width: 56px; height: 56px; border-radius: 16px; background: #E8F5EE; color: #0B7A4B; display: flex; align-items: center; justify-content: center">
+<svg class="ic" width="30" height="30" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"></path><path d="m9 12 2 2 4-4"></path></svg>
+</div>
+<h2 style="margin: 0; font-size: 19px; font-weight: 600">ยืนยันตัวตนก่อนเริ่ม</h2>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: #3B4655">{{verifyText}}</p>
+<sc-if value="{{hasNeed}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: #FFF4E0; color: #5A3200; font-size: 13.5px; line-height: 1.5">
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 18px; margin-top: 2px"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17h.01"></path></svg>
+<span>เตรียมเอกสาร {{needCount}} รายการไว้ด้วย</span>
+</div>
+</sc-if>
+<sc-if value="{{verifying}}" hint-placeholder-val="{{false}}">
+<div role="status" style="min-height: 52px; border-radius: 14px; background: #E8F5EE; color: #075234; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 15px; font-weight: 500">
+<svg class="ic spin" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.2-8.6"></path></svg>
+กำลังยืนยันตัวตน...
+</div>
+</sc-if>
+<sc-if value="{{notVerifying}}" hint-placeholder-val="{{true}}">
+<button onClick="{{doVerify}}" style="min-height: 52px; border-radius: 14px; border: none; background: #0B7A4B; color: #FFFFFF; font-size: 16px; font-weight: 600; cursor: pointer">ยืนยันตัวตนด้วย Digital ID</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{isConsent}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 12px; background: #E8F5EE; color: #0B4F34; font-size: 13.5px; font-weight: 500">
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+ยืนยันตัวตนสำเร็จ
+</div>
+<h2 style="margin: 0; font-size: 19px; font-weight: 600">ขอความยินยอมใช้ข้อมูล</h2>
+<p style="margin: 0; font-size: 14px; line-height: 1.55; color: #3B4655">ระบบจะดึงข้อมูลนี้มากรอกให้อัตโนมัติ</p>
+<div style="border: 1px solid #DCE5DF; border-radius: 14px; overflow: hidden">
+<sc-for list="{{dataItems}}" as="di" hint-placeholder-count="5">
+<div style="display: flex; justify-content: space-between; gap: 10px; padding: 11px 14px; border-bottom: 1px solid #EDF2EF; font-size: 14px">
+<span>{{di.name}}</span>
+<span style="color: #556070; font-size: 13px; text-align: right">{{di.from}}</span>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{isProxy}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: #5A3200">ข้อมูลผู้มอบอำนาจต้องแนบเอง</p>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; line-height: 1.5; color: #3B4655">
+<span><strong style="font-weight: 600; color: #15202E">ใช้เพื่อ:</strong> จัดทำคำขอ{{svTitle}} และส่งให้{{svAgency}}เท่านั้น</span>
+<span><strong style="font-weight: 600; color: #15202E">ระยะเวลา:</strong> จนคำขอนี้เสร็จสิ้น ถอนได้ที่เมนูบัญชี</span>
+</div>
+<label for="agree" style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; border-radius: 12px; background: #F3F6F4; font-size: 14px; line-height: 1.5; cursor: pointer">
+<input id="agree" type="checkbox" checked="{{agree}}" onChange="{{toggleAgree}}" style="width: 22px; height: 22px; margin: 1px 0 0; accent-color: #0B7A4B; flex: 0 0 22px">
+ยินยอมให้ใช้ข้อมูลข้างต้นสำหรับคำขอนี้
+</label>
+<sc-if value="{{agree}}" hint-placeholder-val="{{false}}">
+<a href="Form.dc.html" style="min-height: 52px; border-radius: 14px; background: #0B7A4B; color: #FFFFFF; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">ยินยอมและเริ่มกรอกข้อมูล</a>
+</sc-if>
+<sc-if value="{{notAgree}}" hint-placeholder-val="{{true}}">
+<button disabled="{{true}}" style="min-height: 52px; border-radius: 14px; border: none; background: #E3E9E5; color: #556070; font-size: 15px; font-weight: 500">ติ๊กยินยอมก่อน</button>
+</sc-if>
+<button onClick="{{closeSheet}}" style="min-height: 44px; border: none; background: transparent; color: #0B7A4B; font-size: 14.5px; font-weight: 500; cursor: pointer">ไม่ยินยอม</button>
+</div>
+</sc-if>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{false}}">
+<div role="status" style="position: absolute; left: 16px; right: 16px; bottom: 120px; padding: 12px 16px; border-radius: 14px; background: #15202E; color: #FFFFFF; font-size: 14px; text-align: center; z-index: 30">{{toast}}</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { c: this.loadCase(), sheet: 'none', verifying: false, agree: false, toast: '', authed: this.isAuthed() };
+  }
+  componentDidMount() {
+    this._epoch = this.epoch();
+    this._raw = this.rawCase();
+    this._poll = setInterval(() => {
+      const r = this.rawCase();
+      if (this.epoch() !== this._epoch) { this._epoch = this.epoch(); this.setState(this.freshState()); return; }
+      if (r !== this._raw) { this._raw = r; this.setState({ c: this.loadCase() }); }
+      const a = this.isAuthed();
+      if (a !== this.state.authed && this.state.sheet === 'none') this.setState({ authed: a });
+    }, 800);
+  }
+  isAuthed() {
+    try { return window.localStorage.getItem('tangrat-proto-auth') === '1'; } catch (e) { return false; }
+  }
+  epoch() {
+    try { return window.localStorage.getItem('tangrat-proto-epoch') || ''; } catch (e) { return ''; }
+  }
+  freshState() {
+    return { c: this.loadCase(), sheet: 'none', verifying: false, agree: false, toast: '', authed: false };
+  }
+  componentWillUnmount() { clearTimeout(this._t); clearTimeout(this._v); clearInterval(this._poll); }
+  flash(msg) {
+    clearTimeout(this._t);
+    this.setState({ toast: msg });
+    this._t = setTimeout(() => this.setState({ toast: '' }), 2400);
+  }
+  rawCase() {
+    try { return (window.localStorage.getItem('tangrat-proto-case') || '') + '|' + (window.localStorage.getItem('tangrat-proto-plan') || ''); } catch (e) { return ''; }
+  }
+  loadCase() {
+    let c = null;
+    try { const v = window.localStorage.getItem('tangrat-proto-case'); c = v ? JSON.parse(v) : null; } catch (e) { c = null; }
+    return Object.assign({ service: '', query: '' }, c || {});
+  }
+  saveCase(c) {
+    try { window.localStorage.setItem('tangrat-proto-case', JSON.stringify(c)); } catch (e) {}
+  }
+  plan(c) {
+    let p = null;
+    try { const v = window.localStorage.getItem('tangrat-proto-plan'); p = v ? JSON.parse(v) : null; } catch (e) { p = null; }
+    if (!p || !p.services || !p.services.length) p = {"services":[{"sub":"พาณิชย์อิเล็กทรอนิกส์","note":"","payNow":true,"channel":"app","channelText":"ยื่นในแอปนี้ (ต้นแบบสาธิตการยื่นออนไลน์)","contact":"สายด่วนกรมพัฒนาธุรกิจการค้า 1570","auto":[{"name":"คำขอจดทะเบียนพาณิชย์ (แบบ ทพ.)","from":"ระบบจัดทำจากข้อมูลที่คุณกรอก"},{"name":"สำเนาบัตรประชาชนและทะเบียนบ้านของผู้ประกอบการ (คุณ)","from":"ดึงจากกรมการปกครอง ตามความยินยอมของคุณ"},{"name":"รายละเอียดเว็บไซต์หรือแพลตฟอร์มที่ใช้ขาย","from":"ระบบจัดทำจากช่องทางขายที่คุณกรอก 1 ชุดต่อ 1 ช่องทาง"}],"must":[],"id":"commerce-new","kind":"commerce","mode":"new","title":"จดทะเบียนพาณิชย์ (ตั้งใหม่)","agency":"นายทะเบียนพาณิชย์ สำนักงานเขตที่ร้านตั้งอยู่","law":"พ.ร.บ.ทะเบียนพาณิชย์ พ.ศ. 2499","fee":"50 บาท","feeShort":"50 บาท","time":"ประมาณ 60 นาทีเมื่อเอกสารครบ","timeShort":"60 นาที","when":"ยื่นภายใน 30 วันนับจากวันเริ่มประกอบกิจการ","result":"ใบทะเบียนพาณิชย์","formName":"แบบคำขอจดทะเบียนพาณิชย์ (แบบ ทพ.)","reason":"ผู้ประกอบการบุคคลธรรมดาที่ประกอบพาณิชยกิจประเภทนี้ต้องจดทะเบียนพาณิชย์","feePay":true,"proxySteps":[]}],"skipped":[],"purpose":"new","purposeLabel":"เปิดกิจการใหม่","biz":"online","bizLabel":"ร้านค้าออนไลน์","caseText":"เปิดกิจการใหม่ · ร้านค้าออนไลน์ · บุคคลธรรมดา · ยื่นด้วยตนเอง · สถานที่ของผู้ประกอบการ · กรุงเทพมหานคร","jur":false,"proxy":false,"rent":false,"change":"","size":"","province":"กรุงเทพมหานคร"};
+    const sel = p.services.filter((x) => x.id === c.service)[0] || p.services[0];
+    return Object.assign({}, p, { sel: sel });
+  }
+  renderVals() {
+    const s = this.state;
+    const c = s.c;
+    const p = this.plan(c);
+    const sv = p.sel;
+    const need = sv.must.filter((m) => !m.optional);
+    const opt = sv.must.filter((m) => m.optional);
+    const inspect = sv.time.indexOf('ตรวจ') !== -1;
+    const app = sv.channel !== 'external';
+    const steps = !app ? [
+      { title: 'เตรียมเอกสารตามรายการ', desc: 'รายการอาจต่างกันตามหน่วยงาน ตรวจสอบก่อนไปยื่น' },
+      { title: 'ยื่นคำขอที่หน่วยงาน', desc: sv.agency },
+      { title: 'ติดตามผลกับหน่วยงาน', desc: sv.contact }
+    ] : [
+      this.state.authed ? { title: 'ให้ความยินยอมใช้ข้อมูล', desc: 'ยืนยันตัวตนแล้วตอนเข้าสู่ระบบ ไม่ต้องยืนยันซ้ำ' } : { title: 'ยืนยันตัวตนและให้ความยินยอม', desc: 'ครั้งเดียว ใช้ Digital ID ในแอป' },
+      { title: 'กรอกข้อมูลตาม' + sv.formName, desc: 'ข้อมูลที่ระบบมีอยู่แล้วจะเติมให้อัตโนมัติ' },
+      { title: 'แนบเอกสาร', desc: 'เฉพาะรายการที่กรณีของคุณต้องใช้' },
+      { title: 'ตรวจสอบและส่งคำขอ', desc: 'ดูตัวอย่างคำขอก่อนกดส่ง' }
+    ];
+    if (inspect && app) steps.push({ title: 'เจ้าหน้าที่ตรวจสถานที่', desc: 'นัดหมายและแจ้งผลผ่านแอป' });
+    if (app) steps.push({ title: 'ติดตามสถานะและรับ' + sv.result, desc: 'แจ้งเตือนทุกขั้น เก็บเอกสารในกระเป๋าเอกสาร' });
+    const proxySteps = sv.proxySteps || [];
+    const dataItems = [
+      { name: 'ชื่อ-นามสกุล และเลขประจำตัวประชาชน', from: 'กรมการปกครอง' },
+      { name: 'ที่อยู่ตามทะเบียนบ้าน', from: 'กรมการปกครอง' },
+      { name: 'สำเนาบัตรและทะเบียนบ้านของคุณ', from: 'กรมการปกครอง' }
+    ];
+    if (p.jur) dataItems.push({ name: 'ข้อมูลนิติบุคคลและรายชื่อกรรมการ', from: 'กรมพัฒนาธุรกิจการค้า' });
+    const others = p.services.map((x, i) => ({ x: x, n: String(i + 1) })).filter((o) => o.x.id !== sv.id).map((o) => ({
+      n: o.n, title: o.x.title, sub: o.x.sub, when: o.x.when, channel: o.x.channel === 'external' ? 'ยื่นที่หน่วยงาน' : 'ยื่นในแอปได้',
+      pick: () => { const nc = Object.assign({}, this.state.c, { service: o.x.id }); this.saveCase(nc); this._raw = this.rawCase(); this.setState({ c: nc }); }
+    }));
+    return {
+      svTitle: sv.title, svSub: sv.sub, svAgency: sv.agency, svFee: sv.fee, svFeeShort: sv.feeShort,
+      svTime: sv.time, svTimeShort: sv.timeShort, svWhen: sv.when, svLaw: sv.law, svNote: sv.note, svContact: sv.contact,
+      hasNote: !!sv.note,
+      isApp: app, isExternal: !app,
+      svChannelShort: app ? 'ในแอปนี้' : 'ที่หน่วยงาน',
+      svChannelText: sv.channelText || '',
+      caseText: p.caseText, bizLabel: p.bizLabel,
+      editCase: () => { try { window.localStorage.setItem('tangrat-proto-nav', 'ask'); } catch (e) {} },
+      isProxy: p.proxy && proxySteps.length > 0, proxySteps: proxySteps,
+      showMore: !!this.state.showMore, moreLabel: this.state.showMore ? 'ซ่อน' : 'ดูเพิ่ม', toggleMore: () => this.setState({ showMore: !this.state.showMore }),
+      showProxy: !!this.state.showProxy, proxyLabel: (this.state.showProxy ? '▾ ' : '▸ ') + 'ขั้นตอนเมื่อยื่นแทน', toggleProxy: () => this.setState({ showProxy: !this.state.showProxy }),
+      showTips: !!this.state.showTips, tipsLabel: (this.state.showTips ? '▾ ' : '▸ ') + 'ข้อควรรู้', toggleTips: () => this.setState({ showTips: !this.state.showTips }),
+      needDocs: need.map((d, i) => ({ n: String(i + 1), name: d.name, what: d.what })),
+      needCount: need.length, noNeed: need.length === 0, hasNeed: need.length > 0,
+      optDocs: opt.map((d) => ({ name: d.name, what: d.what })), hasOptional: opt.length > 0,
+      autoDocs: sv.auto, autoCount: sv.auto.length, hasAuto: sv.auto.length > 0,
+      others: others, hasOthers: others.length > 0,
+      skipped: p.skipped, hasSkipped: p.skipped.length > 0,
+      steps: steps.map((x, i) => ({ n: String(i + 1), title: x.title, desc: x.desc })),
+      dataItems: dataItems,
+      verifyText: p.proxy
+        ? 'ยืนยันตัวตนของคุณในฐานะผู้รับมอบอำนาจด้วย Digital ID ที่ผูกกับแอปนี้ ไม่ต้องเข้าสู่ระบบเว็บไซต์ของหน่วยงานอื่นซ้ำ'
+        : 'ใช้ Digital ID ที่ผูกกับแอปนี้อยู่แล้ว ยืนยันครั้งเดียว ไม่ต้องเข้าสู่ระบบเว็บไซต์ของหน่วยงานอื่นซ้ำ',
+      showSheet: s.sheet !== 'none',
+      isVerify: s.sheet === 'verify',
+      isConsent: s.sheet === 'consent',
+      sheetStep: s.sheet === 'consent' && !s.authed ? '2' : '1',
+      sheetTotal: s.authed ? '1' : '2',
+      verifying: s.verifying,
+      notVerifying: !s.verifying,
+      startVerify: () => { const a = this.isAuthed(); this.setState({ authed: a, sheet: a ? 'consent' : 'verify', verifying: false }); },
+      doVerify: () => {
+        this.setState({ verifying: true });
+        clearTimeout(this._v);
+        this._v = setTimeout(() => {
+          try { window.localStorage.setItem('tangrat-proto-auth', '1'); } catch (e) {}
+          this.setState({ verifying: false, sheet: 'consent' });
+        }, 1300);
+      },
+      closeSheet: () => { clearTimeout(this._v); this.setState({ sheet: 'none', verifying: false }); },
+      agree: s.agree,
+      notAgree: !s.agree,
+      toggleAgree: () => this.setState({ agree: !this.state.agree }),
+      openChat: () => this.flash('แชตกับเจ้าหน้าที่อยู่นอกขอบเขตต้นแบบนี้'),
+      toast: s.toast,
+      hasToast: !!s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

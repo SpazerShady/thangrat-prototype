@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<title>หน้าหลัก - ทางรัฐ ภาคธุรกิจ</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#0B7A4B}a:hover{color:#075234}
+button{font:inherit}
+.ic{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.inp{width:100%;min-height:48px;padding:12px 14px;border:1px solid #C5CEDB;border-radius:12px;font:inherit;font-size:15px;color:#15202E;background:#FFFFFF}
+.inp:focus{outline:3px solid #86CFA7;outline-offset:1px;border-color:#0B7A4B}
+button:focus-visible,a:focus-visible{outline:3px solid #86CFA7;outline-offset:2px}
+.tile{transition:background .12s,border-color .12s}
+.tile:active{background:#E8F5EE !important;border-color:#0B7A4B !important}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; display: flex; flex-direction: column; background: #F3F6F4; font-family: 'IBM Plex Sans Thai', system-ui, sans-serif; color: #15202E; position: relative; overflow: hidden">
+
+<div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding-bottom: 24px">
+
+<header style="background: #075234; color: #FFFFFF; padding: 20px 20px 68px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<div style="display: flex; align-items: center; gap: 10px">
+<sc-if value="{{isTilesStage}}" hint-placeholder-val="{{true}}">
+<a href="Home.dc.html" aria-label="กลับหน้าหลักแอป" style="flex: 0 0 44px; width: 44px; height: 44px; margin-left: -8px; border-radius: 12px; background: rgba(255,255,255,0.14); color: #FFFFFF; display: flex; align-items: center; justify-content: center; text-decoration: none"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></a>
+</sc-if>
+<sc-if value="{{isAskStage}}" hint-placeholder-val="{{false}}">
+<button aria-label="กลับไปบริการสำหรับธุรกิจ" onClick="{{backToTiles}}" style="flex: 0 0 44px; width: 44px; height: 44px; margin-left: -8px; border-radius: 12px; border: none; background: rgba(255,255,255,0.14); color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></button>
+</sc-if>
+<div aria-hidden="true" style="width: 38px; height: 38px; border-radius: 11px; background: #FFFFFF; overflow: hidden; display: flex; align-items: center; justify-content: center"><img src="/_blob/745e58c465e92bf487df051d92f4d186" alt="" style="width: 100%; height: 100%; object-fit: contain; display: block"></div>
+<div style="display: flex; flex-direction: column">
+<span style="font-size: 16px; font-weight: 600">ทางรัฐ ภาคธุรกิจ</span>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<p style="margin: 0; font-size: 21px; font-weight: 600">สวัสดี คุณสมชาย</p>
+<span style="align-self: flex-start; margin-top: 6px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,0.14); font-size: 12.5px">
+<svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"></path><path d="m9 12 2 2 4-4"></path></svg>
+ยืนยันตัวตนแล้ว
+</span>
+</div>
+</header>
+
+<sc-if value="{{isAskStage}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column">
+<section style="margin: -48px 16px 0; background: #FFFFFF; border-radius: 18px; padding: 18px; box-shadow: 0 6px 20px rgba(7,82,52,0.14); display: flex; flex-direction: column; gap: 12px; position: relative">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<label for="q" style="font-size: 17px; font-weight: 600">วันนี้อยากทำธุรกรรมอะไร?</label>
+</div>
+<div style="display: flex; gap: 8px">
+<input id="q" class="inp" type="text" value="{{query}}" onChange="{{onQ}}" onKeyDown="{{onQKey}}" placeholder="เช่น ร้านอาหารของฉันต้องต่ออายุใบอนุญาต">
+<button aria-label="ค้นหา" onClick="{{onSearch}}" style="flex: 0 0 48px; width: 48px; height: 48px; border-radius: 12px; border: none; background: #0B7A4B; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+</button>
+</div>
+<sc-if value="{{searchError}}" hint-placeholder-val="{{false}}">
+<p role="alert" style="margin: 0; font-size: 13.5px; color: #B42318">พิมพ์สิ่งที่ต้องการก่อน</p>
+</sc-if>
+<sc-if value="{{isIdle}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; color: #556070">ลองค้นหา</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="6">
+<button onClick="{{c.pick}}" style="min-height: 36px; padding: 6px 12px; border-radius: 999px; border: 1px solid #BFE3CF; background: #E8F5EE; color: #075234; font-size: 13.5px; text-align: left; cursor: pointer">{{c.label}}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{isIdle}}" hint-placeholder-val="{{true}}">
+<button onClick="{{quickDemo}}" style="min-height: 44px; border-radius: 12px; border: 1.5px dashed #C3D1C8; background: transparent; color: #3B4655; font-size: 13.5px; cursor: pointer">เดโม: ใส่ตัวอย่าง</button>
+</sc-if>
+</section>
+
+<sc-if value="{{isAsk}}" hint-placeholder-val="{{false}}">
+<section style="margin: 14px 16px 0; background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 16px; border: 1px solid #DDE3EC">
+<div style="display: flex; gap: 12px; align-items: flex-start">
+<div aria-hidden="true" style="flex: 0 0 40px; width: 40px; height: 40px; border-radius: 12px; background: #E8F5EE; color: #0B7A4B; display: flex; align-items: center; justify-content: center">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7"></path><path d="M12 17h.01"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">{{askTitle}}</h2>
+<p style="margin: 0; font-size: 13.5px; color: #556070">จาก “{{query}}”</p>
+</div>
+</div>
+
+<sc-if value="{{hasKnown}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 14px; background: #F3FAF6">
+<span style="font-size: 13.5px; font-weight: 600; color: #0B5E3C">ระบบเข้าใจว่า</span>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{knownChips}}" as="k" hint-placeholder-count="3">
+<span style="padding: 4px 10px; border-radius: 999px; background: #FFFFFF; border: 1px solid #BFE3CF; font-size: 13px">{{k}}</span>
+</sc-for>
+</div>
+<button onClick="{{toggleEditKnown}}" style="align-self: flex-start; min-height: 36px; border: none; background: transparent; padding: 0; color: #0B7A4B; font-size: 13.5px; font-weight: 600; cursor: pointer">{{editKnownLabel}}</button>
+</div>
+</sc-if>
+
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+<fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="font-size: 14px; font-weight: 600; padding: 0; margin-bottom: 8px">{{g.label}}</legend>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{g.options}}" as="o" hint-placeholder-count="2">
+<button onClick="{{o.pick}}" aria-pressed="{{o.selected}}" style="min-height: 40px; padding: 8px 14px; border-radius: 999px; border: 1px solid {{o.bd}}; background: {{o.bg}}; color: {{o.fg}}; font-size: 14px; text-align: left; cursor: pointer">{{o.label}}</button>
+</sc-for>
+</div>
+</fieldset>
+</sc-for>
+<sc-if value="{{needProvince}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="prov" style="font-size: 14px; font-weight: 600">จังหวัดที่ตั้งกิจการ</label>
+<select id="prov" class="inp" value="{{province}}" onChange="{{onProvince}}">
+<option value="">เลือกจังหวัด</option>
+<option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+<option value="กระบี่">กระบี่</option>
+<option value="กาญจนบุรี">กาญจนบุรี</option>
+<option value="กาฬสินธุ์">กาฬสินธุ์</option>
+<option value="กำแพงเพชร">กำแพงเพชร</option>
+<option value="ขอนแก่น">ขอนแก่น</option>
+<option value="จันทบุรี">จันทบุรี</option>
+<option value="ฉะเชิงเทรา">ฉะเชิงเทรา</option>
+<option value="ชลบุรี">ชลบุรี</option>
+<option value="ชัยนาท">ชัยนาท</option>
+<option value="ชัยภูมิ">ชัยภูมิ</option>
+<option value="ชุมพร">ชุมพร</option>
+<option value="เชียงราย">เชียงราย</option>
+<option value="เชียงใหม่">เชียงใหม่</option>
+<option value="ตรัง">ตรัง</option>
+<option value="ตราด">ตราด</option>
+<option value="ตาก">ตาก</option>
+<option value="นครนายก">นครนายก</option>
+<option value="นครปฐม">นครปฐม</option>
+<option value="นครพนม">นครพนม</option>
+<option value="นครราชสีมา">นครราชสีมา</option>
+<option value="นครศรีธรรมราช">นครศรีธรรมราช</option>
+<option value="นครสวรรค์">นครสวรรค์</option>
+<option value="นนทบุรี">นนทบุรี</option>
+<option value="นราธิวาส">นราธิวาส</option>
+<option value="น่าน">น่าน</option>
+<option value="บึงกาฬ">บึงกาฬ</option>
+<option value="บุรีรัมย์">บุรีรัมย์</option>
+<option value="ปทุมธานี">ปทุมธานี</option>
+<option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์</option>
+<option value="ปราจีนบุรี">ปราจีนบุรี</option>
+<option value="ปัตตานี">ปัตตานี</option>
+<option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา</option>
+<option value="พะเยา">พะเยา</option>
+<option value="พังงา">พังงา</option>
+<option value="พัทลุง">พัทลุง</option>
+<option value="พิจิตร">พิจิตร</option>
+<option value="พิษณุโลก">พิษณุโลก</option>
+<option value="เพชรบุรี">เพชรบุรี</option>
+<option value="เพชรบูรณ์">เพชรบูรณ์</option>
+<option value="แพร่">แพร่</option>
+<option value="ภูเก็ต">ภูเก็ต</option>
+<option value="มหาสารคาม">มหาสารคาม</option>
+<option value="มุกดาหาร">มุกดาหาร</option>
+<option value="แม่ฮ่องสอน">แม่ฮ่องสอน</option>
+<option value="ยโสธร">ยโสธร</option>
+<option value="ยะลา">ยะลา</option>
+<option value="ร้อยเอ็ด">ร้อยเอ็ด</option>
+<option value="ระนอง">ระนอง</option>
+<option value="ระยอง">ระยอง</option>
+<option value="ราชบุรี">ราชบุรี</option>
+<option value="ลพบุรี">ลพบุรี</option>
+<option value="ลำปาง">ลำปาง</option>
+<option value="ลำพูน">ลำพูน</option>
+<option value="เลย">เลย</option>
+<option value="ศรีสะเกษ">ศรีสะเกษ</option>
+<option value="สกลนคร">สกลนคร</option>
+<option value="สงขลา">สงขลา</option>
+<option value="สตูล">สตูล</option>
+<option value="สมุทรปราการ">สมุทรปราการ</option>
+<option value="สมุทรสงคราม">สมุทรสงคราม</option>
+<option value="สมุทรสาคร">สมุทรสาคร</option>
+<option value="สระแก้ว">สระแก้ว</option>
+<option value="สระบุรี">สระบุรี</option>
+<option value="สิงห์บุรี">สิงห์บุรี</option>
+<option value="สุโขทัย">สุโขทัย</option>
+<option value="สุพรรณบุรี">สุพรรณบุรี</option>
+<option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
+<option value="สุรินทร์">สุรินทร์</option>
+<option value="หนองคาย">หนองคาย</option>
+<option value="หนองบัวลำภู">หนองบัวลำภู</option>
+<option value="อ่างทอง">อ่างทอง</option>
+<option value="อำนาจเจริญ">อำนาจเจริญ</option>
+<option value="อุดรธานี">อุดรธานี</option>
+<option value="อุตรดิตถ์">อุตรดิตถ์</option>
+<option value="อุทัยธานี">อุทัยธานี</option>
+<option value="อุบลราชธานี">อุบลราชธานี</option>
+</select>
+</div>
+</sc-if>
+<sc-if value="{{notReady}}" hint-placeholder-val="{{true}}">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<button onClick="{{fillAnswers}}" style="min-height: 44px; padding: 6px 8px; border-radius: 12px; border: 1.5px dashed #C3D1C8; background: transparent; color: #3B4655; font-size: 13px; cursor: pointer">เดโม: บุคคล ยื่นเอง</button>
+<button onClick="{{fillJuristic}}" style="min-height: 44px; padding: 6px 8px; border-radius: 12px; border: 1.5px dashed #C3D1C8; background: transparent; color: #3B4655; font-size: 13px; cursor: pointer">เดโม: นิติบุคคล มอบอำนาจ</button>
+</div>
+</sc-if>
+<sc-if value="{{ready}}" hint-placeholder-val="{{false}}">
+<button onClick="{{showResult}}" style="min-height: 50px; border-radius: 14px; border: none; background: #0B7A4B; color: #FFFFFF; font-size: 16px; font-weight: 600; cursor: pointer">ดูบริการที่แนะนำ</button>
+</sc-if>
+<sc-if value="{{notReady}}" hint-placeholder-val="{{true}}">
+<button disabled="{{true}}" style="min-height: 50px; border-radius: 14px; border: none; background: #E3E8F0; color: #556070; font-size: 15px; font-weight: 500">ตอบอีก {{remaining}} ข้อ</button>
+</sc-if>
+<button onClick="{{resetSearch}}" style="min-height: 44px; border: none; background: transparent; color: #0B7A4B; font-size: 14.5px; font-weight: 500; cursor: pointer">แก้ไขคำค้นหา</button>
+</section>
+</sc-if>
+
+<sc-if value="{{isResult}}" hint-placeholder-val="{{false}}">
+<section id="res" style="margin: 14px 16px 0; background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 14px; border: 1px solid #DDE3EC">
+
+<sc-if value="{{isTrack}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 17px; font-weight: 600">ติดตามคำขอของคุณ</h2>
+<p style="margin: 0; font-size: 14px; line-height: 1.55; color: #3B4655">{{trackText}}</p>
+<a href="Tracking.dc.html" onClick="{{goTrack}}" style="min-height: 50px; border-radius: 14px; background: #0B7A4B; color: #FFFFFF; font-size: 15.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">ไปที่คำขอของฉัน</a>
+</div>
+</sc-if>
+
+<sc-if value="{{notTrack}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 8px; color: #0E7A4F; font-size: 14px; font-weight: 600">
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+{{resultHeading}}
+</div>
+<span style="font-size: 13px; line-height: 1.5; color: #3B4655">{{caseText}}</span>
+<button onClick="{{editAnswers}}" style="align-self: flex-start; min-height: 36px; border: none; background: transparent; padding: 0; color: #0B7A4B; font-size: 13.5px; font-weight: 600; cursor: pointer">แก้ไขคำตอบ</button>
+</div>
+
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{services}}" as="sv" hint-placeholder-count="2">
+<li style="border: 1.5px solid {{sv.bd}}; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: {{sv.bg}}">
+<div style="display: flex; gap: 12px; align-items: flex-start">
+<span aria-hidden="true" style="flex: 0 0 30px; width: 30px; height: 30px; border-radius: 50%; background: {{sv.numBg}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700">{{sv.numLabel}}</span>
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="font-size: 12px; font-weight: 600; color: #556070">ขั้นที่ {{sv.n}}</span>
+<h2 style="margin: 0; font-size: 16px; font-weight: 600; line-height: 1.35">{{sv.title}}</h2>
+<span style="font-size: 13px; color: #556070">{{sv.sub}} · {{sv.agency}}</span>
+</div>
+</div>
+<span style="font-size: 13px; line-height: 1.5; color: #8A4B00">{{sv.when}}</span>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<span style="padding: 4px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 600; background: {{sv.chBg}}; color: {{sv.chFg}}">{{sv.chLabel}}</span>
+<span style="padding: 4px 10px; border-radius: 999px; background: #FFFFFF; border: 1px solid #DDE3EC; font-size: 12.5px">ค่าธรรมเนียม {{sv.feeShort}}</span>
+<span style="padding: 4px 10px; border-radius: 999px; background: #FFFFFF; border: 1px solid #DDE3EC; font-size: 12.5px">เอกสาร {{sv.mustCount}} รายการ</span>
+</div>
+<button onClick="{{sv.toggle}}" aria-expanded="{{sv.open}}" style="align-self: flex-start; min-height: 36px; border: none; background: transparent; padding: 0; color: #0B7A4B; font-size: 13.5px; font-weight: 600; cursor: pointer">{{sv.toggleLabel}}</button>
+<sc-if value="{{sv.open}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 12px; background: #FFFFFF; border: 1px solid #DDE3EC; font-size: 13px; line-height: 1.5">
+<span style="color: #3B4655"><strong style="font-weight: 600">เหตุผล:</strong> {{sv.reason}}</span>
+<span style="font-weight: 600; color: #8A4B00">ต้องเตรียมเอง</span>
+<sc-if value="{{sv.noMust}}" hint-placeholder-val="{{false}}"><span style="color: #3B4655">ไม่มี</span></sc-if>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px">
+<sc-for list="{{sv.mustList}}" as="m" hint-placeholder-count="2">
+<li>{{m}}</li>
+</sc-for>
+</ul>
+<sc-if value="{{sv.hasAuto}}" hint-placeholder-val="{{true}}">
+<span style="font-weight: 600; color: #0B5E3C">ระบบเตรียมให้</span>
+</sc-if>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px">
+<sc-for list="{{sv.autoList}}" as="a" hint-placeholder-count="2">
+<li>{{a}}</li>
+</sc-for>
+</ul>
+<span style="color: #556070">อ้างอิง: {{sv.law}}</span>
+</div>
+</sc-if>
+<a href="{{sv.href}}" onClick="{{sv.choose}}" style="min-height: 48px; border-radius: 14px; background: {{sv.btnBg}}; color: {{sv.btnFg}}; border: 1.5px solid #0B7A4B; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none">{{sv.btnLabel}}
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+</a>
+</li>
+</sc-for>
+</ol>
+
+<sc-if value="{{hasSkipped}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<button onClick="{{toggleTips}}" aria-expanded="{{showTips}}" style="align-self: flex-start; min-height: 36px; border: none; background: transparent; padding: 0; color: #0B7A4B; font-size: 13.5px; font-weight: 600; cursor: pointer">{{tipsLabel}}</button>
+<sc-if value="{{showTips}}" hint-placeholder-val="{{false}}">
+<sc-for list="{{skipped}}" as="k" hint-placeholder-count="1">
+<div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: 12px; background: #F3F6F4; font-size: 13px; line-height: 1.5">
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 18px; margin-top: 1px; color: #556070"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+<span><strong style="font-weight: 600">{{k.title}}:</strong> {{k.reason}}</span>
+</div>
+</sc-for>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<button onClick="{{resetSearch}}" style="min-height: 44px; border: none; background: transparent; color: #0B7A4B; font-size: 14.5px; font-weight: 500; cursor: pointer">ค้นหาใหม่</button>
+</section>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{isTilesStage}}" hint-placeholder-val="{{true}}">
+<section style="margin: -48px 16px 0; background: #FFFFFF; border-radius: 18px; padding: 18px; box-shadow: 0 6px 20px rgba(7,82,52,0.14); display: flex; flex-direction: column; gap: 14px; position: relative">
+<div style="display: flex; flex-direction: column; gap: 4px"><h2 style="margin: 0; font-size: 17px; font-weight: 600">บริการสำหรับธุรกิจ</h2></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<button class="tile" onClick="{{tileRegister}}" aria-pressed="{{regPressed}}" style="min-height: 104px; padding: 12px 8px; border-radius: 16px; background: {{regBg}}; border: 1.5px solid {{regBd}}; color: #15202E; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; cursor: pointer">
+<span aria-hidden="true" style="width: 42px; height: 42px; border-radius: 12px; background: {{regIconBg}}; color: {{regIconFg}}; display: flex; align-items: center; justify-content: center">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24"><path d="M3 9l2-5h14l2 5"></path><path d="M4 9v11h16V9"></path><path d="M9 20v-6h6v6"></path></svg>
+</span>
+<span style="font-size: 13px; font-weight: 500; line-height: 1.35">จดทะเบียนธุรกิจ</span>
+</button>
+<sc-for list="{{tiles}}" as="t" hint-placeholder-count="5">
+<button class="tile" onClick="{{t.pick}}" style="min-height: 104px; padding: 12px 8px; border-radius: 16px; background: #FFFFFF; border: 1px solid #DDE3EC; color: #15202E; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; cursor: pointer">
+<span aria-hidden="true" style="width: 42px; height: 42px; border-radius: 12px; background: #E8F5EE; color: #0B7A4B; display: flex; align-items: center; justify-content: center">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24"><path d="{{t.d}}"></path></svg>
+</span>
+<span style="font-size: 13px; font-weight: 500; line-height: 1.35">{{t.label}}</span>
+</button>
+</sc-for>
+</div>
+<a href="Tracking.dc.html" onClick="{{goTrack}}" style="min-height: 56px; padding: 8px 14px; border-radius: 14px; background: #F3FAF6; border: 1px solid #BFE3CF; color: #15202E; display: flex; align-items: center; gap: 12px; text-decoration: none">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 22px; color: #0B7A4B"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"></path><path d="M14 3v5h5"></path><path d="M9 13h6M9 17h6"></path></svg>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14.5px; font-weight: 600">ติดตามสถานะคำขอ</span><span style="font-size: 12.5px; color: #556070">{{reqCountText}}</span></span>
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+</a>
+</section>
+</sc-if>
+
+</div>
+
+
+<sc-if value="{{showAccount}}" hint-placeholder-val="{{false}}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; z-index: 20">
+<button aria-label="ปิด" onClick="{{toggleAccount}}" style="flex: 1; border: none; background: rgba(21,32,46,0.35); cursor: pointer"></button>
+<div style="background: #FFFFFF; padding: 18px 16px 24px; border-radius: 22px 22px 0 0; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; align-items: center; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid #DDE3EC">
+<div aria-hidden="true" style="width: 48px; height: 48px; border-radius: 50%; background: #E8F5EE; color: #075234; display: flex; align-items: center; justify-content: center; font-weight: 700">สจ</div>
+<div style="display: flex; flex-direction: column; flex: 1">
+<span style="font-size: 16px; font-weight: 600">สมชาย ใจดี</span>
+<span style="font-size: 13px; color: #0E7A4F">ยืนยันตัวตน (e-KYC) แล้ว</span>
+</div>
+<button aria-label="ปิดเมนูบัญชี" onClick="{{toggleAccount}}" style="width: 44px; height: 44px; border: none; background: #F3F6F4; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #15202E; cursor: pointer">
+<svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+</button>
+</div>
+<a href="Wallet.dc.html" style="min-height: 48px; display: flex; align-items: center; justify-content: space-between; color: #15202E; text-decoration: none; font-size: 15px">กระเป๋าเอกสาร<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></a>
+<sc-for list="{{accountItems}}" as="it" hint-placeholder-count="4">
+<button onClick="{{it.pick}}" style="min-height: 48px; display: flex; align-items: center; justify-content: space-between; border: none; background: transparent; padding: 0; color: {{it.color}}; font-size: 15px; text-align: left; cursor: pointer">{{it.label}}<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+</sc-for>
+<a href="Login.dc.html" onClick="{{logout}}" style="min-height: 48px; display: flex; align-items: center; justify-content: space-between; color: #B42318; text-decoration: none; font-size: 15px">ออกจากระบบ<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></a>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{false}}">
+<div role="status" style="position: absolute; left: 16px; right: 16px; bottom: 92px; padding: 12px 16px; border-radius: 14px; background: #15202E; color: #FFFFFF; font-size: 14px; text-align: center; z-index: 30">{{toast}}</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const saved = this.readJSON('tangrat-proto-main') || {};
+    this.state = {
+      query: saved.query || '',
+      phase: saved.phase || 'idle',
+      stage: saved.stage || ((saved.query || (saved.phase && saved.phase !== 'idle')) ? 'ask' : 'tiles'),
+      regPressed: false,
+      searchError: false,
+      ans: saved.ans || {},
+      known: saved.known || {},
+      editKnown: false,
+      open: saved.open || '',
+      showNotif: false, showAccount: false, toast: '',
+      reqs: this.readReqs(),
+      done: this.readArr('tangrat-proto-done')
+    };
+  }
+  componentDidMount() {
+    this._epoch = this.epoch();
+    this._sync = () => {
+      if (this.epoch() !== this._epoch) { this._epoch = this.epoch(); this.setState(this.freshState()); return; }
+      const reqs = this.readReqs();
+      const done = this.readArr('tangrat-proto-done');
+      if (JSON.stringify(reqs) !== JSON.stringify(this.state.reqs) || JSON.stringify(done) !== JSON.stringify(this.state.done)) this.setState({ reqs: reqs, done: done });
+      let nav = null;
+      try { nav = window.localStorage.getItem('tangrat-proto-nav'); } catch (e) { nav = null; }
+      if (nav === 'ask') {
+        try { window.localStorage.removeItem('tangrat-proto-nav'); } catch (e) {}
+        const saved = this.readJSON('tangrat-proto-main') || {};
+        this.setState({ phase: saved.query ? 'ask' : 'idle', query: saved.query || '', ans: saved.ans || {}, known: saved.known || {}, editKnown: true, stage: 'ask' });
+      } else if (nav === 'tiles') {
+        try { window.localStorage.removeItem('tangrat-proto-nav'); } catch (e) {}
+        this.setState({ stage: 'tiles', regPressed: false });
+      }
+    };
+    this._sync();
+    this._poll = setInterval(this._sync, 800);
+    try { window.addEventListener('storage', this._sync); } catch (e) {}
+  }
+  componentDidUpdate() {
+    const s = this.state;
+    try { window.localStorage.setItem('tangrat-proto-main', JSON.stringify({ query: s.query, phase: s.phase, stage: s.stage, ans: s.ans, known: s.known, open: s.open })); } catch (e) {}
+  }
+  epoch() {
+    try { return window.localStorage.getItem('tangrat-proto-epoch') || ''; } catch (e) { return ''; }
+  }
+  freshState() {
+    return { phase: 'idle', stage: 'tiles', regPressed: false, query: '', ans: {}, known: {}, editKnown: false, open: '', searchError: false, showNotif: false, showAccount: false, toast: '', reqs: [], done: [] };
+  }
+  componentWillUnmount() {
+    clearTimeout(this._rg);
+    clearTimeout(this._t);
+    clearTimeout(this._sc);
+    clearInterval(this._poll);
+    try { window.removeEventListener('storage', this._sync); } catch (e) {}
+  }
+  readJSON(key) {
+    try { const v = window.localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch (e) { return null; }
+  }
+  readArr(key) {
+    const v = this.readJSON(key);
+    return Array.isArray(v) ? v : [];
+  }
+  readReqs() {
+    const list = this.readArr('tangrat-proto-reqs');
+    if (list.length) return list;
+    const old = this.readJSON('tangrat-proto-req');
+    return old && old.sim ? [Object.assign({ id: 'legacy', no: 'REQ-6911-004521' }, old)] : [];
+  }
+  writeJSON(key, val) {
+    try { window.localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
+  }
+  flash(msg) {
+    clearTimeout(this._t);
+    this.setState({ toast: msg, showAccount: false, showNotif: false });
+    this._t = setTimeout(() => this.setState({ toast: '' }), 2400);
+  }
+  meta() {
+    return {
+      purpose: { new: 'เปิดกิจการใหม่', add: 'ขอใบอนุญาตเพิ่มเติม', renew: 'ต่ออายุใบอนุญาต', change: 'แก้ไขข้อมูล / เปลี่ยนแปลงกิจการ', close: 'แจ้งเลิกกิจการ', track: 'ติดตามคำขอ' },
+      biz: {
+        food: { label: 'ร้านอาหาร', kind: 'food' },
+        cafe: { label: 'คาเฟ่', kind: 'food' },
+        online: { label: 'ร้านค้าออนไลน์', kind: 'online' },
+        retail: { label: 'ร้านค้าปลีก / เสื้อผ้า', kind: 'retail' },
+        beauty: { label: 'ร้านเสริมสวย / ตัดผม', kind: 'hazard', hazard: 'กิจการเสริมสวยหรือแต่งผม', verified: true },
+        spa: { label: 'ร้านนวด / สปา', kind: 'spa' },
+        fitness: { label: 'ฟิตเนส', kind: 'hazard', hazard: 'สถานที่ออกกำลังกาย (ฟิตเนส)', verified: false },
+        hotel: { label: 'โรงแรม / ที่พักขนาดเล็ก', kind: 'hotel' },
+        carcare: { label: 'คาร์แคร์', kind: 'hazard', hazard: 'ล้าง อัดฉีด หรือดูแลรถยนต์', verified: false }
+      },
+      val: {
+        entity: { person: 'บุคคลธรรมดา', juristic: 'นิติบุคคล' },
+        filer: { self: 'ยื่นด้วยตนเอง', proxy: 'ผู้รับมอบอำนาจยื่นแทน' },
+        place: { own: 'สถานที่ของผู้ประกอบการ', rent: 'เช่าหรือใช้สถานที่ผู้อื่น' },
+        size: { small: 'พื้นที่ไม่เกิน 200 ตร.ม.', large: 'พื้นที่เกิน 200 ตร.ม.' },
+        rooms: { small: 'ไม่เกิน 8 ห้อง และผู้พักไม่เกิน 30 คน', large: 'ห้องหรือผู้พักมากกว่านั้น' },
+        sells: { yes: 'ขายสินค้าในร้านด้วย', no: 'ให้บริการอย่างเดียว' },
+        expired: { no: 'ใบอนุญาตเดิมยังไม่หมดอายุ', yes: 'ใบอนุญาตเดิมหมดอายุแล้ว' },
+        hasReg: { yes: 'มีทะเบียนพาณิชย์อยู่แล้ว', no: 'ไม่ได้จดทะเบียนพาณิชย์' },
+        change: { name: 'เปลี่ยนชื่อร้าน', move: 'ย้ายที่ตั้ง', type: 'เปลี่ยนชนิดกิจการหรือสินค้า', other: 'แก้ไขข้อมูลอื่น' }
+      }
+    };
+  }
+  plan(a) {
+    const MT = this.meta();
+    const m = MT.biz[a.biz] || MT.biz.online;
+    const jur = a.entity === 'juristic';
+    const proxy = a.filer === 'proxy';
+    const rent = a.place === 'rent';
+    const bkk = a.province === 'กรุงเทพมหานคร';
+    const local = bkk ? 'สำนักงานเขตที่ร้านตั้งอยู่' : 'เทศบาลหรือ อบต. ที่ร้านตั้งอยู่';
+    const spaAgency = bkk ? 'กรมสนับสนุนบริการสุขภาพ กระทรวงสาธารณสุข' : 'สำนักงานสาธารณสุขจังหวัด' + (a.province || '');
+    const hotelAgency = bkk ? 'กรมการปกครอง (นายทะเบียนโรงแรมกรุงเทพมหานคร)' : 'ที่ว่าการอำเภอที่ที่พักตั้งอยู่';
+    const MB = 1048576;
+    const A = (name, from) => ({ name: name, from: from });
+    const M = (key, name, what, file, size) => ({ key: key, name: name, what: what, file: file, size: Math.round(size), optional: false });
+    const O = (key, name, what, file, size) => ({ key: key, name: name, what: what, file: file, size: Math.round(size), optional: true });
+    const who = (auto, must, poa, authority) => {
+      if (jur) {
+        auto.push(A('หนังสือรับรองการจดทะเบียนนิติบุคคล', 'ดึงจากกรมพัฒนาธุรกิจการค้า'));
+        if (authority) auto.push(A('หลักฐานการเป็นผู้มีอำนาจลงนามแทนนิติบุคคล', 'ตรวจจากหนังสือรับรองนิติบุคคล'));
+      }
+      if (!proxy) {
+        auto.push(A(jur ? 'สำเนาบัตรประชาชนและทะเบียนบ้านของกรรมการผู้มีอำนาจลงนาม (คุณ)' : 'สำเนาบัตรประชาชนและทะเบียนบ้านของผู้ประกอบการ (คุณ)', 'ดึงจากกรมการปกครอง ตามความยินยอมของคุณ'));
+        return;
+      }
+      const grantor = jur ? 'กรรมการผู้มีอำนาจลงนามตามหนังสือรับรองนิติบุคคล' : 'ผู้ประกอบการ';
+      let poaWhat = grantor + ' ลงนามมอบอำนาจตามแบบที่ท้องถิ่นกำหนด ติดอากรแสตมป์ตามประมวลรัษฎากร (มอบให้ทำการครั้งเดียว 10 บาท มากกว่าครั้งเดียว 30 บาท)';
+      if (poa === 'commerce') poaWhat = grantor + ' ลงนามมอบอำนาจให้คุณยื่นแทน และติดอากรแสตมป์ 10 บาท';
+      if (poa === 'spa') poaWhat = grantor + ' ลงนามมอบอำนาจ และต้องมีข้อความว่าผู้รับมอบอำนาจลงนามในบันทึกการแก้ไขแทนได้';
+      must.push(M('poa', 'หนังสือมอบอำนาจ', poaWhat, 'หนังสือมอบอำนาจ.pdf', 0.9 * MB));
+      must.push(M('grantor', jur ? 'สำเนาบัตรประชาชนและทะเบียนบ้านของกรรมการผู้มีอำนาจลงนาม' : 'สำเนาบัตรประชาชนและทะเบียนบ้านของผู้ประกอบการ', 'ผู้มอบอำนาจลงลายมือชื่อรับรองสำเนาถูกต้อง ระบบดึงแทนไม่ได้เพราะเป็นข้อมูลของบุคคลอื่น', 'สำเนาบัตรผู้มอบอำนาจ.pdf', 0.7 * MB));
+      auto.push(A('สำเนาบัตรประชาชนของผู้รับมอบอำนาจ (คุณ)', 'ดึงจากกรมการปกครอง ตามความยินยอมของคุณ'));
+    };
+    const premiseDocs = (must) => {
+      must.push(M('consent', 'หนังสือให้ความยินยอมให้ใช้สถานที่', 'เจ้าบ้านหรือเจ้าของสถานที่ลงนามยินยอม', 'หนังสือยินยอม.pdf', 0.8 * MB));
+      must.push(M('premiseProof', 'สำเนาทะเบียนบ้านของผู้ให้ความยินยอม หรือสัญญาเช่า หรือเอกสารสิทธิ์', 'หลักฐานว่าผู้ให้ความยินยอมมีสิทธิ์ในสถานที่นั้น', 'สัญญาเช่า.pdf', 1.1 * MB));
+      must.push(M('map', 'แผนที่แสดงสถานที่ตั้งสำนักงานแห่งใหญ่', 'แผนที่หรือภาพหน้าจอจากแอปแผนที่ ที่เห็นตำแหน่งร้านและจุดสังเกตใกล้เคียง', 'แผนที่ร้าน.jpg', 1.4 * MB));
+    };
+    const grantorWho = jur ? 'กรรมการผู้มีอำนาจลงนามตามหนังสือรับรองนิติบุคคล' : 'เจ้าของกิจการ';
+    const proxyStepsFor = (kind) => {
+      if (!proxy) return [];
+      if (kind === 'commerce') return [grantorWho + ' ลงนามในหนังสือมอบอำนาจ และติดอากรแสตมป์ 10 บาท', grantorWho + ' ลงนามรับรองสำเนาบัตรประชาชนและทะเบียนบ้านของตนเอง', 'คุณยื่นคำขอด้วยตัวตนของคุณเอง แล้วแนบเอกสารทั้งสองรายการ'];
+      if (kind === 'spa') return [grantorWho + ' ลงนามในหนังสือมอบอำนาจ โดยระบุว่าผู้รับมอบอำนาจลงนามในบันทึกการแก้ไขแทนได้', 'แนบสำเนาบัตรประชาชนของทั้งผู้มอบอำนาจและผู้รับมอบอำนาจ ลงนามรับรองสำเนา', 'ติดอากรแสตมป์ตามประมวลรัษฎากร แล้วยื่นที่หน่วยงาน'];
+      if (kind === 'food' || kind === 'hazard') return [grantorWho + ' ลงนามในหนังสือมอบอำนาจตามแบบที่ท้องถิ่นกำหนด', 'ติดอากรแสตมป์ตามประมวลรัษฎากร: มอบให้ทำการครั้งเดียว 10 บาท มากกว่าครั้งเดียว 30 บาท', grantorWho + ' ลงนามรับรองสำเนาบัตรประชาชนและทะเบียนบ้านของตนเอง แล้วคุณแนบในคำขอ'];
+      return ['ตรวจสอบแบบหนังสือมอบอำนาจและเอกสารประกอบกับหน่วยงานที่รับผิดชอบก่อนไปยื่น'];
+    };
+    const base = (o) => {
+      const x = Object.assign({ sub: '', note: '', payNow: false, channel: 'app', channelText: 'ยื่นในแอปนี้ (ต้นแบบสาธิตการยื่นออนไลน์)', contact: '', auto: [], must: [] }, o);
+      x.feePay = !!x.payNow;
+      x.proxySteps = proxyStepsFor(x.kind);
+      return x;
+    };
+    const services = [];
+    const skipped = [];
+    const sellsKind = m.kind === 'hazard' || m.kind === 'spa';
+    const commerceOk = a.biz === 'online' || (!jur && (!sellsKind || a.sells === 'yes'));
+    const hasCommerce = a.biz === 'online' || (!jur && a.hasReg === 'yes');
+    const commerceReason = jur ? 'นิติบุคคลที่ซื้อขายสินค้าหรือบริการผ่านอินเทอร์เน็ตต้องจดทะเบียนพาณิชย์ แม้จดทะเบียนบริษัทแล้ว' : 'ผู้ประกอบการบุคคลธรรมดาที่ประกอบพาณิชยกิจประเภทนี้ต้องจดทะเบียนพาณิชย์';
+    const commerceAgency = jur ? 'นายทะเบียนพาณิชย์ในพื้นที่ที่ตั้งสำนักงานแห่งใหญ่' : 'นายทะเบียนพาณิชย์ ' + local;
+    const commerceNew = () => {
+      const auto = [A('คำขอจดทะเบียนพาณิชย์ (แบบ ทพ.)', 'ระบบจัดทำจากข้อมูลที่คุณกรอก')];
+      const must = [];
+      who(auto, must, 'commerce', false);
+      if (a.biz === 'online') auto.push(A('รายละเอียดเว็บไซต์หรือแพลตฟอร์มที่ใช้ขาย', 'ระบบจัดทำจากช่องทางขายที่คุณกรอก 1 ชุดต่อ 1 ช่องทาง'));
+      if (rent) premiseDocs(must);
+      return base({ id: 'commerce-new', kind: 'commerce', mode: 'new', title: 'จดทะเบียนพาณิชย์ (ตั้งใหม่)', sub: a.biz === 'online' ? 'พาณิชย์อิเล็กทรอนิกส์' : 'ร้านค้าที่มีหน้าร้าน', agency: commerceAgency, law: 'พ.ร.บ.ทะเบียนพาณิชย์ พ.ศ. 2499', fee: '50 บาท', feeShort: '50 บาท', payNow: true, time: 'ประมาณ 60 นาทีเมื่อเอกสารครบ', timeShort: '60 นาที', when: 'ยื่นภายใน 30 วันนับจากวันเริ่มประกอบกิจการ', result: 'ใบทะเบียนพาณิชย์', formName: 'แบบคำขอจดทะเบียนพาณิชย์ (แบบ ทพ.)', reason: commerceReason, contact: 'สายด่วนกรมพัฒนาธุรกิจการค้า 1570', auto: auto, must: must });
+    };
+    const commerceExisting = (mode) => {
+      const auto = [A('คำขอจดทะเบียนพาณิชย์ (แบบ ทพ.)', 'ระบบจัดทำจากข้อมูลที่คุณกรอก')];
+      const must = [];
+      who(auto, must, 'commerce', false);
+      must.push(M('orig', 'ใบทะเบียนพาณิชย์ฉบับเดิม', 'คู่มือกำหนดให้นำใบทะเบียนพาณิชย์มาด้วยเมื่อยื่นเปลี่ยนแปลงหรือเลิก แนบภาพสแกนให้ครบทั้งฉบับ', 'ใบทะเบียนพาณิชย์เดิม.pdf', 0.6 * MB));
+      if (mode === 'change' && a.change === 'move' && rent) premiseDocs(must);
+      if (mode === 'change') {
+        return base({ id: 'commerce-change', kind: 'commerce', mode: 'change', title: 'จดทะเบียนพาณิชย์ (เปลี่ยนแปลงรายการ)', sub: MT.val.change[a.change] || 'แก้ไขข้อมูล', agency: commerceAgency, law: 'พ.ร.บ.ทะเบียนพาณิชย์ พ.ศ. 2499', fee: '20 บาท', feeShort: '20 บาท', payNow: true, time: 'ตามที่นายทะเบียนพาณิชย์แจ้ง', timeShort: 'ตามหน่วยงาน', when: 'ยื่นภายใน 30 วันนับจากวันที่เปลี่ยนแปลง', result: 'ใบทะเบียนพาณิชย์ฉบับแก้ไข', formName: 'แบบคำขอจดทะเบียนพาณิชย์ (เปลี่ยนแปลงรายการ)', reason: 'ทะเบียนพาณิชย์ต้องตรงกับข้อมูลจริง เมื่อเปลี่ยนรายการที่จดไว้ต้องจดทะเบียนเปลี่ยนแปลง', contact: 'สายด่วนกรมพัฒนาธุรกิจการค้า 1570', auto: auto, must: must });
+      }
+      return base({ id: 'commerce-close', kind: 'commerce', mode: 'close', title: 'จดทะเบียนพาณิชย์ (เลิกประกอบพาณิชยกิจ)', sub: 'ยกเลิกทะเบียนพาณิชย์', agency: commerceAgency, law: 'พ.ร.บ.ทะเบียนพาณิชย์ พ.ศ. 2499', fee: '20 บาท', feeShort: '20 บาท', payNow: true, time: 'ตามที่นายทะเบียนพาณิชย์แจ้ง', timeShort: 'ตามหน่วยงาน', when: 'ยื่นภายใน 30 วันนับจากวันที่เลิกกิจการ', result: 'หลักฐานการจดทะเบียนเลิกประกอบพาณิชยกิจ', formName: 'แบบคำขอจดทะเบียนพาณิชย์ (เลิกประกอบพาณิชยกิจ)', reason: 'เมื่อเลิกกิจการต้องแจ้งนายทะเบียนพาณิชย์ เพื่อไม่ให้ทะเบียนเดิมยังมีผลอยู่', contact: 'สายด่วนกรมพัฒนาธุรกิจการค้า 1570', auto: auto, must: must });
+    };
+    const foodNew = (big, reason) => {
+      const auto = [A(big ? 'คำขอรับใบอนุญาตจัดตั้งสถานที่จำหน่ายอาหาร' : 'แบบแจ้งจัดตั้งสถานที่จำหน่ายอาหาร', 'ระบบจัดทำจากข้อมูลที่คุณกรอก')];
+      const must = [];
+      who(auto, must, 'local', true);
+      if (big) must.push(M('medical', 'ใบรับรองแพทย์ของผู้ขอรับใบอนุญาต ผู้ช่วยจำหน่ายอาหาร และผู้ปรุงอาหาร', 'สแกนจากใบรับรองแพทย์ฉบับจริง ครบทุกคนที่ปรุงหรือจำหน่ายอาหาร', 'ใบรับรองแพทย์.pdf', 1.2 * MB));
+      must.push(O('other', 'สำเนาใบอนุญาตตามกฎหมายอื่นหรือสัญญาเช่า (ถ้ามี)', 'เช่น ใบอนุญาตก่อสร้างหรือดัดแปลงอาคาร', 'ใบอนุญาตอาคาร.pdf', 0.95 * MB));
+      return base({ id: 'food-new', kind: 'food', mode: 'new', title: big ? 'ขอใบอนุญาตจัดตั้งสถานที่จำหน่ายอาหาร' : 'แจ้งจัดตั้งสถานที่จำหน่ายอาหาร', sub: big ? 'พื้นที่เกิน 200 ตร.ม.' : 'พื้นที่ไม่เกิน 200 ตร.ม.', agency: local, law: 'พ.ร.บ.การสาธารณสุข พ.ศ. 2535', fee: big ? 'ตามข้อบัญญัติท้องถิ่น ไม่เกิน 3,000 บาทต่อปี' : 'ตามข้อบัญญัติท้องถิ่น ไม่เกิน 1,000 บาทต่อปี', feeShort: 'ตามท้องถิ่น', time: big ? 'ภายใน 30 วัน มีการตรวจสุขลักษณะสถานที่' : 'ประมาณ 7 วัน', timeShort: big ? '30 วัน' : '7 วัน', when: big ? 'ต้องได้รับใบอนุญาตก่อนเปิดร้าน' : 'ต้องแจ้งก่อนเปิดร้าน', result: big ? 'ใบอนุญาตจัดตั้งสถานที่จำหน่ายอาหาร' : 'หนังสือรับรองการแจ้งจัดตั้งสถานที่จำหน่ายอาหาร', formName: big ? 'คำขอรับใบอนุญาตจัดตั้งสถานที่จำหน่ายอาหาร' : 'แบบแจ้งจัดตั้งสถานที่จำหน่ายอาหาร', reason: reason || ('สถานที่จำหน่ายอาหารต้อง' + (big ? 'ได้รับใบอนุญาต' : 'แจ้ง') + 'ต่อท้องถิ่นตาม พ.ร.บ.การสาธารณสุข'), note: 'ท้องถิ่นอาจกำหนดเอกสารเพิ่มเติมตามข้อบัญญัติ และบางแห่งเปิดรับผ่าน Biz Portal', contact: 'ติดต่อ' + local, auto: auto, must: must });
+    };
+    const foodRenew = () => {
+      const auto = [A('คำขอต่ออายุใบอนุญาตจัดตั้งสถานที่จำหน่ายอาหาร', 'ระบบจัดทำจากข้อมูลที่คุณกรอก')];
+      const must = [];
+      who(auto, must, 'local', true);
+      must.push(M('orig', 'ใบอนุญาตฉบับเดิม', 'แนบภาพสแกนใบอนุญาตที่จะต่ออายุ', 'ใบอนุญาตเดิม.pdf', 0.6 * MB));
+      must.push(M('medical', 'ใบรับรองแพทย์ของผู้ปรุงและผู้จำหน่ายอาหาร', 'ตามที่คู่มือท้องถิ่นกำหนดสำหรับการจำหน่ายอาหาร', 'ใบรับรองแพทย์.pdf', 1.2 * MB));
+      must.push(O('other', 'เอกสารอื่นตามที่ท้องถิ่นกำหนด (ถ้ามี)', 'เช่น เอกสารที่มีการเปลี่ยนแปลงจากเดิม', 'เอกสารเพิ่มเติม.pdf', 0.8 * MB));
+      return base({ id: 'food-renew', kind: 'food', mode: 'renew', title: 'ต่ออายุใบอนุญาตจัดตั้งสถานที่จำหน่ายอาหาร', sub: 'พื้นที่เกิน 200 ตร.ม.', agency: local, law: 'พ.ร.บ.การสาธารณสุข พ.ศ. 2535', fee: 'ตามข้อบัญญัติท้องถิ่น ไม่เกิน 3,000 บาทต่อปี', feeShort: 'ตามท้องถิ่น', time: 'ภายใน 30 วัน มีการตรวจสุขลักษณะสถานที่', timeShort: '30 วัน', when: 'ยื่นก่อนใบอนุญาตสิ้นอายุ ภายในจำนวนวันที่ท้องถิ่นกำหนด', result: 'ใบอนุญาตจัดตั้งสถานที่จำหน่ายอาหาร (ต่ออายุ)', formName: 'คำขอต่ออายุใบอนุญาตจัดตั้งสถานที่จำหน่ายอาหาร', reason: 'ใบอนุญาตมีอายุ 1 ปี ต้องยื่นต่ออายุก่อนสิ้นอายุ หากเลยกำหนดต้องยื่นขอใหม่', note: 'ท้องถิ่นอาจกำหนดเอกสารเพิ่มเติมตามข้อบัญญัติ', contact: 'ติดต่อ' + local, auto: auto, must: must });
+    };
+    const hazard = (mode, reason) => {
+      const auto = [A(mode === 'renew' ? 'คำขอต่ออายุใบอนุญาตประกอบกิจการที่เป็นอันตรายต่อสุขภาพ' : 'คำขอรับใบอนุญาตประกอบกิจการที่เป็นอันตรายต่อสุขภาพ', 'ระบบจัดทำจากข้อมูลที่คุณกรอก')];
+      const must = [];
+      who(auto, must, 'local', true);
+      if (mode === 'renew') must.push(M('orig', 'ใบอนุญาตฉบับเดิม', 'แนบภาพสแกนใบอนุญาตที่จะต่ออายุ', 'ใบอนุญาตเดิม.pdf', 0.6 * MB));
+      else must.push(M('premise', rent ? 'สำเนาสัญญาเช่าหรือหนังสือยินยอมให้ใช้สถานที่' : 'สำเนาโฉนดหรือเอกสารสิทธิ์ของสถานที่', 'หลักฐานสิทธิ์ใช้อาคารหรือสถานที่ที่ตั้งร้าน', rent ? 'สัญญาเช่า.pdf' : 'โฉนดที่ดิน.pdf', 1.1 * MB));
+      if (a.biz === 'beauty') must.push(O('medical', 'ใบรับรองแพทย์ของผู้ประกอบการและผู้ให้บริการ (หากท้องถิ่นกำหนด)', 'บางท้องถิ่นกำหนดให้แนบ ตรวจได้จากข้อบัญญัติของท้องถิ่น', 'ใบรับรองแพทย์.pdf', 1.2 * MB));
+      must.push(O('other', 'สำเนาใบอนุญาตตามกฎหมายอื่นที่เกี่ยวข้อง (ถ้ามี)', 'เช่น ใบอนุญาตก่อสร้างหรือดัดแปลงอาคาร', 'ใบอนุญาตอาคาร.pdf', 0.95 * MB));
+      return base({ id: 'hazard-' + mode, kind: 'hazard', mode: mode, title: (mode === 'renew' ? 'ต่ออายุ' : 'ขอ') + 'ใบอนุญาตประกอบกิจการที่เป็นอันตรายต่อสุขภาพ', sub: m.hazard, agency: local, law: m.verified ? 'พ.ร.บ.การสาธารณสุข พ.ศ. 2535 และประกาศกระทรวงสาธารณสุข เรื่องกิจการที่เป็นอันตรายต่อสุขภาพ พ.ศ. 2558 (ประเภทที่ 9)' : 'พ.ร.บ.การสาธารณสุข พ.ศ. 2535 และข้อบัญญัติท้องถิ่น', fee: 'ตามข้อบัญญัติท้องถิ่น', feeShort: 'ตามท้องถิ่น', time: 'ภายใน 30 วัน มีการตรวจสถานที่', timeShort: '30 วัน', when: mode === 'renew' ? 'ยื่นก่อนใบอนุญาตสิ้นอายุ' : 'ต้องได้รับใบอนุญาตก่อนเปิดให้บริการ ในพื้นที่ที่ท้องถิ่นออกข้อบัญญัติควบคุม', result: 'ใบอนุญาตประกอบกิจการที่เป็นอันตรายต่อสุขภาพ' + (mode === 'renew' ? ' (ต่ออายุ)' : ''), formName: (mode === 'renew' ? 'คำขอต่ออายุ' : 'คำขอรับ') + 'ใบอนุญาตประกอบกิจการที่เป็นอันตรายต่อสุขภาพ', reason: reason || (mode === 'renew' ? 'ใบอนุญาตมีกำหนดอายุ ต้องยื่นต่ออายุก่อนสิ้นอายุ' : 'ท้องถิ่นควบคุมกิจการนี้เป็นกิจการที่เป็นอันตรายต่อสุขภาพ'), note: m.verified ? 'ใช้บังคับในพื้นที่ที่ท้องถิ่นออกข้อบัญญัติควบคุม เอกสารอาจต่างกันตามท้องถิ่น' : 'ตรวจสอบกับท้องถิ่นก่อนว่ามีข้อบัญญัติควบคุมกิจการของคุณหรือไม่ ถ้าไม่มีไม่ต้องขอใบอนุญาตนี้', contact: 'ติดต่อ' + local, auto: auto, must: must });
+    };
+    const spa = (mode, reason) => {
+      const auto = [];
+      const must = [];
+      who(auto, must, 'spa', true);
+      if (mode === 'renew') must.push(M('orig', 'ใบอนุญาตฉบับเดิม (ฉบับจริง)', 'ใบอนุญาตที่ออกโดยกรมสนับสนุนบริการสุขภาพหรือสำนักงานสาธารณสุขจังหวัด', 'ใบอนุญาตเดิม.pdf', 0.6 * MB));
+      must.push(M('staffId', 'สำเนาบัตรประชาชนของผู้ดำเนินการและผู้ให้บริการ', 'ลงลายมือชื่อรับรองสำเนาถูกต้อง', 'บัตรผู้ให้บริการ.pdf', 1.0 * MB));
+      must.push(M('medical', 'ใบรับรองแพทย์ฉบับจริง', 'ออกไม่เกิน 6 เดือน และมีตราของหน่วยงานหรือคลินิกที่รับรอง', 'ใบรับรองแพทย์.pdf', 1.2 * MB));
+      must.push(O('plan', 'แบบแปลนหรือแผนผังพื้นที่ให้บริการ (กรณีมีการเปลี่ยนแปลงพื้นที่)', 'ใช้เมื่อเพิ่มหรือลดพื้นที่ให้บริการ', 'แผนผัง.pdf', 1.5 * MB));
+      auto.forEach((x, i) => must.unshift(M('id' + i, x.name.replace(' (คุณ)', ''), 'ยื่นที่หน่วยงานโดยตรง ต้องเตรียมไปเอง', 'เอกสาร.pdf', 0.7 * MB)));
+      auto.length = 0;
+      return base({ id: 'spa-' + mode, kind: 'spa', mode: mode, title: (mode === 'renew' ? 'ต่ออายุ' : 'ขอ') + 'ใบอนุญาตประกอบกิจการสถานประกอบการเพื่อสุขภาพ', sub: 'นวดเพื่อสุขภาพหรือเพื่อเสริมสวย / สปา', agency: spaAgency, law: 'พ.ร.บ.สถานประกอบการเพื่อสุขภาพ พ.ศ. 2559', fee: 'ตามขนาดพื้นที่: นวด 500–5,000 บาท / สปา 1,000–10,000 บาท', feeShort: 'ตามพื้นที่', time: mode === 'renew' ? 'ประมาณ 39 วันทำการเมื่อเอกสารครบ' : 'ตามที่หน่วยงานแจ้ง', timeShort: mode === 'renew' ? '39 วันทำการ' : 'ตามหน่วยงาน', when: mode === 'renew' ? 'ยื่นภายใน 90 วันก่อนใบอนุญาตสิ้นอายุ (ใบอนุญาตมีอายุ 5 ปี)' : 'ต้องได้รับใบอนุญาตก่อนเปิดให้บริการ', result: 'ใบอนุญาตประกอบกิจการสถานประกอบการเพื่อสุขภาพ', formName: mode === 'renew' ? 'แบบ สพส.3' : 'คำขอรับใบอนุญาต', reason: reason || 'กิจการนวดและสปาอยู่ภายใต้ พ.ร.บ.สถานประกอบการเพื่อสุขภาพ ต้องมีใบอนุญาตจากกระทรวงสาธารณสุข', note: 'ต้องมีผู้ดำเนินการที่ได้รับอนุญาต และผู้ให้บริการที่ขึ้นทะเบียนกับกรมสนับสนุนบริการสุขภาพ', channel: 'external', channelText: 'ยื่นที่' + spaAgency, contact: 'ติดต่อ' + spaAgency, auto: auto, must: must });
+    };
+    const hotel = (mode) => {
+      if (a.rooms === 'small') {
+        const must = [
+          M('photo', 'รูปถ่ายหน้าตรงขนาด 2 นิ้ว 2 รูป', 'ของผู้แจ้ง', 'รูปถ่าย.jpg', 0.4 * MB),
+          M('map', 'แผนที่ตั้งที่พัก', 'เห็นตำแหน่งและจุดสังเกต', 'แผนที่.jpg', 1.2 * MB),
+          M('plan', 'แผนผังอาคาร ทุกชั้นทุกห้อง พร้อมภาพถ่าย', '', 'แผนผัง.pdf', 2.0 * MB),
+          M('fire', 'หลักฐานระบบป้องกันอัคคีภัยหรือเครื่องดับเพลิง', '', 'ระบบดับเพลิง.jpg', 0.9 * MB),
+          M('right', 'หลักฐานกรรมสิทธิ์หรือสิทธิ์ใช้อาคาร เช่น สัญญาเช่า หนังสือยินยอม', '', 'สิทธิ์อาคาร.pdf', 1.1 * MB),
+          O('building', 'ใบอนุญาตอาคารหรือหนังสือรับรองความปลอดภัยของอาคาร (ถ้ามี)', '', 'อาคาร.pdf', 1.0 * MB)
+        ];
+        return base({ id: 'hotel-notify', kind: 'hotel', mode: 'new', title: 'แจ้งสถานที่พักที่ไม่เป็นโรงแรม', sub: 'ไม่เกิน 8 ห้อง และผู้พักไม่เกิน 30 คน', agency: hotelAgency, law: 'พ.ร.บ.โรงแรม พ.ศ. 2547 และกฎกระทรวงกำหนดประเภทและหลักเกณฑ์การประกอบธุรกิจโรงแรม', fee: 'ไม่มีค่าธรรมเนียมตามคู่มือการแจ้ง', feeShort: 'ไม่มี', time: 'ตามที่นายทะเบียนแจ้ง', timeShort: 'ตามหน่วยงาน', when: 'แจ้งก่อนเปิดให้บริการ', result: 'หนังสือรับรองการแจ้ง', formName: 'แบบแจ้งสถานที่พักที่ไม่เป็นโรงแรม', reason: 'ที่พักขนาดเล็กตามเกณฑ์นี้ไม่ต้องขอใบอนุญาตโรงแรม แต่ต้องแจ้งต่อนายทะเบียน', note: 'รายการเอกสารรวบรวมจากคู่มือการแจ้ง ตรวจสอบกับนายทะเบียนอีกครั้งก่อนยื่น · มีร่าง พ.ร.บ.สถานที่พักแรม ที่ ครม.เห็นชอบในหลักการ (ต.ค. 2569) อยู่ระหว่างพิจารณา ยังไม่มีผลบังคับ เกณฑ์อาจเปลี่ยนในอนาคต', channel: 'external', channelText: 'ยื่นที่' + hotelAgency, contact: 'ติดต่อ' + hotelAgency, auto: [], must: must });
+      }
+      return base({ id: 'hotel-' + mode, kind: 'hotel', mode: mode, title: (mode === 'renew' ? 'ต่ออายุ' : 'ขอ') + 'ใบอนุญาตประกอบธุรกิจโรงแรม', sub: 'มากกว่า 8 ห้อง หรือผู้พักเกิน 30 คน', agency: hotelAgency, law: 'พ.ร.บ.โรงแรม พ.ศ. 2547', fee: 'ตามอัตราที่นายทะเบียนกำหนด', feeShort: 'ตามหน่วยงาน', time: 'ตามที่นายทะเบียนแจ้ง', timeShort: 'ตามหน่วยงาน', when: mode === 'renew' ? 'ยื่นก่อนใบอนุญาตสิ้นอายุ' : 'ต้องได้รับใบอนุญาตก่อนเปิดให้บริการ', result: 'ใบอนุญาตประกอบธุรกิจโรงแรม', formName: 'คำขอตามแบบของนายทะเบียนโรงแรม', reason: 'ที่พักที่เกินเกณฑ์สถานที่พักขนาดเล็กเป็นโรงแรมตามกฎหมาย ต้องมีใบอนุญาต', note: 'เอกสารขึ้นกับประเภทโรงแรมและอาคาร ต้นแบบนี้ไม่แสดงรายการเต็มเพราะต้องตรวจสอบกับนายทะเบียนโรงแรม · มีร่าง พ.ร.บ.สถานที่พักแรม (ครม.เห็นชอบในหลักการ ต.ค. 2569) ที่จะให้ที่พัก 9–40 ห้องใช้การขึ้นทะเบียนแทนใบอนุญาต แต่ยังไม่มีผลบังคับ', channel: 'external', channelText: 'ยื่นที่' + hotelAgency, contact: 'ติดต่อ' + hotelAgency, auto: [], must: [] });
+    };
+    const external = (id, title, sub, agency, reason, note) => base({ id: id, kind: 'external', mode: 'info', title: title, sub: sub, agency: agency, law: '-', fee: 'ตามที่หน่วยงานกำหนด', feeShort: 'ตามหน่วยงาน', time: 'ตามที่หน่วยงานแจ้ง', timeShort: 'ตามหน่วยงาน', when: 'ติดต่อหน่วยงานโดยตรง', result: '-', formName: '-', reason: reason, note: note || '', channel: 'external', channelText: 'ยื่นที่' + agency, contact: 'ติดต่อ' + agency, auto: [], must: [] });
+    const licenseAgency = m.kind === 'spa' ? spaAgency : (m.kind === 'hotel' ? hotelAgency : local);
+    const licensed = m.kind === 'food' || m.kind === 'hazard' || m.kind === 'spa' || m.kind === 'hotel';
+    const licenseNew = (reason) => {
+      if (m.kind === 'food') return foodNew(a.size === 'large', reason);
+      if (m.kind === 'hazard') return hazard('new', reason);
+      if (m.kind === 'spa') return spa('new', reason);
+      if (m.kind === 'hotel') return hotel('new');
+      return null;
+    };
+    const P = a.purpose;
+    if (P === 'new' || P === 'add') {
+      const lic = licenseNew();
+      if (lic) services.push(lic);
+      if (P === 'new') {
+        if (commerceOk) services.push(commerceNew());
+        else if (jur) skipped.push({ title: 'จดทะเบียนพาณิชย์', reason: 'บริษัทหรือห้างหุ้นส่วนที่เป็นนิติบุคคลได้รับยกเว้นสำหรับกิจการทั่วไป ต้องจดเฉพาะกิจการบางประเภท เช่น ซื้อขายผ่านอินเทอร์เน็ต' });
+        else skipped.push({ title: 'จดทะเบียนพาณิชย์', reason: 'กิจการที่ให้บริการอย่างเดียวไม่อยู่ในรายการพาณิชยกิจที่ต้องจด แต่ถ้าขายสินค้าในร้านต้องจดภายใน 30 วันนับจากวันเริ่มขาย' });
+      } else {
+        if (!lic) skipped.push({ title: 'ใบอนุญาตเพิ่มเติม', reason: 'ไม่พบใบอนุญาตเฉพาะสำหรับ' + m.label + 'จากข้อมูลราชการที่ตรวจสอบได้ ถ้าเพิ่มช่องทางขายหรือย้ายร้าน ให้เลือก “แก้ไขข้อมูล / เปลี่ยนแปลงกิจการ”' });
+        skipped.push({ title: 'จดทะเบียนพาณิชย์', reason: 'ไม่ได้แนะนำในกรณีขอใบอนุญาตเพิ่ม ถ้ายังไม่เคยจด ให้เลือก “เปิดกิจการใหม่”' });
+      }
+    } else if (P === 'renew') {
+      const expired = a.expired === 'yes';
+      if (m.kind === 'food') {
+        if (a.size === 'large') services.push(expired ? foodNew(true, 'ใบอนุญาตเดิมหมดอายุแล้ว ต้องยื่นขอใบอนุญาตใหม่') : foodRenew());
+        else skipped.push({ title: 'หนังสือรับรองการแจ้ง (ไม่เกิน 200 ตร.ม.)', reason: 'ไม่มีการต่ออายุแบบเดียวกับใบอนุญาต แต่ท้องถิ่นอาจเรียกเก็บค่าธรรมเนียมรายปี ตรวจสอบกับ' + local });
+      } else if (m.kind === 'hazard') services.push(expired ? hazard('new', 'ใบอนุญาตเดิมหมดอายุแล้ว ต้องยื่นขอใหม่') : hazard('renew'));
+      else if (m.kind === 'spa') services.push(expired ? spa('new', 'ใบอนุญาตเดิมหมดอายุแล้ว ต้องยื่นขอใหม่') : spa('renew'));
+      else if (m.kind === 'hotel') {
+        if (a.rooms === 'small') skipped.push({ title: 'หนังสือรับรองการแจ้งสถานที่พัก', reason: 'ปัจจุบันไม่มีกำหนดอายุ จึงไม่ต้องต่ออายุ ตรวจสอบการเปลี่ยนแปลงกฎหมายกับนายทะเบียน' });
+        else services.push(hotel(expired ? 'new' : 'renew'));
+      }
+      if (commerceOk || !licensed) skipped.push({ title: 'ทะเบียนพาณิชย์', reason: 'ไม่มีวันหมดอายุ ไม่ต้องต่ออายุ' });
+    } else if (P === 'change') {
+      if (hasCommerce) services.push(commerceExisting('change'));
+      if (jur) services.push(external('dbd-change', 'จดทะเบียนแก้ไขเปลี่ยนแปลงรายการนิติบุคคล', 'กรณีเปลี่ยนข้อมูลของบริษัท เช่น ชื่อ ที่ตั้งสำนักงานใหญ่ กรรมการ', 'กรมพัฒนาธุรกิจการค้า (ระบบ DBD e-Registration หรือสำนักงานพัฒนาธุรกิจการค้า)', 'ข้อมูลของบริษัทหรือห้างหุ้นส่วนต้องแก้ที่กรมพัฒนาธุรกิจการค้า ยื่นผ่านแอปนี้ไม่ได้', 'เอกสารขึ้นกับรายการที่แก้ไข ตรวจสอบกับกรมพัฒนาธุรกิจการค้า'));
+      if (licensed) services.push(external('license-change', a.change === 'move' ? 'ตรวจสอบใบอนุญาตเมื่อย้ายสถานที่' : 'แจ้งเปลี่ยนแปลงข้อมูลในใบอนุญาต', a.change === 'move' ? 'ใบอนุญาตออกให้ตามสถานที่ตั้ง' : 'ใบอนุญาตเดิมของกิจการ', licenseAgency, a.change === 'move' ? 'ใบอนุญาตของกิจการนี้ออกให้ตามสถานที่ตั้ง ต้องตรวจสอบกับหน่วยงานที่ตั้งใหม่ว่าต้องแจ้งหรือขอใหม่' : 'ข้อมูลในใบอนุญาตควรตรงกับข้อมูลกิจการ ตรวจสอบขั้นตอนแจ้งเปลี่ยนแปลงกับหน่วยงานที่ออกใบอนุญาต'));
+      if (!services.length) skipped.push({ title: 'แก้ไขข้อมูล', reason: 'ไม่พบทะเบียนหรือใบอนุญาตที่ต้องแก้ไขสำหรับกรณีนี้' });
+    } else if (P === 'close') {
+      if (hasCommerce) services.push(commerceExisting('close'));
+      if (licensed) services.push(external('license-close', 'แจ้งเลิกกิจการและยกเลิกใบอนุญาต', 'ใบอนุญาตหรือหนังสือรับรองของกิจการ', licenseAgency, 'แจ้งหน่วยงานที่ออกใบอนุญาตเพื่อยกเลิกใบอนุญาตหรือหนังสือรับรองของกิจการ', 'ตรวจสอบขั้นตอนกับหน่วยงาน บางท้องถิ่นเปิดรับผ่าน Biz Portal'));
+      if (jur) services.push(external('dbd-close', 'จดทะเบียนเลิกนิติบุคคล', 'เฉพาะกรณีเลิกบริษัทหรือห้างหุ้นส่วนทั้งหมด', 'กรมพัฒนาธุรกิจการค้า (ระบบ DBD e-Registration หรือสำนักงานพัฒนาธุรกิจการค้า)', 'ถ้าเลิกทั้งบริษัท ต้องจดทะเบียนเลิกกับกรมพัฒนาธุรกิจการค้า ถ้าแค่ปิดร้าน ไม่ต้องทำขั้นนี้'));
+    }
+    const parts = [MT.purpose[P] || '', m.label, MT.val.entity[a.entity] || '', MT.val.filer[a.filer] || ''];
+    if (m.kind === 'food' && (P === 'new' || P === 'add' || P === 'renew')) parts.push(MT.val.size[a.size] || '');
+    if (m.kind === 'hotel' && P !== 'close' && P !== 'change') parts.push(MT.val.rooms[a.rooms] || '');
+    if (sellsKind && !jur && P === 'new') parts.push(MT.val.sells[a.sells] || '');
+    if (P === 'renew' && licensed) parts.push(MT.val.expired[a.expired] || '');
+    if (P === 'change') parts.push(MT.val.change[a.change] || '');
+    if ((P === 'change' || P === 'close') && a.hasReg) parts.push(MT.val.hasReg[a.hasReg] || '');
+    if (a.place && this.needPlace(a)) parts.push(MT.val.place[a.place] || '');
+    if (a.province) parts.push(a.province);
+    return {
+      services: services, skipped: skipped,
+      purpose: P, purposeLabel: MT.purpose[P] || '', biz: a.biz, bizLabel: m.label,
+      caseText: parts.filter((x) => x).join(' · '),
+      jur: jur, proxy: proxy, rent: rent, change: a.change || '', size: a.size || '', province: a.province || ''
+    };
+  }
+  needPlace(a) {
+    const MT = this.meta();
+    const m = MT.biz[a.biz];
+    if (!m) return false;
+    const jur = a.entity === 'juristic';
+    const sellsKind = m.kind === 'hazard' || m.kind === 'spa';
+    const commerceOk = a.biz === 'online' || (!jur && (!sellsKind || a.sells === 'yes'));
+    if (a.purpose === 'new') return commerceOk || m.kind === 'hazard';
+    if (a.purpose === 'add') return m.kind === 'hazard';
+    if (a.purpose === 'change') return a.change === 'move' && (a.biz === 'online' || (!jur && a.hasReg === 'yes'));
+    return false;
+  }
+  questions(a, known, editKnown) {
+    const MT = this.meta();
+    const out = [];
+    const add = (key, label, options) => { if (!known[key] || editKnown) out.push({ key: key, label: label, options: options }); };
+    add('purpose', 'ต้องการทำอะไร', Object.keys(MT.purpose).map((k) => [k, MT.purpose[k]]));
+    if (!a.purpose || a.purpose === 'track') return out;
+    add('biz', 'ประเภทธุรกิจ', Object.keys(MT.biz).map((k) => [k, MT.biz[k].label]));
+    if (!a.biz) return out;
+    const m = MT.biz[a.biz];
+    const jur = a.entity === 'juristic';
+    add('entity', 'ประกอบกิจการในนามใคร', [['person', 'บุคคลธรรมดา'], ['juristic', 'นิติบุคคล (บริษัท / ห้างหุ้นส่วน)']]);
+    add('filer', 'ใครเป็นผู้ยื่นคำขอ', jur ? [['self', 'ฉันเป็นกรรมการผู้มีอำนาจลงนาม'], ['proxy', 'ฉันรับมอบอำนาจจากนิติบุคคล']] : [['self', 'ฉันเป็นเจ้าของกิจการ'], ['proxy', 'ฉันรับมอบอำนาจยื่นแทนเจ้าของ']]);
+    const P = a.purpose;
+    if ((P === 'new' || P === 'add' || P === 'renew') && m.kind === 'food') add('size', 'พื้นที่ร้านทั้งหมด รวมครัวและที่นั่ง', [['small', 'ไม่เกิน 200 ตร.ม.'], ['large', 'เกิน 200 ตร.ม.']]);
+    if ((P === 'new' || P === 'add' || P === 'renew') && m.kind === 'hotel') add('rooms', 'ขนาดที่พัก', [['small', 'ไม่เกิน 8 ห้อง และผู้พักไม่เกิน 30 คน'], ['large', 'มากกว่า 8 ห้อง หรือผู้พักเกิน 30 คน']]);
+    if (P === 'new' && !jur && (m.kind === 'hazard' || m.kind === 'spa')) add('sells', 'ขายสินค้าในร้านด้วยไหม เช่น ผลิตภัณฑ์ อาหารเสริม เครื่องดื่ม', [['yes', 'ขายด้วย'], ['no', 'ให้บริการอย่างเดียว']]);
+    const licensed = m.kind === 'food' || m.kind === 'hazard' || m.kind === 'spa' || m.kind === 'hotel';
+    const renewable = licensed && !(m.kind === 'food' && a.size === 'small') && !(m.kind === 'hotel' && a.rooms === 'small');
+    if (P === 'renew' && renewable) add('expired', 'สถานะใบอนุญาตเดิม', [['no', 'ยังไม่หมดอายุ'], ['yes', 'หมดอายุแล้ว']]);
+    if ((P === 'change' || P === 'close') && !jur && a.biz !== 'online') add('hasReg', 'กิจการนี้จดทะเบียนพาณิชย์ไว้หรือไม่ (ดูจากใบทะเบียนพาณิชย์ที่ติดในร้าน)', [['yes', 'มีทะเบียนพาณิชย์'], ['no', 'ไม่ได้จด']]);
+    if (P === 'change') add('change', 'ต้องการเปลี่ยนอะไร', [['name', 'ชื่อร้าน'], ['move', 'ย้ายที่ตั้ง'], ['type', 'ชนิดกิจการหรือสินค้า'], ['other', 'ข้อมูลอื่น']]);
+    if (this.needPlace(a)) add('place', P === 'change' ? 'ที่ตั้งใหม่เป็นของใคร' : 'สถานที่ตั้งร้าน', [['own', 'ผู้ประกอบการเป็นเจ้าบ้านหรือเจ้าของ'], ['rent', 'เช่าหรือใช้สถานที่ของผู้อื่น']]);
+    return out;
+  }
+  extract(text) {
+    const t = text.toLowerCase();
+    const t2 = t.replace(/เปิด/g, '#');
+    const has = (arr, s) => arr.some((w) => (s || t).indexOf(w) !== -1);
+    const a = {};
+    if (has(['ติดตาม', 'สถานะคำขอ', 'เช็กคำขอ', 'เช็คคำขอ', 'ตรวจสอบสถานะ', 'คำขอถึงไหน'])) a.purpose = 'track';
+    else if (has(['ต่ออายุ', 'หมดอายุ'])) a.purpose = 'renew';
+    else if (has(['เลิกกิจการ', 'ปิดกิจการ', 'ปิดร้าน', 'เลิกทำ', 'เลิกขาย', 'ยกเลิกทะเบียน', 'เลิกประกอบ', 'ปิดบริษัท'], t2)) a.purpose = 'close';
+    else if (has(['เปลี่ยน', 'แก้ไข', 'ย้าย'])) a.purpose = 'change';
+    else if (has(['ใบอนุญาตเพิ่ม', 'ขออนุญาตเพิ่ม', 'เพิ่มเติม'])) a.purpose = 'add';
+    else if (has(['เปิด', 'เริ่ม', 'ตั้งใหม่', 'จดทะเบียนใหม่', 'อยากมีร้าน', 'อยากทำร้าน'])) a.purpose = 'new';
+    if (has(['นวด', 'สปา', 'spa', 'massage'])) a.biz = 'spa';
+    else if (has(['โรงแรม', 'ที่พัก', 'โฮมสเตย์', 'homestay', 'โฮสเทล', 'hostel', 'รีสอร์ท', 'ห้องพักรายวัน'])) a.biz = 'hotel';
+    else if (has(['ฟิตเนส', 'fitness', 'ยิม', 'gym', 'ออกกำลังกาย'])) a.biz = 'fitness';
+    else if (has(['คาร์แคร์', 'ล้างรถ', 'car care', 'carcare', 'อัดฉีด', 'เคลือบสีรถ', 'ดูแลรถ'])) a.biz = 'carcare';
+    else if (has(['เสริมสวย', 'ทำผม', 'ตัดผม', 'แต่งผม', 'ซาลอน', 'salon', 'ทำเล็บ', 'ร้านเล็บ', 'บิวตี้', 'beauty', 'ร้านผม', 'บาร์เบอร์', 'barber'])) a.biz = 'beauty';
+    else if (has(['คาเฟ่', 'คาเฟ', 'cafe', 'café', 'กาแฟ', 'coffee', 'ชานม', 'เบเกอรี่', 'bakery', 'ร้านเครื่องดื่ม'])) a.biz = 'cafe';
+    else if (has(['ออนไลน์', 'online', 'shopee', 'lazada', 'tiktok', 'facebook', 'เฟซบุ๊ก', 'เฟสบุ๊ค', 'ไลฟ์สด', 'อินเทอร์เน็ต', 'เว็บไซต์', 'อีคอมเมิร์ซ', 'e-commerce'])) a.biz = 'online';
+    else if (has(['ร้านอาหาร', 'อาหาร', 'ร้านข้าว', 'ก๋วยเตี๋ยว', 'ตามสั่ง', 'ส้มตำ', 'หมูกระทะ', 'ชาบู', 'บุฟเฟต์', 'ปิ้งย่าง', 'ขายข้าว', 'restaurant'])) a.biz = 'food';
+    else if (has(['เสื้อผ้า', 'ค้าปลีก', 'โชห่วย', 'มินิมาร์ท', 'ขายของชำ', 'ร้านค้า', 'ร้านขายของ', 'ร้านกิฟต์ช็อป'])) a.biz = 'retail';
+    if (has(['บริษัท', 'หจก', 'ห้างหุ้นส่วน', 'นิติบุคคล'])) a.entity = 'juristic';
+    else if (has(['บุคคลธรรมดา'])) a.entity = 'person';
+    if (has(['แทน', 'มอบอำนาจ', 'ผู้รับมอบ'])) a.filer = 'proxy';
+    if (has(['เช่า'])) a.place = 'rent';
+    if (has(['หมดอายุแล้ว', 'หมดไปแล้ว'])) a.expired = 'yes';
+    if (a.purpose === 'change') {
+      if (has(['ย้าย'])) a.change = 'move';
+      else if (has(['ชื่อ'])) a.change = 'name';
+      else if (has(['ชนิด', 'ประเภท', 'สินค้า'])) a.change = 'type';
+    }
+    const provinces = ['กรุงเทพมหานคร', 'กระบี่', 'กาญจนบุรี', 'กาฬสินธุ์', 'กำแพงเพชร', 'ขอนแก่น', 'จันทบุรี', 'ฉะเชิงเทรา', 'ชลบุรี', 'ชัยนาท', 'ชัยภูมิ', 'ชุมพร', 'เชียงราย', 'เชียงใหม่', 'ตรัง', 'ตราด', 'ตาก', 'นครนายก', 'นครปฐม', 'นครพนม', 'นครราชสีมา', 'นครศรีธรรมราช', 'นครสวรรค์', 'นนทบุรี', 'นราธิวาส', 'น่าน', 'บึงกาฬ', 'บุรีรัมย์', 'ปทุมธานี', 'ประจวบคีรีขันธ์', 'ปราจีนบุรี', 'ปัตตานี', 'พระนครศรีอยุธยา', 'พะเยา', 'พังงา', 'พัทลุง', 'พิจิตร', 'พิษณุโลก', 'เพชรบุรี', 'เพชรบูรณ์', 'แพร่', 'ภูเก็ต', 'มหาสารคาม', 'มุกดาหาร', 'แม่ฮ่องสอน', 'ยโสธร', 'ยะลา', 'ร้อยเอ็ด', 'ระนอง', 'ระยอง', 'ราชบุรี', 'ลพบุรี', 'ลำปาง', 'ลำพูน', 'เลย', 'ศรีสะเกษ', 'สกลนคร', 'สงขลา', 'สตูล', 'สมุทรปราการ', 'สมุทรสงคราม', 'สมุทรสาคร', 'สระแก้ว', 'สระบุรี', 'สิงห์บุรี', 'สุโขทัย', 'สุพรรณบุรี', 'สุราษฎร์ธานี', 'สุรินทร์', 'หนองคาย', 'หนองบัวลำภู', 'อ่างทอง', 'อำนาจเจริญ', 'อุดรธานี', 'อุตรดิตถ์', 'อุทัยธานี', 'อุบลราชธานี'];
+    const ambiguous = ['เลย', 'ตาก', 'แพร่', 'น่าน'];
+    const found = (p) => (ambiguous.indexOf(p) !== -1 ? has(['จังหวัด' + p, 'จ.' + p, 'จ. ' + p]) : t.indexOf(p) !== -1);
+    const pv = provinces.slice().sort((x, y) => y.length - x.length).filter(found)[0];
+    const alias = { 'กรุงเทพ': 'กรุงเทพมหานคร', 'กทม': 'กรุงเทพมหานคร', 'อยุธยา': 'พระนครศรีอยุธยา', 'โคราช': 'นครราชสีมา' };
+    const av = Object.keys(alias).filter((k) => t.indexOf(k) !== -1)[0];
+    if (pv) a.province = pv;
+    else if (av) a.province = alias[av];
+    const rm = t.match(/(\d+)\s*ห้อง/);
+    if (rm) a.rooms = Number(rm[1]) <= 8 ? 'small' : 'large';
+    const sm = t.match(/(\d+)\s*(ตร\.?ม|ตารางเมตร)/);
+    if (sm) a.size = Number(sm[1]) <= 200 ? 'small' : 'large';
+    return a;
+  }
+  remainingOf(a, known) {
+    const qs = this.questions(a, {}, true);
+    let n = qs.filter((g) => !a[g.key]).length;
+    if (!a.purpose) n += 0;
+    if (a.purpose && a.purpose !== 'track' && !a.province) n += 1;
+    return n;
+  }
+  goResult(ans, q) {
+    const p = this.plan(ans);
+    const doneIds = this.readArr('tangrat-proto-done');
+    const openSv = p.services.filter((x) => doneIds.indexOf(x.id) < 0 && x.channel !== 'external')[0] || p.services.filter((x) => doneIds.indexOf(x.id) < 0)[0] || p.services[0];
+    const svc = openSv ? openSv.id : '';
+    this.writeJSON('tangrat-proto-plan', p);
+    this.writeJSON('tangrat-proto-case', Object.assign({}, ans, { service: svc, query: q || this.state.query }));
+    this.setState({ phase: 'result', ans: ans, open: '', editKnown: false });
+    clearTimeout(this._sc);
+    this._sc = setTimeout(() => { try { const el = document.getElementById('res'); if (el) el.scrollIntoView({ block: 'start' }); } catch (e) {} }, 60);
+  }
+  run(q) {
+    const text = (q || '').trim();
+    if (!text) { this.setState({ searchError: true }); return; }
+    const ans = this.extract(text);
+    const known = {};
+    Object.keys(ans).forEach((k) => { known[k] = true; });
+    this.writeJSON('tangrat-proto-done', []);
+    this.setState({ query: text, searchError: false, ans: ans, known: known, editKnown: false, open: '', done: [] });
+    if (ans.purpose === 'track' || this.remainingOf(ans, known) === 0) this.goResult(ans, text);
+    else this.setState({ phase: 'ask' });
+  }
+  renderVals() {
+    const s = this.state;
+    const MT = this.meta();
+    const a = s.ans || {};
+    const pill = (on) => ({ bg: on ? '#0B7A4B' : '#FFFFFF', fg: on ? '#FFFFFF' : '#15202E', bd: on ? '#0B7A4B' : '#C5CEDB' });
+    const setAns = (key, value) => {
+      const next = Object.assign({}, this.state.ans);
+      next[key] = value;
+      this.setState({ ans: next });
+    };
+    const groups = this.questions(a, s.known || {}, s.editKnown).map((g) => ({
+      key: g.key, label: g.label,
+      options: g.options.map((o) => Object.assign({ label: o[1], selected: a[g.key] === o[0], pick: () => setAns(g.key, o[0]) }, pill(a[g.key] === o[0])))
+    }));
+    const remaining = this.remainingOf(a, s.known || {});
+    const knownChips = Object.keys(s.known || {}).filter((k) => a[k]).map((k) => {
+      if (k === 'purpose') return MT.purpose[a.purpose];
+      if (k === 'biz') return (MT.biz[a.biz] || {}).label;
+      if (k === 'province') return a.province;
+      return (MT.val[k] || {})[a[k]] || a[k];
+    }).filter((x) => x);
+    const isTrack = a.purpose === 'track';
+    const p = s.phase === 'result' && !isTrack ? this.plan(a) : null;
+    const doneIds = s.done || [];
+    const firstOpen = p ? p.services.findIndex((x) => doneIds.indexOf(x.id) < 0) : -1;
+    const openCount = p ? p.services.filter((x) => doneIds.indexOf(x.id) < 0).length : 0;
+    const allDone = !!p && p.services.length > 0 && openCount === 0;
+    const services = p ? p.services.map((sv, i) => {
+      const open = s.open === sv.id;
+      const must = sv.must.filter((x) => !x.optional);
+      const app = sv.channel === 'app';
+      const isDone = doneIds.indexOf(sv.id) >= 0;
+      const hot = i === firstOpen;
+      return {
+        n: String(i + 1), title: sv.title, sub: sv.sub, agency: sv.agency, when: sv.when, reason: sv.reason, feeShort: sv.feeShort, law: sv.law,
+        mustCount: must.length, noMust: sv.must.length === 0, hasAuto: sv.auto.length > 0,
+        mustList: sv.must.map((x) => x.name + (x.optional ? ' (ถ้ามี/หากกำหนด)' : '')),
+        autoList: sv.auto.map((x) => x.name),
+        chLabel: isDone ? 'ยื่นแล้ว' : (app ? 'ยื่นในแอปได้' : 'ยื่นที่หน่วยงาน'), chBg: isDone ? '#0B7A4B' : (app ? '#E8F5EE' : '#FFF1DB'), chFg: isDone ? '#FFFFFF' : (app ? '#0B5E3C' : '#8A4B00'),
+        href: isDone ? 'Tracking.dc.html' : 'Service.dc.html', numBg: isDone ? '#0E7A4F' : '#0B7A4B', numLabel: isDone ? '✓' : String(i + 1),
+        open: open, toggleLabel: open ? 'ซ่อนรายละเอียด' : 'ดูเพิ่ม',
+        toggle: () => this.setState({ open: this.state.open === sv.id ? '' : sv.id }),
+        bd: hot ? '#0B7A4B' : '#DDE3EC', bg: isDone ? '#F7F9F8' : (hot ? '#F3FAF6' : '#FFFFFF'),
+        btnBg: hot ? '#0B7A4B' : '#FFFFFF', btnFg: hot ? '#FFFFFF' : '#075234',
+        btnLabel: isDone ? 'ดูสถานะคำขอ' : (app ? 'เริ่มยื่นคำขอนี้' : 'ดูช่องทางและเอกสาร'),
+        choose: () => {
+          if (isDone) return;
+          const c = this.readJSON('tangrat-proto-case') || {};
+          this.writeJSON('tangrat-proto-plan', p);
+          this.writeJSON('tangrat-proto-case', Object.assign({}, this.state.ans, c, this.state.ans, { service: sv.id, query: this.state.query }));
+        }
+      };
+    }) : [];
+    const tiles = [
+      { label: 'ภาษีและประกันสังคม', d: 'M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6' },
+      { label: 'ใบอนุญาต / อนุมัติ', d: 'M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM9 12l2 2 4-4' },
+      { label: 'การค้าระหว่างประเทศ', d: 'M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18' },
+      { label: 'สนับสนุนธุรกิจ', d: 'M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z' },
+      { label: 'ช่วยเหลือ', d: 'M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01' }
+    ].map((t) => ({ label: t.label, d: t.d, pick: () => this.flash('“' + t.label + '” อยู่นอกขอบเขตต้นแบบนี้') }));
+    const accountItems = ['แก้ไขข้อมูลส่วนตัว', 'เปลี่ยนรหัสผ่าน / ยืนยันตัวตน (e-KYC)', 'ตั้งค่า', 'ติดต่อเจ้าหน้าที่'].map((label) => ({
+      label: label, color: '#15202E', pick: () => this.flash('“' + label + '” อยู่นอกขอบเขตต้นแบบนี้')
+    }));
+    const filled = (from, preset) => {
+      const next = Object.assign({}, from, preset);
+      for (let i = 0; i < 6; i++) {
+        this.questions(next, {}, true).forEach((g) => { if (!next[g.key]) next[g.key] = g.options[0][0]; });
+      }
+      if (!next.province) next.province = 'กรุงเทพมหานคร';
+      return next;
+    };
+    const fillWith = (preset) => {
+      let next = Object.assign({}, this.state.ans, preset);
+      for (let i = 0; i < 6; i++) {
+        this.questions(next, {}, true).forEach((g) => { if (!next[g.key]) next[g.key] = g.options[0][0]; });
+      }
+      if (!next.province) next.province = 'กรุงเทพมหานคร';
+      this.setState({ ans: next, editKnown: false });
+    };
+    const reqList = s.reqs || [];
+    const waiting = reqList.filter((r) => !r.received);
+    const req = waiting.length ? waiting[waiting.length - 1] : (reqList.length ? reqList[reqList.length - 1] : null);
+    const sim = req ? (req.sim || 'review') : 'review';
+    const reqTitle = req ? (req.title || 'คำขอ') : '';
+    const moreCount = waiting.length > 1 ? waiting.length - 1 : 0;
+    return {
+      query: s.query,
+      searchError: s.searchError,
+      onQ: (e) => this.setState({ query: e.target.value, searchError: false }),
+      onQKey: (e) => { if (e.key === 'Enter') this.run(this.state.query); },
+      onSearch: () => this.run(this.state.query),
+      isIdle: s.phase === 'idle',
+      isAsk: s.phase === 'ask',
+      isResult: s.phase === 'result',
+      chips: ['เปิดร้านอาหารตามสั่ง', 'บริษัทขอใบอนุญาตคาเฟ่', 'ยื่นแทนบริษัทเปิดร้านออนไลน์', 'ต่ออายุใบอนุญาตร้านอาหาร', 'เปลี่ยนชื่อร้านออนไลน์', 'ติดตามสถานะคำขอ'].map((label) => ({ label: label, pick: () => this.run(label) })),
+      quickDemo: () => {
+        const text = 'อยากเปิดร้านอาหารตามสั่ง';
+        const e = this.extract(text);
+        const known = {};
+        Object.keys(e).forEach((k) => { known[k] = true; });
+        this.setState({ query: text, searchError: false, phase: 'ask', ans: filled(e, { entity: 'person', filer: 'self', size: 'small', place: 'own' }), known: known, editKnown: false, open: '' });
+      },
+      askTitle: a.purpose ? 'ขอข้อมูลเพิ่มอีกนิด' : 'คุณต้องการทำอะไร',
+      hasKnown: knownChips.length > 0,
+      knownChips: knownChips,
+      editKnownLabel: s.editKnown ? 'ซ่อน' : 'แก้ไข',
+      toggleEditKnown: () => this.setState({ editKnown: !this.state.editKnown }),
+      groups: groups,
+      needProvince: !!a.purpose && !isTrack,
+      province: a.province || '',
+      onProvince: (e) => setAns('province', e.target.value),
+      remaining: remaining,
+      ready: remaining === 0 && !!a.purpose,
+      notReady: !(remaining === 0 && !!a.purpose),
+      showResult: () => this.goResult(this.state.ans),
+      fillAnswers: () => fillWith({ entity: 'person', filer: 'self' }),
+      fillJuristic: () => fillWith({ entity: 'juristic', filer: 'proxy', place: 'rent', size: 'large', rooms: 'large' }),
+      editAnswers: () => this.setState({ phase: 'ask', editKnown: true }),
+      resetSearch: () => {
+        try { ['tangrat-proto-case', 'tangrat-proto-plan', 'tangrat-proto-done'].forEach((k) => window.localStorage.removeItem(k)); } catch (e) {}
+        this.setState({ phase: 'idle', query: '', ans: {}, known: {}, editKnown: false, open: '', done: [] });
+      },
+      isTrack: isTrack,
+      notTrack: !isTrack,
+      trackText: req ? ('คำขอล่าสุด: ' + reqTitle + ' · สถานะ' + ({ review: 'กำลังพิจารณา', more: 'รอคุณแก้ไข', approved: 'อนุมัติแล้ว' }[sim] || '') + (reqList.length > 1 ? ' · รวม ' + reqList.length + ' คำขอ' : '')) : 'ยังไม่มีคำขอที่ยื่นผ่านแอปนี้',
+      resultHeading: allDone ? 'ยื่นคำขอครบทุกบริการแล้ว' : p ? (p.services.length ? 'แนะนำ ' + p.services.length + ' บริการสำหรับ' + p.purposeLabel : 'ไม่มีบริการที่ต้องยื่นสำหรับกรณีนี้') : '',
+      caseText: p ? p.caseText : '',
+      services: services,
+      skipped: p ? p.skipped : [],
+      hasSkipped: !!p && p.skipped.length > 0,
+      showTips: !!s.showTips,
+      tipsLabel: s.showTips ? 'ซ่อนข้อควรรู้' : 'ข้อควรรู้ (' + (p ? p.skipped.length : 0) + ')',
+      toggleTips: () => this.setState({ showTips: !this.state.showTips }),
+      reqCountText: reqList.length ? reqList.length + ' คำขอ' : 'ยังไม่มีคำขอ',
+      goTrack: () => { try { window.localStorage.setItem('tangrat-proto-back-tracking', 'Main.dc.html'); } catch (e) {} },
+      isTilesStage: s.stage === 'tiles',
+      isAskStage: s.stage !== 'tiles',
+      regBg: s.regPressed ? '#F3FAF6' : '#FFFFFF',
+      regBd: s.regPressed ? '#0B7A4B' : '#DDE3EC',
+      regIconBg: s.regPressed ? '#0B7A4B' : '#E8F5EE',
+      regIconFg: s.regPressed ? '#FFFFFF' : '#0B7A4B',
+      regPressed: s.regPressed,
+      backToTiles: () => this.setState({ stage: 'tiles', regPressed: false }),
+      tileRegister: () => {
+        this.setState({ regPressed: true });
+        clearTimeout(this._rg);
+        this._rg = setTimeout(() => this.setState({ stage: 'ask', regPressed: false }), 380);
+      },
+      tiles: tiles,
+      showNotif: s.showNotif,
+      toggleNotif: () => this.setState({ showNotif: !this.state.showNotif, showAccount: false }),
+      showAccount: s.showAccount,
+      toggleAccount: () => this.setState({ showAccount: !this.state.showAccount, showNotif: false }),
+      accountItems: accountItems,
+      logout: () => { try { ['case', 'plan', 'main', 'form', 'docs', 'req', 'reqs', 'done', 'fix', 'back-tracking', 'back-wallet', 'nav', 'auth'].forEach((k) => window.localStorage.removeItem('tangrat-proto-' + k)); window.localStorage.setItem('tangrat-proto-epoch', String(Date.now())); } catch (e) {} this._epoch = this.epoch(); this.setState(this.freshState()); },
+      toast: s.toast,
+      hasToast: !!s.toast,
+      showReqCard: waiting.length > 0,
+      reqBadge: { review: 'กำลังพิจารณา', more: 'รอคุณแก้ไข', approved: 'อนุมัติแล้ว (จำลอง)' }[sim] || 'กำลังพิจารณา',
+      reqBadgeBg: { review: '#E8F5EE', more: '#FFF1DB', approved: '#0B7A4B' }[sim] || '#E8F5EE',
+      reqBadgeFg: { review: '#075234', more: '#8A4B00', approved: '#FFFFFF' }[sim] || '#075234',
+      reqText: reqTitle + ({ review: '', more: ' · เจ้าหน้าที่ขอเอกสารเพิ่ม', approved: '' }[sim] || '') + (moreCount ? ' · และอีก ' + moreCount + ' คำขอ' : '')
+    };
+  }
+}
+</script>
+</body>
+</html>

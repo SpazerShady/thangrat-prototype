@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<title>คำขอของฉัน</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#0B7A4B}a:hover{color:#075234}
+button{font:inherit}
+.ic{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+button:focus-visible,a:focus-visible{outline:3px solid #86CFA7;outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; display: flex; flex-direction: column; background: #F3F6F4; font-family: 'IBM Plex Sans Thai', system-ui, sans-serif; color: #15202E; position: relative; overflow: hidden">
+
+<div style="flex: 0 0 auto; background: #FFFFFF; border-bottom: 1px solid #DDE3EC; padding: 12px 12px 0; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<a href="{{backHref}}" aria-label="ย้อนกลับ" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #15202E; background: #F3F6F4">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+</a>
+<h1 style="margin: 0; font-size: 17px; font-weight: 600">คำขอของฉัน</h1>
+</div>
+</div>
+
+<div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 16px 16px 24px; display: flex; flex-direction: column; gap: 14px">
+
+<sc-if value="{{noReqStatus}}" hint-placeholder-val="{{false}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 24px 18px; display: flex; flex-direction: column; gap: 10px; border: 1.5px dashed #C5CEDB; text-align: center; align-items: center">
+<svg class="ic" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true" style="color: #556070"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"></path><path d="M14 3v5h5"></path></svg>
+<span style="font-size: 16px; font-weight: 600">ยังไม่มีคำขอที่ยื่นผ่านแอปนี้</span>
+<span style="font-size: 13.5px; line-height: 1.5; color: #556070">ยื่นคำขอแล้ว สถานะจะแสดงที่นี่</span>
+<a href="Main.dc.html" style="min-height: 48px; padding: 0 18px; border-radius: 14px; background: #0B7A4B; color: #FFFFFF; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">ค้นหาบริการที่ต้องการ</a>
+</section>
+</sc-if>
+
+<sc-if value="{{hasReqStatus}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+
+<div style="display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: #FFF4E0; color: #5A3200; font-size: 13px; line-height: 1.5">
+<svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 16px; margin-top: 2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+<span>สถานะจำลองเพื่อสาธิต</span>
+</div>
+
+<sc-for list="{{cards}}" as="cd" hint-placeholder-count="1">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<sc-if value="{{cd.hasPush}}" hint-placeholder-val="{{false}}">
+<div role="status" style="display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 16px; background: #15202E; color: #FFFFFF; box-shadow: 0 8px 20px rgba(21,32,46,0.2)">
+<svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 20px; margin-top: 2px; color: #F5A524"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 12px; color: #BFE3CF">แจ้งเตือน · ทางรัฐ ภาคธุรกิจ · เมื่อสักครู่</span>
+<span style="font-size: 14px; line-height: 1.5">{{cd.pushText}}</span>
+</div>
+</div>
+</sc-if>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 14px; border: 1px solid #DDE3EC">
+<div style="display: flex; justify-content: space-between; gap: 10px; align-items: flex-start">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">{{cd.reqTitle}}</h2>
+<span style="font-size: 13px; color: #556070">{{cd.reqShop}} · {{cd.reqNo}}</span>
+</div>
+<span style="flex: 0 0 auto; padding: 4px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 600; background: {{cd.badgeBg}}; color: {{cd.badgeFg}}">{{cd.badgeText}}</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 12px; background: #F3F6F4; font-size: 13.5px">
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="color: #556070; flex: 0 0 18px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+<span>{{cd.etaText}}</span>
+</div>
+
+<ol aria-label="ลำดับสถานะ" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
+<sc-for list="{{cd.steps}}" as="st" hint-placeholder-count="4">
+<li style="display: flex; gap: 12px">
+<div style="display: flex; flex-direction: column; align-items: center; flex: 0 0 28px">
+<span style="width: 28px; height: 28px; border-radius: 50%; background: {{st.dotBg}}; border: 2px solid {{st.dotBd}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{st.isDone}}" hint-placeholder-val="{{true}}"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 3"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>
+<sc-if value="{{st.isWarn}}" hint-placeholder-val="{{false}}"><span aria-hidden="true" style="font-weight: 700; font-size: 14px">!</span></sc-if>
+<sc-if value="{{st.isCurrent}}" hint-placeholder-val="{{false}}"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF"></span></sc-if>
+</span>
+<sc-if value="{{st.hasLine}}" hint-placeholder-val="{{true}}"><span style="flex: 1; width: 2px; min-height: 22px; background: {{st.lineBg}}"></span></sc-if>
+</div>
+<div style="display: flex; flex-direction: column; gap: 1px; padding-bottom: 16px; padding-top: 3px">
+<span style="font-size: 14.5px; font-weight: 600; color: {{st.titleFg}}">{{st.title}}</span>
+<span style="font-size: 12.5px; color: #556070">{{st.note}}</span>
+</div>
+</li>
+</sc-for>
+</ol>
+</section>
+
+<sc-if value="{{cd.isMore}}" hint-placeholder-val="{{false}}">
+<section style="background: #FFF4E0; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 10px; border: 1px solid #F2C77A">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600; color: #6E3B00">เจ้าหน้าที่ขอเอกสารเพิ่มเติม</h2>
+<p style="margin: 0; font-size: 14px; line-height: 1.55; color: #5A3200"><strong style="font-weight: 600">เหตุผล:</strong> เอกสารบางรายการไม่ชัด</p>
+<p style="margin: 0; font-size: 13px; color: #6E3B00">แก้ไขภายใน 7 วัน</p>
+<a href="Upload.dc.html" onClick="{{cd.fix}}" style="min-height: 48px; border-radius: 14px; background: #8A4B00; color: #FFFFFF; font-size: 15.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">แนบเอกสารใหม่</a>
+</section>
+</sc-if>
+
+<sc-if value="{{cd.isApproved}}" hint-placeholder-val="{{false}}">
+<section style="background: #E6F4EE; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 10px; border: 1px solid #9FD3BA">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600; color: #0B4F34">ได้รับ{{cd.docName}}แล้ว (จำลอง)</h2>
+<p style="margin: 0; font-size: 14px; line-height: 1.55; color: #0B4F34">บันทึกหรือดาวน์โหลดได้</p>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<a href="Wallet.dc.html" onClick="{{cd.saveWallet}}" style="min-height: 48px; border-radius: 14px; border: none; background: #0B7A4B; color: #FFFFFF; font-size: 14.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none">บันทึกลงกระเป๋าเอกสาร</a>
+<button onClick="{{cd.download}}" style="min-height: 48px; border-radius: 14px; border: 1px solid #0B7A4B; background: #FFFFFF; color: #075234; font-size: 14.5px; font-weight: 600; cursor: pointer">ดาวน์โหลด PDF</button>
+</div>
+<sc-if value="{{cd.received}}" hint-placeholder-val="{{false}}">
+<span style="font-size: 13px; color: #0B4F34">รับเอกสารแล้ว</span>
+</sc-if>
+</section>
+</sc-if>
+
+<section style="border: 1.5px dashed #C5CEDB; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 13px; color: #556070">เดโม: จำลองผลการพิจารณา</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{cd.sims}}" as="sm" hint-placeholder-count="3">
+<button onClick="{{sm.pick}}" aria-pressed="{{sm.on}}" style="min-height: 44px; border-radius: 10px; border: 1px solid {{sm.bd}}; background: {{sm.bg}}; color: {{sm.fg}}; font-size: 13px; font-weight: 500; cursor: pointer">{{sm.label}}</button>
+</sc-for>
+</div>
+</section>
+</div>
+</sc-for>
+
+</div>
+</sc-if>
+
+
+</div>
+
+
+<sc-if value="{{showAccount}}" hint-placeholder-val="{{false}}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; z-index: 20">
+<button aria-label="ปิด" onClick="{{toggleAccount}}" style="flex: 1; border: none; background: rgba(21,32,46,0.35); cursor: pointer"></button>
+<div style="background: #FFFFFF; padding: 18px 16px 24px; border-radius: 22px 22px 0 0; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; align-items: center; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid #DDE3EC">
+<div aria-hidden="true" style="width: 48px; height: 48px; border-radius: 50%; background: #E8F5EE; color: #075234; display: flex; align-items: center; justify-content: center; font-weight: 700">สจ</div>
+<div style="display: flex; flex-direction: column; flex: 1">
+<span style="font-size: 16px; font-weight: 600">สมชาย ใจดี</span>
+<span style="font-size: 13px; color: #0E7A4F">ยืนยันตัวตน (e-KYC) แล้ว</span>
+</div>
+<button aria-label="ปิดเมนูบัญชี" onClick="{{toggleAccount}}" style="width: 44px; height: 44px; border: none; background: #F3F6F4; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #15202E; cursor: pointer">
+<svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+</button>
+</div>
+<sc-for list="{{accountItems}}" as="it" hint-placeholder-count="5">
+<button onClick="{{it.pick}}" style="min-height: 48px; display: flex; align-items: center; justify-content: space-between; border: none; background: transparent; padding: 0; color: {{it.color}}; font-size: 15px; text-align: left; cursor: pointer">{{it.label}}<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+</sc-for>
+<a href="Login.dc.html" onClick="{{logout}}" style="min-height: 48px; display: flex; align-items: center; justify-content: space-between; color: #B42318; text-decoration: none; font-size: 15px">ออกจากระบบ<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></a>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{false}}">
+<div role="status" style="position: absolute; left: 16px; right: 16px; bottom: 92px; padding: 12px 16px; border-radius: 14px; background: #15202E; color: #FFFFFF; font-size: 14px; text-align: center; z-index: 30">{{toast}}</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tab: 'status', back: 'Main.dc.html', reqs: [], showAccount: false, docOpen: {}, toast: '' };
+  }
+  componentDidMount() {
+    this._epoch = this.epoch();
+    this._sync = () => {
+      if (this.epoch() !== this._epoch) { this._epoch = this.epoch(); this._rawReq = ''; this.setState(this.freshState()); return; }
+      try { const bk = window.localStorage.getItem('tangrat-proto-back-tracking') || 'Main.dc.html'; if (bk !== this.state.back) this.setState({ back: bk }); } catch (e) {}
+      const list = this.readReqs();
+      const raw = JSON.stringify(list);
+      if (raw === this._rawReq) return;
+      this._rawReq = raw;
+      this.setState({ reqs: list });
+    };
+    this._sync();
+    this._poll = setInterval(this._sync, 1000);
+  }
+  epoch() {
+    try { return window.localStorage.getItem('tangrat-proto-epoch') || ''; } catch (e) { return ''; }
+  }
+  freshState() {
+    return { tab: 'status', reqs: [], showAccount: false, docOpen: {}, toast: '' };
+  }
+  componentWillUnmount() { clearTimeout(this._t); clearInterval(this._poll); }
+  readReqs() {
+    try {
+      const v = window.localStorage.getItem('tangrat-proto-reqs');
+      const a = v ? JSON.parse(v) : null;
+      if (Array.isArray(a) && a.length) return a;
+      const o = window.localStorage.getItem('tangrat-proto-req');
+      const old = o ? JSON.parse(o) : null;
+      return old && old.sim ? [Object.assign({ id: 'legacy', no: 'REQ-6911-004521' }, old)] : [];
+    } catch (e) { return []; }
+  }
+  updateReq(id, patch) {
+    const next = this.readReqs().map((r) => (r.id === id ? Object.assign({}, r, patch) : r));
+    this._rawReq = JSON.stringify(next);
+    try { window.localStorage.setItem('tangrat-proto-reqs', JSON.stringify(next)); } catch (e) {}
+    this.setState({ reqs: next });
+  }
+  receive(r, msg) {
+    this.updateReq(r.id, { sim: 'approved', received: true });
+    this.flash(msg);
+  }
+  flash(msg) {
+    clearTimeout(this._t);
+    this.setState({ toast: msg, showAccount: false });
+    this._t = setTimeout(() => this.setState({ toast: '' }), 2400);
+  }
+  renderVals() {
+    const s = this.state;
+    const blue = '#0B7A4B', green = '#0E7A4F', amber = '#B76E00', grey = '#C5CEDB';
+    const done = (title, note) => ({ title: title, note: note, isDone: true, isWarn: false, isCurrent: false, dotBg: green, dotBd: green, titleFg: '#15202E' });
+    const cur = (title, note) => ({ title: title, note: note, isDone: false, isWarn: false, isCurrent: true, dotBg: blue, dotBd: blue, titleFg: blue });
+    const warn = (title, note) => ({ title: title, note: note, isDone: false, isWarn: true, isCurrent: false, dotBg: amber, dotBd: amber, titleFg: '#8A4B00' });
+    const todo = (title, note) => ({ title: title, note: note, isDone: false, isWarn: false, isCurrent: false, dotBg: '#FFFFFF', dotBd: grey, titleFg: '#556070' });
+    const badgeOf = {
+      review: { t: 'กำลังพิจารณา', bg: '#E8F5EE', fg: '#075234' },
+      more: { t: 'รอคุณแก้ไข', bg: '#FFF1DB', fg: '#8A4B00' },
+      approved: { t: 'อนุมัติแล้ว (จำลอง)', bg: '#E6F4EE', fg: '#0B5E3C' }
+    };
+    const cards = s.reqs.map((r, idx) => {
+      const sim = r.sim || 'review';
+      const docName = r.result || 'เอกสาร';
+      const reqTitle = r.title || 'คำขอ';
+      const no = r.no || 'REQ-6911-004521';
+      let steps;
+      if (sim === 'approved') {
+        steps = [
+          done('ส่งคำขอแล้ว', '4 พ.ย. 2569 · 10:15 น.'),
+          done('ตรวจความครบถ้วนอัตโนมัติ', '4 พ.ย. 2569 · 10:16 น. · ผ่าน'),
+          done('เจ้าหน้าที่พิจารณา', '5 พ.ย. 2569 · 09:30 น. · อนุมัติ (จำลอง)'),
+          done('ออก' + docName, '5 พ.ย. 2569 · 09:31 น. · ตัวอย่างเอกสารจำลอง')
+        ];
+      } else if (sim === 'review' && r.resubmitted) {
+        steps = [
+          done('ส่งคำขอแล้ว', '4 พ.ย. 2569 · 10:15 น.'),
+          done('เจ้าหน้าที่ขอเอกสารเพิ่ม', '4 พ.ย. 2569 · 14:05 น.'),
+          done('ส่งเอกสารที่แก้ไขแล้ว', 'เมื่อสักครู่ · ผ่านการตรวจความครบถ้วน'),
+          cur('เจ้าหน้าที่กำลังพิจารณาอีกครั้ง', 'ขั้นตอนปัจจุบัน'),
+          todo('ออก' + docName, 'รอผลการพิจารณา')
+        ];
+      } else if (sim === 'more') {
+        steps = [
+          done('ส่งคำขอแล้ว', '4 พ.ย. 2569 · 10:15 น.'),
+          done('ตรวจความครบถ้วนอัตโนมัติ', '4 พ.ย. 2569 · 10:16 น. · ผ่าน'),
+          warn('เจ้าหน้าที่ขอเอกสารเพิ่ม', '4 พ.ย. 2569 · 14:05 น. · รอคุณแก้ไข'),
+          todo('ออก' + docName, 'รอผลการพิจารณา')
+        ];
+      } else {
+        steps = [
+          done('ส่งคำขอแล้ว', '4 พ.ย. 2569 · 10:15 น.'),
+          done('ตรวจความครบถ้วนอัตโนมัติ', '4 พ.ย. 2569 · 10:16 น. · ผ่าน'),
+          cur('เจ้าหน้าที่กำลังพิจารณา', 'ขั้นตอนปัจจุบัน'),
+          todo('ออก' + docName, 'รอผลการพิจารณา')
+        ];
+      }
+      steps = steps.map((st, i) => Object.assign(st, { hasLine: i < steps.length - 1, lineBg: st.isDone ? green : grey }));
+      const b = badgeOf[sim];
+      const eta = {
+        review: r.resubmitted ? 'คาดว่าทราบผลใน 1 วันทำการ' : 'คาดว่าทราบผล 6 พ.ย. 2569',
+        more: 'ส่งเอกสารเพิ่มภายใน 11 พ.ย. 2569',
+        approved: 'เสร็จสิ้น 5 พ.ย. 2569'
+      }[sim];
+      const push = {
+        review: r.resubmitted ? 'คำขอ ' + no + ': กำลังพิจารณาอีกครั้ง' : '',
+        more: 'คำขอ ' + no + ': ขอเอกสารเพิ่ม',
+        approved: 'คำขอ' + reqTitle + 'อนุมัติแล้ว'
+      }[sim];
+      const sims = [
+        { id: 'review', label: 'กำลังพิจารณา' },
+        { id: 'more', label: 'ขอเอกสารเพิ่ม' },
+        { id: 'approved', label: 'อนุมัติ (จำลอง)' }
+      ].map((m) => {
+        const on = sim === m.id;
+        return { label: m.label, on: on, bg: on ? '#15202E' : '#FFFFFF', fg: on ? '#FFFFFF' : '#15202E', bd: on ? '#15202E' : '#C5CEDB', pick: () => this.updateReq(r.id, { sim: m.id, received: false, resubmitted: false }) };
+      });
+      return {
+        id: r.id, steps: steps, badgeText: b.t, badgeBg: b.bg, badgeFg: b.fg, etaText: eta,
+        hasPush: !!push, pushText: push, isMore: sim === 'more', isApproved: sim === 'approved',
+        reqTitle: reqTitle, docName: docName, reqShop: r.shop || '', reqNo: no, sim: sim,
+        received: !!r.received,
+        saveWallet: () => { try { window.localStorage.setItem('tangrat-proto-back-wallet', 'Tracking.dc.html'); } catch (e) {} this.receive(r, 'บันทึกลงกระเป๋าเอกสารแล้ว'); },
+        download: () => this.receive(r, 'ดาวน์โหลด' + docName + '.pdf แล้ว'),
+        sims: sims,
+        fix: () => {
+          try {
+            const v = window.localStorage.getItem('tangrat-proto-case');
+            const c = v ? JSON.parse(v) : {};
+            if (r.service) c.service = r.service;
+            window.localStorage.setItem('tangrat-proto-case', JSON.stringify(c));
+            window.localStorage.setItem('tangrat-proto-fix', JSON.stringify({ id: r.id, service: r.service, no: no, seeded: false }));
+          } catch (e) {}
+        }
+      };
+    });
+    const approved = cards.filter((c) => c.sim === 'approved');
+    const walletDocs = approved.map((c, i) => ({
+      docName: c.docName, reqShop: c.reqShop, reqTitle: c.reqTitle, docNo: '6911-' + String(123 + i).padStart(6, '0'),
+      docOpen: !!s.docOpen[c.id], docBtn: s.docOpen[c.id] ? 'ซ่อน' : 'ดูเอกสาร',
+      toggleDoc: () => { const o = Object.assign({}, this.state.docOpen); o[c.id] = !o[c.id]; this.setState({ docOpen: o }); },
+      download: c.download,
+      share: () => this.flash('สร้างลิงก์แชร์เอกสารแล้ว (จำลอง)')
+    }));
+    const walletPending = cards.filter((c) => c.sim !== 'approved').map((c) => ({
+      docName: c.docName, reqNo: c.reqNo, reqShop: c.reqShop, badge: c.badgeText, bg: c.badgeBg, fg: c.badgeFg
+    }));
+    const accountItems = ['แก้ไขข้อมูลส่วนตัว', 'เปลี่ยนรหัสผ่าน / ยืนยันตัวตน (e-KYC)', 'ตั้งค่า', 'ติดต่อเจ้าหน้าที่'].map((label) => ({
+      label: label,
+      color: '#15202E',
+      pick: () => this.flash('“' + label + '” อยู่นอกขอบเขตต้นแบบนี้')
+    }));
+    const isStatus = s.tab === 'status';
+    return {
+      pageTitle: isStatus ? 'คำขอของฉัน' : 'กระเป๋าเอกสาร',
+      isStatus: isStatus,
+      isWallet: !isStatus,
+      goStatus: () => this.setState({ tab: 'status', showAccount: false }),
+      goWallet: () => this.setState({ tab: 'wallet', showAccount: false }),
+      tab1Bd: isStatus ? blue : 'transparent', tab1Fg: isStatus ? blue : '#556070', tab1Weight: isStatus ? '600' : '400',
+      tab2Bd: isStatus ? 'transparent' : blue, tab2Fg: isStatus ? '#556070' : blue, tab2Weight: isStatus ? '400' : '600',
+      cards: cards,
+      backHref: s.back,
+      hasReqStatus: isStatus && cards.length > 0,
+      noReqStatus: isStatus && cards.length === 0,
+      walletDocs: walletDocs,
+      walletEmpty: walletDocs.length === 0,
+      walletEmptyTitle: cards.length ? 'ยังไม่มีเอกสารที่ออกแล้ว' : 'ยังไม่มีเอกสารจากคำขอ',
+      walletPending: walletPending,
+      hasPending: walletPending.length > 0,
+      openId: () => this.flash('บัตรประชาชนดิจิทัลอยู่นอกขอบเขตต้นแบบนี้'),
+      showAccount: s.showAccount,
+      toggleAccount: () => this.setState({ showAccount: !this.state.showAccount }),
+      logout: () => { try { ['case', 'plan', 'main', 'form', 'docs', 'req', 'reqs', 'done', 'fix', 'back-tracking', 'back-wallet', 'nav', 'auth'].forEach((k) => window.localStorage.removeItem('tangrat-proto-' + k)); window.localStorage.setItem('tangrat-proto-epoch', String(Date.now())); } catch (e) {} },
+      accountItems: accountItems,
+      toast: s.toast,
+      hasToast: !!s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

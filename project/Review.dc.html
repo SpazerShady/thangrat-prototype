@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<title>ตรวจสอบและส่งคำขอ</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#0B7A4B}a:hover{color:#075234}
+button{font:inherit}
+.ic{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+button:focus-visible,a:focus-visible{outline:3px solid #86CFA7;outline-offset:2px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{animation:spin 0.9s linear infinite}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; display: flex; flex-direction: column; background: #F3F6F4; font-family: 'IBM Plex Sans Thai', system-ui, sans-serif; color: #15202E; position: relative; overflow: hidden">
+
+<sc-if value="{{notSubmitted}}" hint-placeholder-val="{{true}}">
+<div style="flex: 0 0 auto; background: #FFFFFF; border-bottom: 1px solid #DCE5DF; padding: 12px 12px 14px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 8px">
+<a href="Upload.dc.html" aria-label="ย้อนกลับ" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #15202E; background: #F3F6F4">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+</a>
+<div style="display: flex; flex-direction: column; min-width: 0">
+<h1 style="margin: 0; font-size: 17px; font-weight: 600">ตรวจสอบและส่งคำขอ</h1>
+<span style="font-size: 12.5px; color: #556070">{{svTitle}}</span>
+</div>
+</div>
+<ol aria-label="ขั้นตอนคำขอ" style="list-style: none; margin: 0; padding: 0 4px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 5px; border-radius: 3px; background: #0B7A4B"></span><span style="font-size: 12px; color: #0B7A4B">1 ข้อมูลกิจการ ✓</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 5px; border-radius: 3px; background: #0B7A4B"></span><span style="font-size: 12px; color: #0B7A4B">2 แนบเอกสาร ✓</span></li>
+<li aria-current="step" style="display: flex; flex-direction: column; gap: 6px"><span style="height: 5px; border-radius: 3px; background: #0B7A4B"></span><span style="font-size: 12px; font-weight: 600; color: #0B7A4B">3 ตรวจสอบและส่ง</span></li>
+</ol>
+</div>
+
+<div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 16px 16px 24px; display: flex; flex-direction: column; gap: 14px">
+
+<sc-if value="{{docsComplete}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-radius: 14px; background: #E8F5EE; color: #0B4F34; font-size: 14px">
+<svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 20px"><path d="M20 6 9 17l-5-5"></path></svg>
+เอกสารครบ {{needTotal}} รายการ
+</div>
+</sc-if>
+<sc-if value="{{docsMissing}}" hint-placeholder-val="{{false}}">
+<div role="alert" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 14px; background: #FDECEA; color: #8F1D14; font-size: 14px; line-height: 1.5">
+<span><strong style="font-weight: 600">ยังส่งคำขอไม่ได้</strong> · ยังขาด: {{missingNames}}</span>
+<a href="Upload.dc.html" style="align-self: flex-start; min-height: 36px; display: flex; align-items: center; font-weight: 600; color: #8F1D14">กลับไปแนบเอกสาร</a>
+</div>
+</sc-if>
+
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="3">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 10px; border: 1px solid #DCE5DF">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">{{g.title}}</h2>
+<a href="Form.dc.html" style="min-height: 36px; display: flex; align-items: center; font-size: 14px; font-weight: 500">แก้ไข</a>
+</div>
+<sc-for list="{{g.rows}}" as="r" hint-placeholder-count="4">
+<div style="display: flex; justify-content: space-between; gap: 12px; font-size: 14px">
+<span style="color: #556070; flex: 0 0 auto; max-width: 45%">{{r.k}}</span>
+<span style="font-weight: 500; text-align: right">{{r.v}}</span>
+</div>
+</sc-for>
+</section>
+</sc-for>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 10px; border: 1px solid #DCE5DF">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">เอกสารประกอบ ({{docCount}})</h2>
+<a href="Upload.dc.html" style="min-height: 36px; display: flex; align-items: center; font-size: 14px; font-weight: 500">แก้ไข</a>
+</div>
+<sc-for list="{{docs}}" as="d" hint-placeholder-count="5">
+<div style="display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; line-height: 1.5">
+<span aria-hidden="true" style="flex: 0 0 16px; margin-top: 1px; font-weight: 700; color: {{d.color}}">{{d.mark}}</span>
+<span>{{d.text}}</span>
+</div>
+</sc-for>
+</section>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #DCE5DF">
+<div style="display: flex; gap: 12px; align-items: flex-start">
+<div aria-hidden="true" style="flex: 0 0 44px; width: 44px; height: 54px; border-radius: 6px; border: 1px solid #C3D1C8; background: #FFFFFF; display: flex; flex-direction: column; gap: 4px; padding: 8px 6px">
+<span style="height: 3px; background: #0B7A4B; border-radius: 2px"></span>
+<span style="height: 3px; background: #DCE5DF; border-radius: 2px"></span>
+<span style="height: 3px; background: #DCE5DF; border-radius: 2px"></span>
+<span style="height: 3px; background: #DCE5DF; border-radius: 2px; width: 60%"></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600; line-height: 1.35">{{formName}}</h2>
+</div>
+</div>
+<button onClick="{{togglePreview}}" aria-expanded="{{previewOpen}}" style="min-height: 44px; border-radius: 12px; border: 1px solid #C3D1C8; background: #FFFFFF; color: #15202E; font-size: 14.5px; cursor: pointer">{{previewLabel}}</button>
+<sc-if value="{{previewOpen}}" hint-placeholder-val="{{false}}">
+<div style="border: 1px solid #C3D1C8; border-radius: 10px; padding: 16px; background: #FCFCFD; display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; line-height: 1.6">
+<span style="text-align: center; font-weight: 700; font-size: 14px">{{formName}}</span>
+<span style="text-align: center; color: #556070">ตัวอย่างเอกสาร · ข้อมูลจำลอง</span>
+<sc-for list="{{previewLines}}" as="pl" hint-placeholder-count="6">
+<span>{{pl}}</span>
+</sc-for>
+</div>
+</sc-if>
+</section>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 10px; border: 1px solid #DCE5DF">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">ค่าธรรมเนียม</h2>
+<span style="font-size: 16px; font-weight: 700; text-align: right">{{feeShort}}</span>
+</div>
+<sc-if value="{{feePay}}" hint-placeholder-val="{{true}}">
+<fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="font-size: 13.5px; color: #556070; padding: 0; margin-bottom: 8px">เลือกวิธีชำระเงิน (จำลอง)</legend>
+<label for="pay1" style="display: flex; gap: 12px; align-items: center; min-height: 48px; padding: 0 12px; border-radius: 12px; border: 1px solid {{pay1Bd}}; font-size: 14.5px; cursor: pointer">
+<input id="pay1" type="radio" name="pay" checked="{{payQr}}" onChange="{{pickQr}}" style="width: 20px; height: 20px; margin: 0; accent-color: #0B7A4B">
+QR พร้อมเพย์
+</label>
+<label for="pay2" style="display: flex; gap: 12px; align-items: center; min-height: 48px; padding: 0 12px; border-radius: 12px; border: 1px solid {{pay2Bd}}; font-size: 14.5px; cursor: pointer">
+<input id="pay2" type="radio" name="pay" checked="{{payBank}}" onChange="{{pickBank}}" style="width: 20px; height: 20px; margin: 0; accent-color: #0B7A4B">
+แอปธนาคาร (Mobile Banking)
+</label>
+</fieldset>
+</sc-if>
+<sc-if value="{{feeLater}}" hint-placeholder-val="{{false}}">
+<span style="font-size: 13.5px; line-height: 1.5; color: #3B4655">{{fee}} ชำระหลังได้รับอนุญาต</span>
+</sc-if>
+</section>
+
+<label for="confirm" style="display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: 14px; background: #FFFFFF; border: 1px solid #DCE5DF; font-size: 14px; line-height: 1.5; cursor: pointer">
+<input id="confirm" type="checkbox" checked="{{agree}}" onChange="{{toggleAgree}}" style="width: 22px; height: 22px; margin: 1px 0 0; accent-color: #0B7A4B; flex: 0 0 22px">
+{{confirmText}}
+</label>
+
+</div>
+
+<div style="flex: 0 0 auto; background: #FFFFFF; border-top: 1px solid #DCE5DF; padding: 12px 16px 20px">
+<sc-if value="{{submitting}}" hint-placeholder-val="{{false}}">
+<div role="status" style="min-height: 52px; border-radius: 14px; background: #E8F5EE; color: #075234; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 15.5px; font-weight: 500">
+<svg class="ic spin" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.2-8.6"></path></svg>
+กำลังส่งคำขอ...
+</div>
+</sc-if>
+<sc-if value="{{canSubmit}}" hint-placeholder-val="{{false}}">
+<button onClick="{{submit}}" style="width: 100%; min-height: 52px; border-radius: 14px; border: none; background: #0B7A4B; color: #FFFFFF; font-size: 16.5px; font-weight: 600; cursor: pointer">ยืนยันและส่งคำขอ</button>
+</sc-if>
+<sc-if value="{{cannotSubmit}}" hint-placeholder-val="{{true}}">
+<button disabled="{{true}}" style="width: 100%; min-height: 52px; border-radius: 14px; border: none; background: #E3E9E5; color: #556070; font-size: 15px; font-weight: 500">{{blockText}}</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{submitted}}" hint-placeholder-val="{{false}}">
+<div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 40px 20px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center">
+<div aria-hidden="true" style="width: 88px; height: 88px; border-radius: 50%; background: #E8F5EE; color: #0B7A4B; display: flex; align-items: center; justify-content: center">
+<svg class="ic" width="46" height="46" viewBox="0 0 24 24" style="stroke-width: 2.5"><path d="M20 6 9 17l-5-5"></path></svg>
+</div>
+<h1 style="margin: 0; font-size: 22px; font-weight: 700">ส่งคำขอเรียบร้อยแล้ว</h1>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: #3B4655">ส่งถึง{{svAgency}}แล้ว</p>
+<div style="width: 100%; background: #FFFFFF; border: 1px solid #DCE5DF; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 10px; text-align: left; font-size: 14px">
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #556070">เลขที่คำขอ</span><span style="font-weight: 600">{{reqNo}}</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #556070">ยื่นเมื่อ</span><span style="font-weight: 500">4 พ.ย. 2569 · 10:15 น.</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #556070; flex: 0 0 auto">ระยะเวลา</span><span style="font-weight: 500; text-align: right">{{svTime}}</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #556070; flex: 0 0 auto">ค่าธรรมเนียม</span><span style="font-weight: 500; color: #0B7A4B; text-align: right">{{feeDone}}</span></div>
+</div>
+<button onClick="{{toggleNotify}}" aria-pressed="{{notify}}" style="width: 100%; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 16px; border-radius: 16px; border: 1px solid #DCE5DF; background: #FFFFFF; color: #15202E; font-size: 14.5px; text-align: left; cursor: pointer">
+<span>แจ้งเตือนเมื่อสถานะคำขอเปลี่ยน</span>
+<span aria-hidden="true" style="flex: 0 0 48px; width: 48px; height: 28px; border-radius: 999px; background: {{switchBg}}; display: flex; align-items: center; justify-content: {{switchJustify}}; padding: 3px">
+<span style="width: 22px; height: 22px; border-radius: 50%; background: #FFFFFF"></span>
+</span>
+</button>
+<sc-if value="{{hasNext}}" hint-placeholder-val="{{false}}">
+<div style="width: 100%; display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 16px; background: #FFF4E0; text-align: left">
+<span style="font-size: 14px; font-weight: 600; color: #5A3200">บริการถัดไป</span>
+<sc-for list="{{nextServices}}" as="nx" hint-placeholder-count="1">
+<a href="Service.dc.html" onClick="{{nx.pick}}" style="min-height: 48px; padding: 8px 12px; border-radius: 12px; background: #FFFFFF; border: 1px solid #F2C77A; color: #15202E; display: flex; align-items: center; justify-content: space-between; gap: 8px; text-decoration: none; font-size: 14px">
+<span style="display: flex; flex-direction: column; gap: 1px"><span style="font-weight: 600">ขั้นที่ {{nx.n}} · {{nx.title}}</span><span style="font-size: 12.5px; color: #556070">{{nx.channel}} · {{nx.when}}</span></span>
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex: 0 0 18px"><path d="m9 18 6-6-6-6"></path></svg>
+</a>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<div style="flex: 0 0 auto; background: #FFFFFF; border-top: 1px solid #DCE5DF; padding: 12px 16px 20px; display: flex; flex-direction: column; gap: 8px">
+<a href="Tracking.dc.html" onClick="{{goTrack}}" style="min-height: 52px; border-radius: 14px; background: #0B7A4B; color: #FFFFFF; font-size: 16.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">ติดตามสถานะคำขอ</a>
+<a href="Main.dc.html" style="min-height: 48px; border-radius: 14px; color: #0B7A4B; font-size: 15px; font-weight: 500; display: flex; align-items: center; justify-content: center; text-decoration: none">กลับหน้าหลัก</a>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { c: this.loadCase(), f: this.loadJSON('tangrat-proto-form'), d: this.loadJSON('tangrat-proto-docs'), done: this.loadArr('tangrat-proto-done'), reqs: this.loadArr('tangrat-proto-reqs'), agree: false, pay: 'qr', previewOpen: false, submitting: false, submitted: false, notify: true };
+  }
+  componentDidMount() {
+    this._epoch = this.epoch();
+    this._raw = this.rawAll();
+    this._poll = setInterval(() => {
+      const r = this.rawAll();
+      if (this.epoch() !== this._epoch) { this._epoch = this.epoch(); this.setState(this.freshState()); return; }
+      if (r !== this._raw) {
+        const caseChanged = r.split('|')[0] !== this._raw.split('|')[0];
+        this._raw = r;
+        const u = { c: this.loadCase(), f: this.loadJSON('tangrat-proto-form'), d: this.loadJSON('tangrat-proto-docs'), done: this.loadArr('tangrat-proto-done'), reqs: this.loadArr('tangrat-proto-reqs') };
+        if (caseChanged) { u.submitted = false; u.agree = false; }
+        this.setState(u);
+      }
+    }, 800);
+  }
+  epoch() {
+    try { return window.localStorage.getItem('tangrat-proto-epoch') || ''; } catch (e) { return ''; }
+  }
+  freshState() {
+    return { c: this.loadCase(), f: {}, d: {}, done: [], reqs: [], agree: false, pay: 'qr', previewOpen: false, submitting: false, submitted: false, notify: true };
+  }
+  componentWillUnmount() { clearTimeout(this._s); clearInterval(this._poll); }
+  rawAll() {
+    try { return ['tangrat-proto-case', 'tangrat-proto-form', 'tangrat-proto-docs', 'tangrat-proto-plan', 'tangrat-proto-done', 'tangrat-proto-reqs'].map((k) => window.localStorage.getItem(k) || '').join('|'); } catch (e) { return ''; }
+  }
+  loadArr(key) {
+    try { const v = window.localStorage.getItem(key); const a = v ? JSON.parse(v) : []; return Array.isArray(a) ? a : []; } catch (e) { return []; }
+  }
+  loadJSON(key) {
+    try { const v = window.localStorage.getItem(key); return v ? JSON.parse(v) : {}; } catch (e) { return {}; }
+  }
+  loadCase() {
+    let c = null;
+    try { const v = window.localStorage.getItem('tangrat-proto-case'); c = v ? JSON.parse(v) : null; } catch (e) { c = null; }
+    return Object.assign({ purpose: 'new', biz: 'online', entity: 'person', filer: 'self', place: 'own', province: 'กรุงเทพมหานคร', service: '', query: '' }, c || {});
+  }
+  saveCase(c) {
+    try { window.localStorage.setItem('tangrat-proto-case', JSON.stringify(c)); } catch (e) {}
+  }
+  plan(c) {
+    let p = null;
+    try { const v = window.localStorage.getItem('tangrat-proto-plan'); p = v ? JSON.parse(v) : null; } catch (e) { p = null; }
+    const inApp = (x) => (x && x.services ? x.services.filter((y) => y.channel !== 'external') : []);
+    if (!inApp(p).length) p = {"services":[{"sub":"พาณิชย์อิเล็กทรอนิกส์","note":"","payNow":true,"channel":"app","channelText":"ยื่นในแอปนี้ (ต้นแบบสาธิตการยื่นออนไลน์)","contact":"สายด่วนกรมพัฒนาธุรกิจการค้า 1570","auto":[{"name":"คำขอจดทะเบียนพาณิชย์ (แบบ ทพ.)","from":"ระบบจัดทำจากข้อมูลที่คุณกรอก"},{"name":"สำเนาบัตรประชาชนและทะเบียนบ้านของผู้ประกอบการ (คุณ)","from":"ดึงจากกรมการปกครอง ตามความยินยอมของคุณ"},{"name":"รายละเอียดเว็บไซต์หรือแพลตฟอร์มที่ใช้ขาย","from":"ระบบจัดทำจากช่องทางขายที่คุณกรอก 1 ชุดต่อ 1 ช่องทาง"}],"must":[],"id":"commerce-new","kind":"commerce","mode":"new","title":"จดทะเบียนพาณิชย์ (ตั้งใหม่)","agency":"นายทะเบียนพาณิชย์ สำนักงานเขตที่ร้านตั้งอยู่","law":"พ.ร.บ.ทะเบียนพาณิชย์ พ.ศ. 2499","fee":"50 บาท","feeShort":"50 บาท","time":"ประมาณ 60 นาทีเมื่อเอกสารครบ","timeShort":"60 นาที","when":"ยื่นภายใน 30 วันนับจากวันเริ่มประกอบกิจการ","result":"ใบทะเบียนพาณิชย์","formName":"แบบคำขอจดทะเบียนพาณิชย์ (แบบ ทพ.)","reason":"ผู้ประกอบการบุคคลธรรมดาที่ประกอบพาณิชยกิจประเภทนี้ต้องจดทะเบียนพาณิชย์","feePay":true,"proxySteps":[]}],"skipped":[],"purpose":"new","purposeLabel":"เปิดกิจการใหม่","biz":"online","bizLabel":"ร้านค้าออนไลน์","caseText":"เปิดกิจการใหม่ · ร้านค้าออนไลน์ · บุคคลธรรมดา · ยื่นด้วยตนเอง · สถานที่ของผู้ประกอบการ · กรุงเทพมหานคร","jur":false,"proxy":false,"rent":false,"change":"","size":"","province":"กรุงเทพมหานคร"};
+    const list = inApp(p);
+    const sel = list.filter((x) => x.id === c.service)[0] || list[0];
+    return Object.assign({}, p, { sel: sel });
+  }
+  renderVals() {
+    const s = this.state;
+    const c = s.c;
+    const f = s.f || {};
+    const p = this.plan(c);
+    const sv = p.sel;
+    const isCommerce = sv.kind === 'commerce';
+    const mode = sv.mode;
+    const isNew = mode === 'new';
+    const B = c.biz || 'online';
+    const company = { food: 'บริษัท ใจดี ฟู้ด จำกัด', cafe: 'บริษัท ใจดี คาเฟ่ จำกัด', online: 'บริษัท ใจดี ออนไลน์ จำกัด', beauty: 'บริษัท ใจดี บิวตี้ จำกัด', retail: 'บริษัท ใจดี รีเทล จำกัด', spa: 'บริษัท ใจดี สปา จำกัด', fitness: 'บริษัท ใจดี ฟิตเนส จำกัด', hotel: 'บริษัท ใจดี เรสซิเดนซ์ จำกัด', carcare: 'บริษัท ใจดี คาร์แคร์ จำกัด' }[B];
+    const shopDefault = { food: 'ร้านข้าวใจดี', cafe: 'ใจดี คาเฟ่', online: 'ร้านใจดีออนไลน์', beauty: 'ใจดี ซาลอน', retail: 'ใจดี แฟชั่น', spa: 'ใจดี นวดไทย', fitness: 'ใจดี ฟิตเนส', hotel: 'บ้านพักใจดี', carcare: 'ใจดี คาร์แคร์' }[B];
+    const v = (x, d) => (x && String(x).trim()) ? String(x).trim() : d;
+    const join = (arr, d) => (arr && arr.length) ? arr.join(', ') : d;
+    const fmtDate = (iso) => {
+      if (!iso) return '1 พ.ย. 2569';
+      const m = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+      const parts = iso.split('-');
+      if (parts.length !== 3) return iso;
+      return Number(parts[2]) + ' ' + m[Number(parts[1]) - 1] + ' ' + (Number(parts[0]) + 543);
+    };
+    const shop = v(f.nameTh, shopDefault);
+    const person = [];
+    if (p.jur) {
+      person.push({ k: 'นิติบุคคล', v: company });
+      person.push({ k: 'เลขทะเบียนนิติบุคคล', v: v(f.jurNo, '0105569012345') });
+      person.push({ k: 'กรรมการผู้มีอำนาจลงนาม', v: p.proxy ? 'นางสาวสมใจ รักงาน' : 'นายสมชาย ใจดี' });
+    } else if (p.proxy) {
+      person.push({ k: 'ผู้ประกอบการ (ผู้มอบอำนาจ)', v: v(f.ownerName, 'นางสาวสมใจ รักงาน') });
+    } else {
+      person.push({ k: 'ผู้ประกอบการ', v: 'นายสมชาย ใจดี' });
+      person.push({ k: 'อายุ / สัญชาติ', v: '34 ปี / ไทย' });
+    }
+    if (p.proxy) person.push({ k: 'ผู้รับมอบอำนาจ (ผู้ยื่น)', v: 'นายสมชาย ใจดี' });
+    person.push({ k: 'โทรศัพท์', v: v(f.phone, '081-234-5678') });
+    const biz = [{ k: isNew ? (isCommerce ? 'ชื่อที่ใช้ประกอบกิจการ' : 'ชื่อร้าน') : 'ชื่อที่จดทะเบียนไว้', v: shop + (isCommerce && isNew && f.nameEn ? ' (' + f.nameEn + ')' : '') }];
+    if (!isNew) biz.push({ k: isCommerce ? 'เลขทะเบียนพาณิชย์' : 'เลขที่ใบอนุญาตเดิม', v: v(f.regNo, '-') });
+    if (mode === 'renew') biz.push({ k: 'วันสิ้นอายุใบอนุญาตเดิม', v: f.expiry ? fmtDate(f.expiry) : '-' });
+    if (mode === 'change') {
+      const chg = c.change || 'other';
+      biz.push({ k: 'รายการที่เปลี่ยน', v: { name: 'เปลี่ยนชื่อร้าน', move: 'ย้ายที่ตั้ง', type: 'เปลี่ยนชนิดกิจการหรือสินค้า', other: 'แก้ไขข้อมูลอื่น' }[chg] });
+      if (chg === 'name') biz.push({ k: 'ชื่อใหม่', v: v(f.newName, '-') });
+      if (chg === 'type') biz.push({ k: 'ชนิดกิจการหรือสินค้าใหม่', v: v(f.newGoods, '-') });
+      if (chg === 'other') biz.push({ k: 'รายละเอียด', v: v(f.changeDetail, '-') });
+      biz.push({ k: 'วันที่เปลี่ยนแปลง', v: fmtDate(f.eventDate) });
+    }
+    if (mode === 'close') {
+      biz.push({ k: 'วันที่เลิกกิจการ', v: fmtDate(f.eventDate) });
+      if (f.closeReason) biz.push({ k: 'เหตุที่เลิก', v: f.closeReason });
+    }
+    if (isCommerce && isNew) biz.push({ k: 'ชนิดแห่งพาณิชยกิจ', v: { food: 'ขายอาหารและเครื่องดื่ม', cafe: 'ขายเครื่องดื่มและเบเกอรี่', online: 'ซื้อขายสินค้าผ่านอินเทอร์เน็ต', beauty: 'ขายผลิตภัณฑ์เสริมสวย', retail: 'ขายปลีกเสื้อผ้าและเครื่องแต่งกาย', spa: 'ขายผลิตภัณฑ์ในร้านนวดหรือสปา', fitness: 'ขายอุปกรณ์และผลิตภัณฑ์ออกกำลังกาย', hotel: 'บริการที่พัก', carcare: 'ขายผลิตภัณฑ์ดูแลรถยนต์' }[B] });
+    if (isNew || mode === 'renew') biz.push({ k: isCommerce ? 'สินค้าหรือบริการ' : (sv.kind === 'food' ? 'อาหารที่จำหน่าย' : 'รายละเอียดกิจการ'), v: v(f.goods, '-') });
+    if (sv.kind === 'hazard' && B === 'beauty' && isNew) biz.push({ k: 'บริการในร้าน', v: join(f.beauty, '-') });
+    if (!isCommerce && (isNew || mode === 'renew')) biz.push({ k: 'พื้นที่ประกอบการ', v: v(f.area, '-') + ' ตร.ม.' });
+    if (isCommerce && isNew) biz.push({ k: 'เงินทุน', v: f.capital ? Number(f.capital).toLocaleString('en-US') + ' บาท' : '50,000 บาท' });
+    if (isNew) biz.push({ k: isCommerce ? 'วันเริ่มกิจการ' : 'วันที่จะเปิดร้าน', v: fmtDate(f.startDate) });
+    const showPlace = isNew || (mode === 'change' && c.change === 'move');
+    const sameAvail = !(!p.jur && p.proxy) && mode !== 'change';
+    const useSame = sameAvail && f.sameAddr !== false;
+    const addr = useSame
+      ? (p.jur ? '99/9 ถนนพหลโยธิน แขวงจอมพล เขตจตุจักร กรุงเทพฯ 10900' : '123/45 ซอยตัวอย่าง แขวงลาดยาว เขตจตุจักร กรุงเทพฯ 10900')
+      : [v(f.aNo, ''), v(f.aSoi, ''), f.aSub ? 'แขวง/ตำบล' + f.aSub : '', f.aDist ? 'เขต/อำเภอ' + f.aDist : '', v(f.aProv, ''), v(f.aZip, '')].filter((x) => x).join(' ');
+    const place = [{ k: mode === 'change' ? 'ที่ตั้งใหม่' : (isCommerce ? 'สำนักงานแห่งใหญ่' : 'ที่ตั้งร้าน'), v: addr || '-' }];
+    if (isCommerce && isNew && c.biz === 'online') {
+      place.push({ k: 'ช่องทางขาย', v: join(f.channels, '-') });
+      place.push({ k: 'ลิงก์ร้าน', v: v(f.url, '-') });
+      place.push({ k: 'รับชำระเงิน', v: join(f.pays, '-') });
+    }
+    if (isCommerce && isNew) place.push({ k: 'สาขา / โรงเก็บสินค้า', v: f.hasBranch ? v(f.branch, 'มี') : 'ไม่มี' });
+    const groups = [
+      { title: p.jur ? 'นิติบุคคลและผู้ยื่น' : 'ผู้ประกอบการและผู้ยื่น', rows: person },
+      { title: isNew ? 'ข้อมูลกิจการ' : 'ข้อมูลคำขอ', rows: biz }
+    ];
+    if (showPlace) groups.push({ title: isCommerce && isNew ? 'ที่ตั้งและการขาย' : (mode === 'change' ? 'ที่ตั้งใหม่' : 'ที่ตั้งร้าน'), rows: place });
+    const dRaw = s.d || {};
+    const dd = dRaw.sid === sv.id && dRaw.docs ? dRaw.docs : {};
+    const docs = sv.auto.map((a) => ({ text: a.name + ' (ระบบเตรียมให้ · จำลอง)', mark: '✓', color: '#0B7A4B' }));
+    const missing = [];
+    sv.must.forEach((m) => {
+      const st = dd[m.key];
+      if (st && st.status === 'ok') docs.push({ text: m.name + ' · ' + st.label.split(' · ')[0], mark: '✓', color: '#0B7A4B' });
+      else if (!m.optional) { docs.push({ text: m.name + ' · ยังไม่แนบ', mark: '✕', color: '#B42318' }); missing.push(m.name); }
+    });
+    const needTotal = sv.must.filter((m) => !m.optional).length;
+    const previewLines = groups.reduce((acc, g) => acc.concat(g.rows.map((r) => r.k + ': ' + r.v)), []);
+    const next = p.services.map((x, i) => ({ x: x, n: String(i + 1) })).filter((o) => o.x.id !== sv.id && s.done.indexOf(o.x.id) < 0).map((o) => ({
+      n: o.n, title: o.x.title, when: o.x.when, channel: o.x.channel === 'external' ? 'ยื่นที่หน่วยงาน' : 'ยื่นในแอปได้',
+      pick: () => this.saveCase(Object.assign({}, this.state.c, { service: o.x.id }))
+    }));
+    const complete = missing.length === 0;
+    const isSent = s.submitted || s.done.indexOf(sv.id) >= 0;
+    const mine = s.reqs.filter((r) => r.service === sv.id);
+    const reqNo = mine.length ? mine[mine.length - 1].no : 'REQ-6911-004521';
+    return {
+      svTitle: sv.title, svAgency: sv.agency, svTime: sv.time, bizLabel: p.bizLabel,
+      formName: sv.formName,
+      groups: groups,
+      docs: docs, docCount: docs.length,
+      docsComplete: complete, docsMissing: !complete, missingNames: missing.join(' · '), needTotal: needTotal,
+      blockText: complete ? 'ติ๊กรับรองข้อมูลก่อนส่งคำขอ' : 'แนบเอกสารให้ครบก่อนส่งคำขอ',
+      previewOpen: s.previewOpen,
+      previewLabel: s.previewOpen ? 'ซ่อนตัวอย่างเอกสาร' : 'ดูตัวอย่างเอกสารก่อนส่ง',
+      togglePreview: () => this.setState({ previewOpen: !this.state.previewOpen }),
+      previewLines: previewLines,
+      feeShort: sv.feePay ? sv.fee : 'ตามข้อบัญญัติท้องถิ่น',
+      fee: sv.fee,
+      feePay: sv.feePay, feeLater: !sv.feePay,
+      payQr: s.pay === 'qr',
+      payBank: s.pay === 'bank',
+      pay1Bd: s.pay === 'qr' ? '#0B7A4B' : '#DCE5DF',
+      pay2Bd: s.pay === 'bank' ? '#0B7A4B' : '#DCE5DF',
+      pickQr: () => this.setState({ pay: 'qr' }),
+      pickBank: () => this.setState({ pay: 'bank' }),
+      confirmText: p.proxy
+        ? 'ข้าพเจ้าในฐานะผู้รับมอบอำนาจ ขอรับรองว่าข้อมูลและเอกสารข้างต้นถูกต้องตามความจริง และลงนามด้วย Digital ID'
+        : 'ข้าพเจ้าขอรับรองว่าข้อมูลและเอกสารข้างต้นถูกต้องตามความจริง และลงนามด้วย Digital ID',
+      agree: s.agree,
+      toggleAgree: () => this.setState({ agree: !this.state.agree }),
+      submitting: s.submitting,
+      canSubmit: complete && s.agree && !s.submitting,
+      cannotSubmit: !(complete && s.agree) && !s.submitting,
+      submit: () => {
+        this.setState({ submitting: true });
+        clearTimeout(this._s);
+        this._s = setTimeout(() => {
+          const reqs = this.loadArr('tangrat-proto-reqs');
+          const done = this.loadArr('tangrat-proto-done');
+          if (done.indexOf(sv.id) < 0) {
+            done.push(sv.id);
+            const no = 'REQ-6911-' + String(4521 + reqs.length).padStart(6, '0');
+            reqs.push({ id: 'r' + Date.now(), no: no, sim: 'review', received: false, title: sv.title, result: sv.result, service: sv.id, shop: shop });
+          }
+          try {
+            window.localStorage.setItem('tangrat-proto-reqs', JSON.stringify(reqs));
+            window.localStorage.setItem('tangrat-proto-done', JSON.stringify(done));
+          } catch (e) {}
+          this._raw = this.rawAll();
+          this.setState({ submitting: false, submitted: true, done: done, reqs: reqs });
+        }, 1400);
+      },
+      goTrack: () => { try { window.localStorage.setItem('tangrat-proto-back-tracking', 'Review.dc.html'); } catch (e) {} },
+      submitted: isSent,
+      notSubmitted: !isSent,
+      reqNo: reqNo,
+      feeDone: sv.feePay ? sv.fee + ' · ชำระแล้ว (จำลอง)' : 'ชำระหลังได้รับอนุญาต',
+      notify: s.notify,
+      toggleNotify: () => this.setState({ notify: !this.state.notify }),
+      switchBg: s.notify ? '#0B7A4B' : '#C3D1C8',
+      switchJustify: s.notify ? 'flex-end' : 'flex-start',
+      nextServices: next,
+      hasNext: next.length > 0
+    };
+  }
+}
+</script>
+</body>
+</html>

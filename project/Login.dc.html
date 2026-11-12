@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<title>ต้อนรับและเข้าสู่ระบบ - ทางรัฐ ภาคธุรกิจ</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#0B7A4B}a:hover{color:#075234}
+button{font:inherit}
+.ic{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.inp{width:100%;min-height:52px;padding:12px 14px;border:1px solid #C3D1C8;border-radius:12px;font:inherit;font-size:17px;letter-spacing:1px;color:#15202E;background:#FFFFFF}
+.inp:focus{outline:3px solid #86CFA7;outline-offset:1px}
+button:focus-visible,a:focus-visible{outline:3px solid #86CFA7;outline-offset:2px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{animation:spin 0.9s linear infinite}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; display: flex; flex-direction: column; background: #FFFFFF; font-family: 'IBM Plex Sans Thai', system-ui, sans-serif; color: #15202E; position: relative; overflow: hidden">
+
+<sc-if value="{{isWelcome}}" hint-placeholder-val="{{true}}">
+<div style="flex: 1 1 auto; display: flex; flex-direction: column; background: #F3FAF6">
+<div style="flex: 1 1 auto; display: flex; align-items: center; justify-content: center; padding: 40px 24px 0">
+<div aria-hidden="true" style="position: relative; width: 300px; height: 300px; border-radius: 50%; background: #E8F5EE; border: 2px dashed #BFE3CF; display: flex; align-items: center; justify-content: center">
+<div style="width: 112px; height: 112px; border-radius: 32px; background: #FFFFFF; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 28px rgba(7,82,52,0.25)"><img src="/_blob/745e58c465e92bf487df051d92f4d186" alt="" style="width: 100%; height: 100%; object-fit: contain; display: block"></div>
+<span style="position: absolute; top: 18px; left: 126px; width: 48px; height: 48px; border-radius: 14px; background: #FFFFFF; color: #0B7A4B; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(7,82,52,0.12)"><svg class="ic" width="24" height="24" viewBox="0 0 24 24"><path d="M3 9l2-5h14l2 5"></path><path d="M4 9v11h16V9"></path><path d="M9 20v-6h6v6"></path></svg></span>
+<span style="position: absolute; top: 126px; right: 14px; width: 48px; height: 48px; border-radius: 14px; background: #FFFFFF; color: #0B7A4B; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(7,82,52,0.12)"><svg class="ic" width="24" height="24" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"></path><path d="M14 3v5h5"></path><path d="M9 13h6M9 17h6"></path></svg></span>
+<span style="position: absolute; bottom: 18px; left: 126px; width: 48px; height: 48px; border-radius: 14px; background: #FFFFFF; color: #0B7A4B; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(7,82,52,0.12)"><svg class="ic" width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"></rect><path d="M3 10h18"></path><path d="M16 15h2"></path></svg></span>
+<span style="position: absolute; top: 126px; left: 14px; width: 48px; height: 48px; border-radius: 14px; background: #FFFFFF; color: #0B7A4B; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(7,82,52,0.12)"><svg class="ic" width="24" height="24" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
+</div>
+</div>
+<div style="padding: 24px 24px 32px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 13px; color: #556070">ต้นแบบเพื่อการศึกษา · ข้อมูลจำลอง</span>
+<h1 style="margin: 0; font-size: 26px; font-weight: 700; line-height: 1.3">ทางรัฐ ภาคธุรกิจ<br>เริ่มกิจการได้ในแอปเดียว</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3B4655">จดทะเบียนและติดตามคำขอ ครบในที่เดียว</p>
+<button onClick="{{goOptions}}" style="margin-top: 12px; min-height: 54px; border-radius: 16px; border: none; background: #0B7A4B; color: #FFFFFF; font-size: 17px; font-weight: 600; cursor: pointer">เริ่มใช้งาน</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isOptions}}" hint-placeholder-val="{{false}}">
+<div style="flex: 1 1 auto; display: flex; flex-direction: column; padding: 16px 24px 32px; gap: 16px">
+<button onClick="{{goWelcome}}" aria-label="ย้อนกลับ" style="align-self: flex-start; width: 44px; height: 44px; border-radius: 12px; border: none; background: #F3F6F4; color: #15202E; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+</button>
+<div style="flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; gap: 10px">
+<div aria-hidden="true" style="width: 64px; height: 64px; border-radius: 20px; background: #FFFFFF; border: 1px solid #DDE3EC; overflow: hidden; display: flex; align-items: center; justify-content: center"><img src="/_blob/745e58c465e92bf487df051d92f4d186" alt="" style="width: 100%; height: 100%; object-fit: contain; display: block"></div>
+<h1 style="margin: 8px 0 0; font-size: 26px; font-weight: 700; line-height: 1.3">เข้าสู่ระบบ</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3B4655">ยืนยันตัวตนครั้งเดียว ใช้ได้ทุกบริการ</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<button onClick="{{goThaid}}" style="min-height: 54px; border-radius: 16px; border: none; background: #0F2C4C; color: #FFFFFF; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="9" cy="12" r="2.5"></circle><path d="M14 10h4M14 14h3"></path></svg>
+เข้าสู่ระบบด้วย ThaID
+</button>
+<button onClick="{{goId}}" style="min-height: 54px; border-radius: 16px; border: 1.5px solid #0B7A4B; background: #FFFFFF; color: #075234; font-size: 16px; font-weight: 600; cursor: pointer">เข้าสู่ระบบด้วยเลขบัตรประชาชน</button>
+<div style="display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 14px; color: #3B4655">
+ยังไม่มีบัญชี?
+<button onClick="{{register}}" style="min-height: 40px; border: none; background: transparent; padding: 0; color: #0B7A4B; font-size: 14px; font-weight: 600; cursor: pointer">ลงทะเบียน</button>
+</div>
+<div style="display: flex; gap: 8px; align-items: center; justify-content: center; font-size: 12.5px; color: #556070">
+<svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"></path></svg>
+ข้อมูลของคุณถูกเข้ารหัส
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isThaid}}" hint-placeholder-val="{{false}}">
+<div role="status" style="flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px; text-align: center">
+<div aria-hidden="true" style="width: 72px; height: 72px; border-radius: 22px; background: #0F2C4C; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg class="ic spin" width="34" height="34" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.2-8.6"></path></svg>
+</div>
+<h1 style="margin: 0; font-size: 20px; font-weight: 600">กำลังยืนยันตัวตนผ่าน ThaID</h1>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #3B4655">จะกลับมาที่นี่อัตโนมัติ</p>
+<button onClick="{{goOptions}}" style="min-height: 44px; border: none; background: transparent; color: #0B7A4B; font-size: 14.5px; font-weight: 500; cursor: pointer">ยกเลิก</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isId}}" hint-placeholder-val="{{false}}">
+<div style="flex: 1 1 auto; display: flex; flex-direction: column; padding: 16px 24px 32px; gap: 16px">
+<button onClick="{{goOptions}}" aria-label="ย้อนกลับ" style="align-self: flex-start; width: 44px; height: 44px; border-radius: 12px; border: none; background: #F3F6F4; color: #15202E; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+</button>
+<h1 style="margin: 0; font-size: 24px; font-weight: 700">กรอกเลขบัตรประชาชน</h1>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="cid" style="font-size: 14px; font-weight: 500">เลขประจำตัวประชาชน 13 หลัก</label>
+<input id="cid" class="inp" type="text" inputmode="numeric" value="{{idNo}}" onChange="{{onId}}" placeholder="x-xxxx-xxxxx-xx-x" style="border-color: {{idBd}}">
+<sc-if value="{{idShowErr}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 13px; color: #B42318">กรุณากรอกเลขให้ครบ 13 หลัก</span></sc-if>
+</div>
+<button onClick="{{fillId}}" style="min-height: 44px; border-radius: 12px; border: 1.5px dashed #C3D1C8; background: transparent; color: #3B4655; font-size: 13.5px; cursor: pointer">เดโม: ใส่เลขบัตรตัวอย่าง</button>
+<div style="flex: 1 1 auto"></div>
+<button onClick="{{submitId}}" style="min-height: 54px; border-radius: 16px; border: none; background: #0B7A4B; color: #FFFFFF; font-size: 17px; font-weight: 600; cursor: pointer">ถัดไป</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isPin}}" hint-placeholder-val="{{false}}">
+<div style="flex: 1 1 auto; display: flex; flex-direction: column; padding: 16px 24px 28px; gap: 12px">
+<button onClick="{{goId}}" aria-label="ย้อนกลับ" style="align-self: flex-start; width: 44px; height: 44px; border-radius: 12px; border: none; background: #F3F6F4; color: #15202E; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+</button>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; padding-top: 8px">
+<div aria-hidden="true" style="width: 56px; height: 56px; border-radius: 50%; background: #E8F5EE; color: #075234; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px">สจ</div>
+<h1 style="margin: 0; font-size: 22px; font-weight: 700">ใส่รหัส PIN 6 หลัก</h1>
+<span style="font-size: 14px; color: #556070">สมชาย ใจดี · {{idMasked}}</span>
+</div>
+<div aria-label="{{pinAria}}" role="status" style="display: flex; justify-content: center; gap: 14px; padding: 16px 0 8px">
+<sc-for list="{{dots}}" as="dt" hint-placeholder-count="6">
+<span style="width: 16px; height: 16px; border-radius: 50%; border: 2px solid #0B7A4B; background: {{dt.bg}}"></span>
+</sc-for>
+</div>
+<sc-if value="{{verifying}}" hint-placeholder-val="{{false}}">
+<div role="status" style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14.5px; color: #075234">
+<svg class="ic spin" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.2-8.6"></path></svg>
+กำลังตรวจสอบ...
+</div>
+</sc-if>
+<div style="flex: 1 1 auto"></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{keys}}" as="k" hint-placeholder-count="12">
+<button onClick="{{k.press}}" aria-label="{{k.aria}}" style="min-height: 60px; border-radius: 16px; border: none; background: {{k.bg}}; color: {{k.fg}}; font-size: {{k.size}}; font-weight: 600; cursor: pointer">{{k.label}}</button>
+</sc-for>
+</div>
+<button onClick="{{fillPin}}" style="min-height: 44px; border-radius: 12px; border: 1.5px dashed #C3D1C8; background: transparent; color: #3B4655; font-size: 13.5px; cursor: pointer">เดโม: ใส่ PIN ตัวอย่าง</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isSuccess}}" hint-placeholder-val="{{false}}">
+<div style="flex: 1 1 auto; display: flex; flex-direction: column; padding: 24px 24px 32px">
+<div style="flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center">
+<div aria-hidden="true" style="width: 96px; height: 96px; border-radius: 50%; background: #E8F5EE; color: #0B7A4B; display: flex; align-items: center; justify-content: center">
+<svg class="ic" width="50" height="50" viewBox="0 0 24 24" style="stroke-width: 2.5"><path d="M20 6 9 17l-5-5"></path></svg>
+</div>
+<h1 style="margin: 0; font-size: 24px; font-weight: 700">เข้าสู่ระบบสำเร็จ</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3B4655">ยินดีต้อนรับ คุณสมชาย ใจดี</p>
+<span style="padding: 6px 12px; border-radius: 999px; background: #F3F6F4; font-size: 13px; color: #3B4655">ยืนยันด้วย {{method}}</span>
+</div>
+<a href="Home.dc.html" onClick="{{startSession}}" style="min-height: 54px; border-radius: 16px; background: #0B7A4B; color: #FFFFFF; font-size: 17px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">เข้าสู่แอป</a>
+</div>
+</sc-if>
+
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{false}}">
+<div role="status" style="position: absolute; left: 16px; right: 16px; bottom: 110px; padding: 12px 16px; border-radius: 14px; background: #15202E; color: #FFFFFF; font-size: 14px; text-align: center; z-index: 30">{{toast}}</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { step: 'welcome', idNo: '', idTried: false, pin: '', verifying: false, method: '', toast: '' };
+  }
+  componentDidMount() {
+    this._epoch = this.epoch();
+    this._poll = setInterval(() => {
+      if (this.epoch() !== this._epoch) { this._epoch = this.epoch(); clearTimeout(this._v); this.setState({ step: 'welcome', idNo: '', idTried: false, pin: '', verifying: false, method: '', toast: '' }); }
+    }, 600);
+  }
+  epoch() {
+    try { return window.localStorage.getItem('tangrat-proto-epoch') || ''; } catch (e) { return ''; }
+  }
+  componentWillUnmount() { clearTimeout(this._t); clearTimeout(this._v); clearInterval(this._poll); }
+  markAuthed() {
+    try { window.localStorage.setItem('tangrat-proto-auth', '1'); } catch (e) {}
+  }
+  flash(msg) {
+    clearTimeout(this._t);
+    this.setState({ toast: msg });
+    this._t = setTimeout(() => this.setState({ toast: '' }), 2400);
+  }
+  setPin(pin) {
+    if (this.state.verifying) return;
+    this.setState({ pin: pin });
+    if (pin.length === 6) {
+      this.setState({ verifying: true });
+      clearTimeout(this._v);
+      this._v = setTimeout(() => { this.markAuthed(); this.setState({ verifying: false, step: 'success', method: 'เลขบัตรประชาชน + PIN' }); }, 1000);
+    }
+  }
+  renderVals() {
+    const s = this.state;
+    const digits = s.idNo.replace(/\D/g, '');
+    const idOk = digits.length === 13;
+    const go = (step) => () => { clearTimeout(this._v); this.setState({ step: step, verifying: false, pin: step === 'pin' ? '' : this.state.pin }); };
+    const keyList = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'clear', '0', 'del'];
+    const keys = keyList.map((k) => {
+      if (k === 'del') return { label: 'ลบ', aria: 'ลบตัวเลขล่าสุด', bg: '#FFFFFF', fg: '#3B4655', size: '15px', press: () => this.setPin(this.state.pin.slice(0, -1)) };
+      if (k === 'clear') return { label: 'ล้าง', aria: 'ล้างรหัสทั้งหมด', bg: '#FFFFFF', fg: '#3B4655', size: '15px', press: () => this.setPin('') };
+      return { label: k, aria: 'ตัวเลข ' + k, bg: '#F3F6F4', fg: '#15202E', size: '24px', press: () => { if (this.state.pin.length < 6) this.setPin(this.state.pin + k); } };
+    });
+    const dots = [0, 1, 2, 3, 4, 5].map((i) => ({ bg: i < s.pin.length ? '#0B7A4B' : 'transparent' }));
+    return {
+      isWelcome: s.step === 'welcome',
+      isOptions: s.step === 'options',
+      isThaid: s.step === 'thaid',
+      isId: s.step === 'id',
+      isPin: s.step === 'pin',
+      isSuccess: s.step === 'success',
+      startSession: () => { try { ['case', 'plan', 'main', 'form', 'docs', 'req', 'nav'].forEach((k) => window.localStorage.removeItem('tangrat-proto-' + k)); } catch (e) {} },
+      goWelcome: go('welcome'),
+      goOptions: go('options'),
+      goId: go('id'),
+      goThaid: () => {
+        this.setState({ step: 'thaid' });
+        clearTimeout(this._v);
+        this._v = setTimeout(() => { this.markAuthed(); this.setState({ step: 'success', method: 'ThaID' }); }, 1600);
+      },
+      register: () => this.flash('ยังไม่เปิดในต้นแบบนี้'),
+      idNo: s.idNo,
+      onId: (e) => this.setState({ idNo: e.target.value.replace(/[^\d-]/g, '').slice(0, 17) }),
+      idBd: s.idTried && !idOk ? '#B42318' : '#C3D1C8',
+      idShowErr: s.idTried && !idOk,
+      fillId: () => this.setState({ idNo: '1100012345123', idTried: false }),
+      submitId: () => { if (idOk) { this.setState({ step: 'pin', pin: '', idTried: false }); } else { this.setState({ idTried: true }); } },
+      idMasked: idOk ? 'x-xxxx-xxxxx-' + digits.slice(10, 12) + '-' + digits.slice(12) : '',
+      dots: dots,
+      pinAria: 'ใส่แล้ว ' + s.pin.length + ' จาก 6 หลัก',
+      keys: keys,
+      verifying: s.verifying,
+      fillPin: () => this.setPin('123456'),
+      method: s.method,
+      toast: s.toast,
+      hasToast: !!s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>
